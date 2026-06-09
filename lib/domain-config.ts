@@ -87,10 +87,10 @@ export const DOMAIN_CONFIGS: Record<string, DomainConfig> = {
     neighborhood: "Lovell Canyon",
     tagline: "Raw Land Parcels — Lovell Canyon, NV",
     description:
-      "Two raw land parcels in Lovell Canyon, Clark County NV (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
+      "Two raw land parcels in Lovell Canyon, Clark County NV 89120 (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
     heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
     heroSubheadline:
-      "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV. Near Pahrump, off NV-160 via Lovell Canyon Rd.",
+      "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89120. Near Pahrump, off NV-160 via Lovell Canyon Rd.",
     keywords: [
       "Lovell Canyon land for sale",
       "Clark County NV land",
@@ -114,10 +114,10 @@ export const DEFAULT_CONFIG: DomainConfig = {
   neighborhood: "Lovell Canyon",
   tagline: "Raw Land Parcels — Lovell Canyon, NV",
   description:
-    "Two raw land parcels in Lovell Canyon, Clark County NV (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
+    "Two raw land parcels in Lovell Canyon, Clark County NV 89120 (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
   heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
   heroSubheadline:
-    "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV. Near Pahrump, off NV-160 via Lovell Canyon Rd.",
+    "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89120. Near Pahrump, off NV-160 via Lovell Canyon Rd.",
   keywords: [
     "Lovell Canyon land for sale",
     "Clark County NV land",

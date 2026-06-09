@@ -38,7 +38,7 @@ export default function OpenGraphImage() {
             Lovell Canyon Land — Two Parcels
           </div>
           <div style={{ fontSize: 28, color: "#cbd5e1", lineHeight: 1.4, maxWidth: 820 }}>
-            APN 135-31-801-006 &amp; 135-31-801-007 · Access via NV-160 &amp; Lovell Canyon Rd
+            Lot 2 &amp; Lot 3 · APN 006 &amp; 007 · Fee Simple · NV-160 &amp; Lovell Canyon Rd
           </div>
         </div>
         <div

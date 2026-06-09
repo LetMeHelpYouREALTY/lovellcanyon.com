@@ -4,12 +4,13 @@ import { getSiteUrl } from "@/lib/site-url";
 export const LOVELL_CANYON_SEO = {
   title: "Lovell Canyon Land for Sale | APN 135-31-801-006 & 007 | Dr. Jan Duffy",
   description:
-    "Two raw land parcels in Lovell Canyon, Clark County NV (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
+    "Fee simple land in Lovell Canyon, Clark County NV 89120 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
   ogTitle: "Lovell Canyon Raw Land — Two Parcels",
   siteName: "Lovell Canyon Land — Dr. Jan Duffy",
   imageAlt: "Lovell Canyon raw land parcels — APN 135-31-801-006 and 135-31-801-007",
   keywords: [
     "Lovell Canyon land for sale",
+    "89120 land for sale",
     "Clark County NV land",
     "raw land Lovell Canyon",
     "APN 135-31-801-006",

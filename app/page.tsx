@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
 import { getLovellCanyonMetadata } from "@/lib/lovell-canyon-seo";
+import {
+  LOVELL_CANYON_LOCATION,
+  LOVELL_CANYON_PARCELS,
+  PARCEL_PLACEHOLDER_FIELDS,
+} from "@/lib/lovell-canyon-parcels";
+import {
+  CLARK_COUNTY_TAX_PORTAL_URL,
+  SCHEDULE_B_GENERAL_EXCEPTIONS,
+  SCHEDULE_B_STANDARD_EXCEPTIONS_NOTE,
+} from "@/lib/lovell-canyon-title-schedule-b";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonMetadata("/");
@@ -11,14 +21,16 @@ export async function generateMetadata(): Promise<Metadata> {
  * - acreage (APN 135-31-801-007)
  * - price (APN 135-31-801-006)
  * - price (APN 135-31-801-007)
- * - lot dimensions (both parcels)
+ * - lot dimensions (physical dimensions — legal description is on file)
  * - zoning
  * - utilities: water
  * - utilities: power
  * - utilities: septic
  * - road maintenance responsibility
  * - HOA (if any)
- * - APN ownership details
+ *
+ * Verified from title report Schedule B:
+ * - property taxes FY 2025-2026 ($285.90 per parcel, paid in full)
  */
 
 import Navbar from "@/components/layouts/Navbar";
@@ -31,11 +43,6 @@ const PHONE_DISPLAY = "702-222-1964";
 const PHONE_TEL = "tel:+17022221964";
 const PHONE_SMS = "sms:+17022221964";
 
-const PARCELS = [
-  { apn: "135-31-801-006", label: "Parcel 1" },
-  { apn: "135-31-801-007", label: "Parcel 2" },
-] as const;
-
 const ACCESS_ROADS = [
   "Cabin Canyon Rd",
   "Crackling Leaf Wy",
@@ -44,24 +51,6 @@ const ACCESS_ROADS = [
   "Gavern View Dr",
   "Charleston Blvd",
 ] as const;
-
-type PlaceholderField = {
-  key: string;
-  label: string;
-};
-
-const PLACEHOLDER_FIELDS: PlaceholderField[] = [
-  { key: "acreage", label: "Acreage" },
-  { key: "price", label: "Price" },
-  { key: "lot-dimensions", label: "Lot dimensions" },
-  { key: "zoning", label: "Zoning" },
-  { key: "utilities-water", label: "Water" },
-  { key: "utilities-power", label: "Power" },
-  { key: "utilities-septic", label: "Septic" },
-  { key: "road-maintenance", label: "Road maintenance" },
-  { key: "hoa", label: "HOA" },
-  { key: "ownership", label: "Ownership details" },
-];
 
 function PlaceholderValue({ fieldKey }: { fieldKey: string }) {
   return (
@@ -76,16 +65,17 @@ export default async function Home() {
   const config = await getPageDomainConfig();
   const siteUrl = `https://${config.domain !== "default" ? config.domain : "lovellcanyon.com"}`;
 
-  const listingSchemas = PARCELS.map((parcel) => ({
+  const listingSchemas = LOVELL_CANYON_PARCELS.map((parcel) => ({
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
-    name: `Lovell Canyon Land — APN ${parcel.apn}`,
+    name: `Lovell Canyon Land — ${parcel.label} (APN ${parcel.apn})`,
     url: siteUrl,
-    description: `Raw land parcel in Lovell Canyon, Clark County NV. APN ${parcel.apn}. T20S R57E Section 31, assessor map 135-31-8.`,
+    description: `${parcel.estate} land in Lovell Canyon, Clark County NV. APN ${parcel.apn}. ${parcel.alternateDescription}`,
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Lovell Canyon",
-      addressRegion: "NV",
+      addressLocality: LOVELL_CANYON_LOCATION.locality,
+      addressRegion: LOVELL_CANYON_LOCATION.region,
+      postalCode: LOVELL_CANYON_LOCATION.postalCode,
       addressCountry: "US",
     },
     identifier: parcel.apn,
@@ -155,12 +145,12 @@ export default async function Home() {
               {config.heroSubheadline}
             </p>
             <div className="flex flex-wrap justify-center gap-3 text-sm text-white/90">
-              {PARCELS.map((parcel) => (
+              {LOVELL_CANYON_PARCELS.map((parcel) => (
                 <span
                   key={parcel.apn}
-                  className="bg-white/10 border border-white/20 rounded-full px-4 py-2 font-mono"
+                  className="bg-white/10 border border-white/20 rounded-full px-4 py-2"
                 >
-                  APN {parcel.apn}
+                  {parcel.label} · APN {parcel.apn}
                 </span>
               ))}
             </div>
@@ -178,8 +168,9 @@ export default async function Home() {
             </div>
             <div className="space-y-6 text-slate-700 text-lg leading-relaxed">
               <p>
-                <strong>Location:</strong> Lovell Canyon, Clark County, Nevada. Township T20S,
-                Range R57E, Section 31. Assessor map 135-31-8.
+                <strong>Location:</strong> Lovell Canyon, Clark County, Nevada {LOVELL_CANYON_LOCATION.postalCode}. Township{" "}
+                {LOVELL_CANYON_LOCATION.township}, Range {LOVELL_CANYON_LOCATION.range},{" "}
+                {LOVELL_CANYON_LOCATION.section}. Assessor map {LOVELL_CANYON_LOCATION.assessorMap}.
               </p>
               <p>
                 <strong>Area context:</strong> Near Pahrump, in the Lovell Canyon area west of the
@@ -208,26 +199,90 @@ export default async function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 text-center">
               Parcel Details
             </h2>
-            <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
-              Verified parcel identifiers are listed below. Additional specifications are available
-              upon request.
+            <p className="text-center text-slate-600 mb-4 max-w-2xl mx-auto">
+              Title and legal descriptions per Schedule A, Clark County, Nevada. Additional
+              specifications are available upon request.
+            </p>
+            <p className="text-center text-sm text-slate-500 mb-12 max-w-2xl mx-auto">
+              Estate or interest covered: fee simple. Title vested as stated in title report
+              Schedule A.
             </p>
             <div className="grid md:grid-cols-2 gap-8">
-              {PARCELS.map((parcel) => (
+              {LOVELL_CANYON_PARCELS.map((parcel) => (
                 <div
                   key={parcel.apn}
                   className="bg-white rounded-lg border border-slate-200 shadow-sm p-6 md:p-8"
                 >
-                  <h3 className="text-xl font-bold text-slate-900 mb-1">{parcel.label}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">
+                    {parcel.label} — Certificate of Land Division
+                  </h3>
                   <p className="font-mono text-blue-700 mb-6">APN {parcel.apn}</p>
+
+                  <dl className="space-y-4 mb-8">
+                    <div className="border-b border-slate-100 pb-3">
+                      <dt className="text-slate-600 font-medium mb-1">Estate or interest</dt>
+                      <dd className="text-slate-900">{parcel.estate}</dd>
+                    </div>
+                    <div className="border-b border-slate-100 pb-3">
+                      <dt className="text-slate-600 font-medium mb-1">Title vested in</dt>
+                      <dd className="text-slate-900">{parcel.titleVestedIn}</dd>
+                    </div>
+                    <div className="border-b border-slate-100 pb-3">
+                      <dt className="text-slate-600 font-medium mb-1">Certificate lot</dt>
+                      <dd className="text-slate-900">{parcel.certificateLot}</dd>
+                    </div>
+                    <div className="border-b border-slate-100 pb-3">
+                      <dt className="text-slate-600 font-medium mb-2">Legal description</dt>
+                      <dd className="text-slate-800 text-sm leading-relaxed">
+                        {parcel.legalDescription}
+                      </dd>
+                    </div>
+                    <div className="border-b border-slate-100 pb-3">
+                      <dt className="text-slate-600 font-medium mb-2">
+                        Schedule A exceptions
+                      </dt>
+                      <dd className="text-slate-800 text-sm leading-relaxed">
+                        {parcel.scheduleAExceptions}
+                      </dd>
+                    </div>
+                    <div className="border-b border-slate-100 pb-3">
+                      <dt className="text-slate-600 font-medium mb-1">
+                        Property taxes (Schedule B, item {parcel.scheduleBItemNumber})
+                      </dt>
+                      <dd className="text-slate-900">
+                        Fiscal year {parcel.propertyTaxFiscalYear}: {parcel.propertyTaxStatus} (
+                        {parcel.propertyTaxAmountPaid} total).
+                      </dd>
+                      <dd className="text-sm mt-1">
+                        <a
+                          href={CLARK_COUNTY_TAX_PORTAL_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Clark County tax records (trweb.co.clark.nv.us)
+                        </a>
+                      </dd>
+                    </div>
+                    <div className="border-b border-slate-100 pb-3">
+                      <dt className="text-slate-600 font-medium mb-2">Alternate description</dt>
+                      <dd className="text-slate-800 text-sm leading-relaxed">
+                        {parcel.alternateDescription}
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">
+                    Additional details
+                  </h4>
                   <dl className="space-y-4">
-                    {PLACEHOLDER_FIELDS.map((field) => (
+                    {PARCEL_PLACEHOLDER_FIELDS.map((field) => (
                       <div
                         key={`${parcel.apn}-${field.key}`}
                         className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 border-b border-slate-100 pb-3"
                       >
                         <dt className="text-slate-600 font-medium">{field.label}</dt>
-                        <dd className="text-right">
+                        <dd className="text-right sm:text-right">
                           <PlaceholderValue fieldKey={`${parcel.apn}-${field.key}`} />
                         </dd>
                       </div>
@@ -237,7 +292,43 @@ export default async function Home() {
               ))}
             </div>
             <p className="text-center text-sm text-slate-500 mt-8">
-              T20S R57E Section 31 · Assessor map 135-31-8 · Clark County, NV
+              {LOVELL_CANYON_LOCATION.township} {LOVELL_CANYON_LOCATION.range}{" "}
+              {LOVELL_CANYON_LOCATION.section} · Assessor map {LOVELL_CANYON_LOCATION.assessorMap} ·{" "}
+              {LOVELL_CANYON_LOCATION.locality}, {LOVELL_CANYON_LOCATION.region}{" "}
+              {LOVELL_CANYON_LOCATION.postalCode}
+            </p>
+          </div>
+        </section>
+
+        {/* Title Report — Schedule B */}
+        <section className="py-16 md:py-20 bg-white border-t border-slate-200">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Title Report — Schedule B
+            </h2>
+            <p className="text-slate-600 mb-2 leading-relaxed">
+              Exceptions to coverage in addition to the printed exceptions and exclusions in the
+              title policy form, as stated in title report Schedule B at the date thereof.
+            </p>
+            <p className="text-sm text-slate-500 mb-8 italic">
+              {SCHEDULE_B_STANDARD_EXCEPTIONS_NOTE}
+            </p>
+            <ol className="space-y-6 list-none">
+              {SCHEDULE_B_GENERAL_EXCEPTIONS.map((item) => (
+                <li
+                  key={item.number}
+                  className="border-l-4 border-slate-200 pl-5 text-slate-800 text-sm leading-relaxed"
+                >
+                  <span className="font-semibold text-slate-900 block mb-1">
+                    {item.number}.
+                  </span>
+                  {item.text}
+                </li>
+              ))}
+            </ol>
+            <p className="text-sm text-slate-500 mt-10">
+              Per-parcel property tax status (Schedule B items 7 and 8) is shown in Parcel Details
+              above. Contact Dr. Jan Duffy for the current title commitment and closing requirements.
             </p>
           </div>
         </section>
