@@ -85,12 +85,12 @@ export const DOMAIN_CONFIGS: Record<string, DomainConfig> = {
   "lovellcanyon.com": {
     domain: "lovellcanyon.com",
     neighborhood: "Lovell Canyon",
-    tagline: "Lovell Canyon | Land by Dr. Jan Duffy",
+    tagline: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
     description:
-      "Two raw land parcels in Lovell Canyon, Clark County NV 89120 (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
+      "Two raw land parcels in Lovell Canyon, Clark County NV 89120 (APN 135-31-801-006 & 135-31-801-007). Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
     heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
     heroSubheadline:
-      "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89120. Near Pahrump, off NV-160 via Lovell Canyon Rd.",
+      "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89120. Listed by Dr. Jan Duffy, Land Specialist — Berkshire Hathaway HomeServices Nevada.",
     keywords: [
       "Lovell Canyon land for sale",
       "Clark County NV land",
@@ -101,9 +101,10 @@ export const DOMAIN_CONFIGS: Record<string, DomainConfig> = {
     ],
     pageType: "land",
     realscoutAgentId: REALSCOUT_AGENT_ID,
-    ctaBadge: "Land Listing",
+    ctaBadge: "Land Specialist",
     ctaHeadline: "Inquire About These Parcels",
-    ctaSubheadline: "Call or text Dr. Jan Duffy for parcel details, access information, and next steps.",
+    ctaSubheadline:
+      "Call or text Dr. Jan Duffy, Land Specialist, for parcel details, access information, and next steps.",
   },
 
 };
@@ -112,12 +113,12 @@ export const DOMAIN_CONFIGS: Record<string, DomainConfig> = {
 export const DEFAULT_CONFIG: DomainConfig = {
   domain: "lovellcanyon.com",
   neighborhood: "Lovell Canyon",
-  tagline: "Lovell Canyon | Land by Dr. Jan Duffy",
+  tagline: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
   description:
-    "Two raw land parcels in Lovell Canyon, Clark County NV 89120 (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
+    "Two raw land parcels in Lovell Canyon, Clark County NV 89120 (APN 135-31-801-006 & 135-31-801-007). Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
   heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
   heroSubheadline:
-    "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89120. Near Pahrump, off NV-160 via Lovell Canyon Rd.",
+    "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89120. Listed by Dr. Jan Duffy, Land Specialist — Berkshire Hathaway HomeServices Nevada.",
   keywords: [
     "Lovell Canyon land for sale",
     "Clark County NV land",
@@ -128,9 +129,10 @@ export const DEFAULT_CONFIG: DomainConfig = {
   ],
   pageType: "land",
   realscoutAgentId: REALSCOUT_AGENT_ID,
-  ctaBadge: "Land Listing",
+  ctaBadge: "Land Specialist",
   ctaHeadline: "Inquire About These Parcels",
-  ctaSubheadline: "Call or text Dr. Jan Duffy for parcel details, access information, and next steps.",
+  ctaSubheadline:
+    "Call or text Dr. Jan Duffy, Land Specialist, for parcel details, access information, and next steps.",
 };
 
 export function getDomainConfig(hostname: string): DomainConfig {

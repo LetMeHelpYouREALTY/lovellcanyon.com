@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import LandPageHero from "@/components/land/LandPageHero";
+import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
-import { getLovellCanyonPageMetadata } from "@/lib/lovell-canyon-seo";
+import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import { LOVELL_CANYON_PARCELS } from "@/lib/lovell-canyon-parcels";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import {
   SCHEDULE_B_GENERAL_EXCEPTIONS,
   SCHEDULE_B_STANDARD_EXCEPTIONS_NOTE,
 } from "@/lib/lovell-canyon-title-schedule-b";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getLovellCanyonPageMetadata(
+  return getLovellCanyonPageMetadataWithHero(
     "/title-report",
     "Lovell Canyon Title Report | Schedule A & B Summary",
     "Title report summary for Lovell Canyon land parcels APN 135-31-801-006 and 007. Fee simple vesting, Schedule A legal descriptions, and Schedule B exceptions."
@@ -24,18 +25,20 @@ export default function TitleReportPage() {
     <>
       <Navbar />
       <main>
-        <LandPageHero
+        <LandPageHeroSection
+          pathname="/title-report"
           badge="Title Report"
           title="Schedule A & B Summary"
           subtitle="Fee simple land — title vested per Schedule A; exceptions and requirements per Schedule B at date of report."
         />
+
+        <BelowHeroEngagement />
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-3xl">
             <h2 className="text-2xl font-bold text-slate-900 mb-6">Schedule A — Land & vesting</h2>
             <p className="text-slate-700 mb-8">
-              Estate or interest: <strong>fee simple</strong>. Title vested in{" "}
-              <strong>David George Petrides, a single man</strong> at the date of the title report.
-              Full legal descriptions for each parcel are on the{" "}
+              Estate or interest: <strong>fee simple</strong>. Vesting details per Schedule A at the
+              date of the title report. Full legal descriptions for each parcel are on the{" "}
               <Link href="/parcels" className="text-blue-600 hover:underline">
                 Parcels
               </Link>{" "}

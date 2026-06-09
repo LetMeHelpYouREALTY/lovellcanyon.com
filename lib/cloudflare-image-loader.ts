@@ -1,9 +1,18 @@
 /**
- * Cloudflare Image Loader for Next.js
- * 
- * Custom image loader that optimizes images using Cloudflare Images
- * or falls back to standard optimization.
+ * Next.js custom image loader — Cloudflare Image Transformations at the edge.
+ *
+ * Requires:
+ * - NEXT_PUBLIC_CLOUDFLARE_IMAGE_TRANSFORMATIONS=true
+ * - Zone setting `transformations` = on (lovellcanyon.com zone)
+ * - Allowed origin for R2 pub hostname (if originals live on R2)
+ * - Traffic for transform host must pass through Cloudflare proxy (orange cloud)
  */
+
+import {
+  buildCloudflareImageTransformUrl,
+  isCloudflareImageTransformationsEnabled,
+  resolveImageSourceUrl,
+} from "@/lib/cloudflare-image-transform";
 
 export default function cloudflareImageLoader({
   src,
@@ -14,30 +23,14 @@ export default function cloudflareImageLoader({
   width: number;
   quality?: number;
 }): string {
-  // If using Cloudflare Images (requires configuration)
-  const useCloudflareImages = process.env.NEXT_PUBLIC_CLOUDFLARE_IMAGES_ENABLED === 'true';
-  
-  if (useCloudflareImages && process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH) {
-    const accountHash = process.env.NEXT_PUBLIC_CLOUDFLARE_ACCOUNT_HASH;
-    // Remove leading slash if present
-    const imagePath = src.startsWith('/') ? src.slice(1) : src;
-    
-    // Build Cloudflare Images URL
-    const params = new URLSearchParams({
-      width: width.toString(),
-      quality: (quality || 85).toString(),
-      format: 'auto', // Automatically serves WebP/AVIF when supported
-    });
-    
-    return `https://imagedelivery.net/${accountHash}/${imagePath}?${params.toString()}`;
+  if (!isCloudflareImageTransformationsEnabled()) {
+    return resolveImageSourceUrl(src);
   }
-  
-  // Fallback: Use query parameters for Worker-based optimization
-  const params = new URLSearchParams({
-    w: width.toString(),
-    q: (quality || 85).toString(),
-    f: 'auto',
+
+  return buildCloudflareImageTransformUrl(src, {
+    width,
+    quality: quality ?? 85,
+    format: "auto",
+    fit: "scale-down",
   });
-  
-  return `${src}?${params.toString()}`;
 }

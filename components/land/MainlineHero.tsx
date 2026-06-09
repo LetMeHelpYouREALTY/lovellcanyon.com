@@ -12,9 +12,11 @@ import {
 import { DashedLine } from "@/components/dashed-line";
 import { Button } from "@/components/ui/button";
 import { LOVELL_CANYON_PARCELS } from "@/lib/lovell-canyon-parcels";
-
-const PHONE_TEL = "tel:+17022221964";
-const PHONE_DISPLAY = "702-222-1964";
+import {
+  LOVELL_CANYON_PHONE_DISPLAY,
+  LOVELL_CANYON_PHONE_TEL,
+} from "@/lib/lovell-canyon-contact";
+import { LOVELL_CANYON_BRAND } from "@/lib/lovell-canyon-brand";
 
 const highlights = [
   {
@@ -70,9 +72,9 @@ export function MainlineHero({
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Button asChild className="bg-blue-600 hover:bg-blue-700">
-              <a href={PHONE_TEL} className="no-underline">
+              <a href={LOVELL_CANYON_PHONE_TEL} className="no-underline">
                 <Phone className="mr-2 h-4 w-4" />
-                Call {PHONE_DISPLAY}
+                Call {LOVELL_CANYON_PHONE_DISPLAY}
               </a>
             </Button>
             <Button variant="outline" asChild>
@@ -137,7 +139,7 @@ export function MainlineHero({
                 ))}
               </div>
               <p className="max-w-md text-sm text-slate-600">
-                Dr. Jan Duffy, REALTOR® · Berkshire Hathaway HomeServices Nevada Properties
+                {LOVELL_CANYON_BRAND.agentAttribution}
               </p>
             </div>
           )}

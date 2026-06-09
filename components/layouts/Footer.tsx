@@ -1,5 +1,14 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
+import {
+  LOVELL_CANYON_EMAIL,
+  LOVELL_CANYON_EMAIL_HREF,
+  LOVELL_CANYON_OFFICE,
+  LOVELL_CANYON_PHONE_DISPLAY,
+  LOVELL_CANYON_PHONE_TEL,
+  REALSCOUT_OFFICE_URL,
+} from "@/lib/lovell-canyon-contact";
+import { LOVELL_CANYON_BRAND } from "@/lib/lovell-canyon-brand";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,7 +26,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="http://drjanduffy.realscout.com/"
+                href={REALSCOUT_OFFICE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-white transition-colors"
@@ -26,7 +35,7 @@ export default function Footer() {
                 <Facebook className="h-5 w-5" />
               </a>
               <a
-                href="http://drjanduffy.realscout.com/"
+                href={REALSCOUT_OFFICE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-white transition-colors"
@@ -35,7 +44,7 @@ export default function Footer() {
                 <Instagram className="h-5 w-5" />
               </a>
               <a
-                href="http://drjanduffy.realscout.com/"
+                href={REALSCOUT_OFFICE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-400 hover:text-white transition-colors"
@@ -52,7 +61,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="http://drjanduffy.realscout.com/"
+                  href={REALSCOUT_OFFICE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-300 hover:text-white transition-colors text-sm"
@@ -173,27 +182,28 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 text-blue-400 flex-shrink-0 mt-0.5" />
                 <span className="text-slate-300 text-sm">
-                  9406 W Lake Mead Blvd, Suite 100
+                  {LOVELL_CANYON_OFFICE.street}
                   <br />
-                  Las Vegas, NV 89134
+                  {LOVELL_CANYON_OFFICE.city}, {LOVELL_CANYON_OFFICE.region}{" "}
+                  {LOVELL_CANYON_OFFICE.postalCode}
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-blue-400 flex-shrink-0" />
                 <Link
-                  href="tel:+17025001942"
+                  href={LOVELL_CANYON_PHONE_TEL}
                   className="text-slate-300 hover:text-white transition-colors text-sm"
                 >
-                  (702) 500-1942
+                  {LOVELL_CANYON_PHONE_DISPLAY}
                 </Link>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-blue-400 flex-shrink-0" />
                 <Link
-                  href="mailto:homes@heyberkshire.com"
+                  href={LOVELL_CANYON_EMAIL_HREF}
                   className="text-slate-300 hover:text-white transition-colors text-sm"
                 >
-                  Homes@HeyBerkshire.com
+                  {LOVELL_CANYON_EMAIL}
                 </Link>
               </li>
             </ul>
@@ -217,8 +227,7 @@ export default function Footer() {
             </div>
           </div>
           <p className="text-slate-500 text-xs mt-4 text-center">
-            Dr. Jan Duffy, REALTOR® | License S.0197614.LLC | Berkshire Hathaway HomeServices Nevada
-            Properties
+            {LOVELL_CANYON_BRAND.agentAttribution}
           </p>
           <p className="text-slate-600 text-xs mt-2 text-center max-w-3xl mx-auto">
             When you work with a Berkshire Hathaway HomeServices agent, you're backed by a name

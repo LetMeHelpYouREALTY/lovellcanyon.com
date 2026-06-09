@@ -2,30 +2,44 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import LandPageHero from "@/components/land/LandPageHero";
+import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
-import { getLovellCanyonPageMetadata } from "@/lib/lovell-canyon-seo";
+import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import { AREA_SOURCES, LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
+import { LOVELL_CANYON_GEO, getGoogleMapsDirectionsUrl } from "@/lib/lovell-canyon-geo";
+import { getLovellCanyonTrailheadPlaceSchema } from "@/lib/lovell-canyon-schema";
 import { LOVELL_CANYON_LOCATION } from "@/lib/lovell-canyon-parcels";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+
+const trailheadSchema = getLovellCanyonTrailheadPlaceSchema();
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getLovellCanyonPageMetadata(
+  return getLovellCanyonPageMetadataWithHero(
     "/location",
     "Lovell Canyon NV Location | Clark County Land 89120",
-    "Where is Lovell Canyon? Clark County Nevada 89120, west of the Las Vegas Valley near NV-160. Public land context, elevation, and area overview for raw land parcels."
+    "Where is Lovell Canyon? Clark County Nevada 89120, west of the Las Vegas Valley near NV-160. GPS map, elevation, and area overview for raw land parcels."
   );
 }
 
 export default function LocationPage() {
+  const { latitude, longitude } = LOVELL_CANYON_GEO.center;
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(trailheadSchema) }}
+      />
       <Navbar />
       <main>
-        <LandPageHero
+        <LandPageHeroSection
+          pathname="/location"
           badge="Clark County NV"
           title="Lovell Canyon Location"
           subtitle={`${LOVELL_CANYON_AREA.name}, ${LOVELL_CANYON_AREA.county}, ${LOVELL_CANYON_AREA.state} ${LOVELL_CANYON_AREA.postalCode}`}
         />
+
+        <BelowHeroEngagement />
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4 max-w-3xl space-y-8 text-slate-700 text-lg leading-relaxed">
             <div>
@@ -37,6 +51,28 @@ export default function LocationPage() {
                 <strong>{LOVELL_CANYON_LOCATION.postalCode}</strong>. Assessor mapping:{" "}
                 {LOVELL_CANYON_LOCATION.section}, {LOVELL_CANYON_LOCATION.township},{" "}
                 {LOVELL_CANYON_LOCATION.range}, map {LOVELL_CANYON_LOCATION.assessorMap}.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">GPS coordinates</h2>
+              <p>
+                Lovell Canyon area map center:{" "}
+                <strong>
+                  {latitude.toFixed(5)}° N, {Math.abs(longitude).toFixed(5)}° W
+                </strong>{" "}
+                ({LOVELL_CANYON_AREA.mapCenterCoordinates}). USFS Lovell Canyon Trailhead at the
+                north end of paved Lovell Canyon Road: {LOVELL_CANYON_GEO.trailhead.latitude}° N,{" "}
+                {Math.abs(LOVELL_CANYON_GEO.trailhead.longitude)}° W.
+              </p>
+              <p className="mt-4">
+                <a
+                  href={getGoogleMapsDirectionsUrl(latitude, longitude)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  Get driving directions on Google Maps
+                </a>
               </p>
             </div>
             <div>

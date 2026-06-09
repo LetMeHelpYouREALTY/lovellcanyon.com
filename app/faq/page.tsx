@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import LandPageHero from "@/components/land/LandPageHero";
+import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
 import { LOVELL_CANYON_FAQS } from "@/lib/lovell-canyon-faq";
 import { getLovellCanyonFaqSchema } from "@/lib/lovell-canyon-schema";
-import { getLovellCanyonPageMetadata } from "@/lib/lovell-canyon-seo";
+import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getLovellCanyonPageMetadata(
+  return getLovellCanyonPageMetadataWithHero(
     "/faq",
     "Lovell Canyon Land FAQ | Parcels, Access & Title",
     "Frequently asked questions about Lovell Canyon raw land parcels APN 135-31-801-006 and 007, access, zip 89120, taxes, and how to inquire."
@@ -26,11 +27,14 @@ export default function FaqPage() {
       />
       <Navbar />
       <main>
-        <LandPageHero
+        <LandPageHeroSection
+          pathname="/faq"
           badge="FAQ"
           title="Lovell Canyon Land FAQ"
           subtitle="Questions about the parcels, access, title information, and how to inquire."
         />
+
+        <BelowHeroEngagement />
         <section className="py-16 bg-slate-50">
           <div className="container mx-auto px-4 max-w-3xl">
             <dl className="space-y-8">

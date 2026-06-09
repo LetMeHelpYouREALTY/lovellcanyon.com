@@ -9,8 +9,17 @@ https://www.lovellcanyon.com
 - Name: Dr. Jan Duffy, REALTOR®
 - License: S.0197614.LLC
 - Brokerage: Berkshire Hathaway HomeServices Nevada Properties
-- Phone: 702-222-1964 (call or text)
+- Phone: 702-500-1942 (call or text)
+- Email: DrDuffySells@lovellcanyon.com
 - Office: 9406 W Lake Mead Blvd, Suite 100, Las Vegas, NV 89134
+- Calendly: https://calendly.com/drjanduffy/showing
+
+## Location coordinates (Clark County NV 89120)
+- Map center (Lovell Canyon area): 36.13286° N, 115.56287° W
+- USFS Lovell Canyon Trailhead: 36.166591° N, 115.583236° W
+- Google Maps: https://www.google.com/maps?q=36.13286,-115.56287
+- Directions: https://www.google.com/maps/dir/?api=1&destination=36.13286,-115.56287
+- Every page includes an embedded Lovell Canyon map below the hero section.
 
 ## Parcels for sale
 | Lot | APN | County |

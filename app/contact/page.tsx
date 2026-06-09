@@ -1,40 +1,31 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import LandPageHero from "@/components/land/LandPageHero";
+import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
-import { Phone, MapPin } from "lucide-react";
-import { getLovellCanyonPageMetadata } from "@/lib/lovell-canyon-seo";
-
-const PHONE_TEL = "tel:+17022221964";
-const PHONE_SMS = "sms:+17022221964";
-const PHONE_DISPLAY = "702-222-1964";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import { Phone, MapPin, Mail } from "lucide-react";
+import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
+import {
+  LOVELL_CANYON_EMAIL,
+  LOVELL_CANYON_EMAIL_HREF,
+  LOVELL_CANYON_OFFICE,
+  LOVELL_CANYON_PHONE_DISPLAY,
+  LOVELL_CANYON_PHONE_SMS,
+  LOVELL_CANYON_PHONE_TEL,
+} from "@/lib/lovell-canyon-contact";
+import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
+import { getLovellCanyonContactPageSchema } from "@/lib/lovell-canyon-schema";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getLovellCanyonPageMetadata(
+  return getLovellCanyonPageMetadataWithHero(
     "/contact",
-    "Contact Dr. Jan Duffy | Lovell Canyon Land 89120",
-    "Inquire about Lovell Canyon raw land parcels APN 135-31-801-006 and 007. Call or text Dr. Jan Duffy at 702-222-1964."
+    "Contact Dr. Jan Duffy, Land Specialist | Lovell Canyon Land 89120",
+    `Inquire about Lovell Canyon raw land parcels APN 135-31-801-006 and 007. Call, text, or email Dr. Jan Duffy, Land Specialist, at ${LOVELL_CANYON_PHONE_DISPLAY}.`
   );
 }
 
-const contactSchema = {
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
-  mainEntity: {
-    "@type": "RealEstateAgent",
-    name: "Dr. Jan Duffy — Lovell Canyon Land",
-    telephone: "+17022221964",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "9406 W Lake Mead Blvd, Suite 100",
-      addressLocality: "Las Vegas",
-      addressRegion: "NV",
-      postalCode: "89134",
-      addressCountry: "US",
-    },
-  },
-};
+const contactSchema = getLovellCanyonContactPageSchema();
 
 export default function ContactPage() {
   return (
@@ -45,21 +36,35 @@ export default function ContactPage() {
       />
       <Navbar />
       <main>
-        <LandPageHero
+        <LandPageHeroSection
+          pathname="/contact"
           badge="Contact"
           title="Inquire About Lovell Canyon Land"
-          subtitle="Lot 2 & Lot 3 — APN 135-31-801-006 and 135-31-801-007. Call, text, or request parcel details."
+          subtitle="Lot 2 & Lot 3 — APN 135-31-801-006 and 135-31-801-007. Call, text, email, or schedule a consultation."
         />
+        <BelowHeroEngagement />
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-2xl space-y-8">
+            <div className="flex items-start bg-slate-50 rounded-lg p-6">
+              <Mail className="h-6 w-6 text-blue-600 mr-4 flex-shrink-0 mt-1" />
+              <div>
+                <h2 className="font-bold text-slate-900 mb-2">Email</h2>
+                <a
+                  href={LOVELL_CANYON_EMAIL_HREF}
+                  className="text-xl font-bold text-blue-600 hover:text-blue-700 block break-all"
+                >
+                  {LOVELL_CANYON_EMAIL}
+                </a>
+              </div>
+            </div>
             <div className="flex items-start bg-slate-50 rounded-lg p-6">
               <Phone className="h-6 w-6 text-blue-600 mr-4 flex-shrink-0 mt-1" />
               <div>
                 <h2 className="font-bold text-slate-900 mb-2">Call or text</h2>
-                <a href={PHONE_TEL} className="text-2xl font-bold text-blue-600 hover:text-blue-700 block">
-                  {PHONE_DISPLAY}
+                <a href={LOVELL_CANYON_PHONE_TEL} className="text-2xl font-bold text-blue-600 hover:text-blue-700 block">
+                  {LOVELL_CANYON_PHONE_DISPLAY}
                 </a>
-                <a href={PHONE_SMS} className="text-blue-600 hover:underline text-sm mt-2 inline-block">
+                <a href={LOVELL_CANYON_PHONE_SMS} className="text-blue-600 hover:underline text-sm mt-2 inline-block">
                   Send a text message
                 </a>
               </div>
@@ -69,15 +74,16 @@ export default function ContactPage() {
               <div>
                 <h2 className="font-bold text-slate-900 mb-2">Brokerage office</h2>
                 <address className="not-italic text-slate-700 leading-relaxed">
-                  Dr. Jan Duffy, REALTOR®
+                  {LOVELL_CANYON_BRAND.agentName}, {LOVELL_CANYON_BRAND.agentTitleLong}
                   <br />
-                  License S.0197614.LLC
+                  License {LOVELL_CANYON_BRAND.license}
                   <br />
-                  Berkshire Hathaway HomeServices Nevada Properties
+                  {LOVELL_CANYON_BROKERAGE}
                   <br />
-                  9406 W Lake Mead Blvd, Suite 100
+                  {LOVELL_CANYON_OFFICE.street}
                   <br />
-                  Las Vegas, NV 89134
+                  {LOVELL_CANYON_OFFICE.city}, {LOVELL_CANYON_OFFICE.region}{" "}
+                  {LOVELL_CANYON_OFFICE.postalCode}
                 </address>
                 <p className="text-sm text-slate-500 mt-3">
                   Parcels are in Lovell Canyon, Clark County NV 89120 — not at the office address

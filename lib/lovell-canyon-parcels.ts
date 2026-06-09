@@ -19,7 +19,6 @@ export type LovellCanyonParcel = {
   label: string;
   certificateLot: string;
   estate: string;
-  titleVestedIn: string;
   legalDescription: string;
   scheduleAExceptions: string;
   alternateDescription: string;
@@ -39,7 +38,6 @@ export const LOVELL_CANYON_PARCELS: LovellCanyonParcel[] = [
     label: "Lot 2",
     certificateLot: "Lot 2",
     estate: TITLE_ESTATE,
-    titleVestedIn: "David George Petrides, a single man",
     legalDescription:
       "The Northeast Quarter (NE1/4) of the Northeast Quarter (NE1/4) of the Southwest Quarter (SW1/4) of the Southeast Quarter (SE1/4), in Section 31, Township 20 South, Range 57 East, M.D.M.",
     scheduleAExceptions:
@@ -57,7 +55,6 @@ export const LOVELL_CANYON_PARCELS: LovellCanyonParcel[] = [
     label: "Lot 3",
     certificateLot: "Lot 3",
     estate: TITLE_ESTATE,
-    titleVestedIn: "David George Petrides, a single man",
     legalDescription:
       "The Southeast Quarter (SE1/4) of the Northeast Quarter (NE1/4) of the Southwest Quarter (SW1/4) of the Southeast Quarter (SE1/4) of Section 31, Township 20 South, Range 57 East, M.D.B. & M.",
     scheduleAExceptions:

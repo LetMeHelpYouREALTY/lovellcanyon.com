@@ -66,7 +66,7 @@ export const SCHEDULE_B_GENERAL_EXCEPTIONS: { number: number; text: string }[] =
   },
   {
     number: 18,
-    text: "The title to said land is presumptively subject to the community interest of the spouse, if any, of David George Petrides, and any matters that may be disclosed by a search of the records against the name of said spouse.",
+    text: "The title to said land is presumptively subject to the community interest of the spouse, if any, of the vested owner, and any matters that may be disclosed by a search of the records against the name of said spouse.",
   },
   {
     number: 19,

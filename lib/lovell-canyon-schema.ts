@@ -1,47 +1,94 @@
 import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
+import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
 import type { LandFaq } from "@/lib/lovell-canyon-faq";
-import { LOVELL_CANYON_LOCATION } from "@/lib/lovell-canyon-parcels";
+import { LOVELL_CANYON_LOCATION, type LovellCanyonParcel } from "@/lib/lovell-canyon-parcels";
 import { LOVELL_CANYON_SEO } from "@/lib/lovell-canyon-seo";
+import {
+  LOVELL_CANYON_EMAIL,
+  LOVELL_CANYON_OFFICE,
+  LOVELL_CANYON_PHONE_TEL,
+} from "@/lib/lovell-canyon-contact";
+import {
+  getGeoCoordinatesSchema,
+  getGeoShapeBoundingBoxSchema,
+  getGoogleMapsViewUrl,
+  getLovellCanyonSpatialCoverage,
+  LOVELL_CANYON_GEO,
+} from "@/lib/lovell-canyon-geo";
+import type { LovellCanyonPhoto } from "@/lib/lovell-canyon-media";
 import { getSiteUrl } from "@/lib/site-url";
 
-const AGENT_PHONE = "+17022221964";
-const OFFICE_STREET = "9406 W Lake Mead Blvd, Suite 100";
-const OFFICE_CITY = "Las Vegas";
-const OFFICE_REGION = "NV";
-const OFFICE_ZIP = "89134";
+const SCHEMA_PHONE = LOVELL_CANYON_PHONE_TEL.replace("tel:", "");
 
-export function getLovellCanyonWebSiteSchema() {
+export const LOVELL_CANYON_SCHEMA_IDS = {
+  website: "#website",
+  place: "#lovell-canyon",
+  trailhead: "#lovell-canyon-trailhead",
+  agent: "#agent",
+  parcelArea: "#parcel-section-31",
+} as const;
+
+function schemaId(fragment: string) {
   const siteUrl = getSiteUrl();
+  if (fragment.startsWith("#")) {
+    return `${siteUrl}${fragment}`;
+  }
+  return `${siteUrl}/${fragment.replace(/^\//, "")}`;
+}
 
+function getLovellCanyonPostalAddress() {
   return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: LOVELL_CANYON_SEO.siteName,
-    alternateName: LOVELL_CANYON_SEO.brandShort,
-    url: siteUrl,
-    description: LOVELL_CANYON_SEO.description,
-    inLanguage: "en-US",
-    publisher: {
-      "@type": "Organization",
-      name: "Berkshire Hathaway HomeServices Nevada Properties",
-    },
+    "@type": "PostalAddress" as const,
+    addressLocality: LOVELL_CANYON_LOCATION.locality,
+    addressRegion: LOVELL_CANYON_LOCATION.region,
+    postalCode: LOVELL_CANYON_LOCATION.postalCode,
+    addressCountry: "US",
+  };
+}
+
+function getParcelLegalLocationProperties() {
+  return {
+    additionalProperty: [
+      {
+        "@type": "PropertyValue" as const,
+        name: "Section",
+        value: LOVELL_CANYON_LOCATION.section,
+      },
+      {
+        "@type": "PropertyValue" as const,
+        name: "Township",
+        value: LOVELL_CANYON_LOCATION.township,
+      },
+      {
+        "@type": "PropertyValue" as const,
+        name: "Range",
+        value: LOVELL_CANYON_LOCATION.range,
+      },
+      {
+        "@type": "PropertyValue" as const,
+        name: "Clark County Assessor Map",
+        value: LOVELL_CANYON_LOCATION.assessorMap,
+      },
+    ],
   };
 }
 
 export function getLovellCanyonPlaceSchema() {
+  const { latitude, longitude } = LOVELL_CANYON_GEO.center;
+
   return {
     "@context": "https://schema.org",
     "@type": "Place",
+    "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),
     name: LOVELL_CANYON_AREA.name,
+    alternateName: `${LOVELL_CANYON_AREA.name}, ${LOVELL_CANYON_AREA.county}, ${LOVELL_CANYON_AREA.state} ${LOVELL_CANYON_AREA.postalCode}`,
     description:
-      "Lovell Canyon is an unincorporated area in Clark County, Nevada, west of the Las Vegas Valley, accessed via NV-160 and paved Lovell Canyon Road.",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: LOVELL_CANYON_LOCATION.locality,
-      addressRegion: LOVELL_CANYON_LOCATION.region,
-      postalCode: LOVELL_CANYON_LOCATION.postalCode,
-      addressCountry: "US",
-    },
+      "Lovell Canyon is an unincorporated area in Clark County, Nevada, west of the Las Vegas Valley, accessed via NV-160 and paved Lovell Canyon Road. Fee simple raw land parcels offered in Section 31, T20S R57E.",
+    address: getLovellCanyonPostalAddress(),
+    geo: getGeoCoordinatesSchema(latitude, longitude),
+    geoContains: getGeoShapeBoundingBoxSchema(),
+    hasMap: getGoogleMapsViewUrl(latitude, longitude),
+    ...getParcelLegalLocationProperties(),
     containedInPlace: {
       "@type": "AdministrativeArea",
       name: LOVELL_CANYON_AREA.county,
@@ -54,33 +101,159 @@ export function getLovellCanyonPlaceSchema() {
   };
 }
 
+export function getLovellCanyonTrailheadPlaceSchema() {
+  const { latitude, longitude, label } = LOVELL_CANYON_GEO.trailhead;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.trailhead),
+    name: label,
+    description:
+      "USFS Lovell Canyon Trailhead at the end of paved Lovell Canyon Road — primary recreation access point for the canyon.",
+    geo: getGeoCoordinatesSchema(latitude, longitude),
+    hasMap: getGoogleMapsViewUrl(latitude, longitude),
+    containedInPlace: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),
+    },
+  };
+}
+
 export function getLovellCanyonAgentSchema() {
   const siteUrl = getSiteUrl();
+  const { latitude, longitude } = LOVELL_CANYON_GEO.center;
 
   return {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
-    name: "Dr. Jan Duffy",
-    alternateName: "Dr. Jan Duffy — Lovell Canyon Land",
+    "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.agent),
+    name: LOVELL_CANYON_BRAND.agentName,
+    alternateName: LOVELL_CANYON_BRAND.agentAlternateName,
     url: siteUrl,
-    telephone: AGENT_PHONE,
-    jobTitle: "REALTOR®",
-    identifier: "S.0197614.LLC",
+    telephone: SCHEMA_PHONE,
+    email: LOVELL_CANYON_EMAIL,
+    jobTitle: LOVELL_CANYON_BRAND.agentTitle,
+    description: LOVELL_CANYON_BRAND.agentBio,
+    identifier: LOVELL_CANYON_BRAND.license,
+    knowsAbout: ["Raw land", "Vacant land", "Lovell Canyon NV", "Clark County land parcels"],
     worksFor: {
       "@type": "Organization",
-      name: "Berkshire Hathaway HomeServices Nevada Properties",
+      name: LOVELL_CANYON_BROKERAGE,
     },
     address: {
       "@type": "PostalAddress",
-      streetAddress: OFFICE_STREET,
-      addressLocality: OFFICE_CITY,
-      addressRegion: OFFICE_REGION,
-      postalCode: OFFICE_ZIP,
-      addressCountry: "US",
+      streetAddress: LOVELL_CANYON_OFFICE.street,
+      addressLocality: LOVELL_CANYON_OFFICE.city,
+      addressRegion: LOVELL_CANYON_OFFICE.region,
+      postalCode: LOVELL_CANYON_OFFICE.postalCode,
+      addressCountry: LOVELL_CANYON_OFFICE.country,
     },
-    areaServed: {
+    geo: getGeoCoordinatesSchema(latitude, longitude),
+    areaServed: [
+      {
+        "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),
+      },
+      {
+        "@type": "Place",
+        name: `${LOVELL_CANYON_LOCATION.locality}, ${LOVELL_CANYON_LOCATION.county}, NV ${LOVELL_CANYON_LOCATION.postalCode}`,
+        address: getLovellCanyonPostalAddress(),
+        geo: getGeoCoordinatesSchema(latitude, longitude),
+        geoContains: getGeoShapeBoundingBoxSchema(),
+        hasMap: getGoogleMapsViewUrl(latitude, longitude),
+        ...getParcelLegalLocationProperties(),
+      },
+    ],
+  };
+}
+
+export function getLovellCanyonWebSiteSchema() {
+  const siteUrl = getSiteUrl();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.website),
+    name: LOVELL_CANYON_SEO.siteName,
+    alternateName: LOVELL_CANYON_SEO.brandShort,
+    url: siteUrl,
+    description: LOVELL_CANYON_SEO.description,
+    inLanguage: "en-US",
+    about: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),
+    },
+    contentLocation: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),
+    },
+    spatialCoverage: getLovellCanyonSpatialCoverage(),
+    publisher: {
+      "@type": "Organization",
+      name: LOVELL_CANYON_BROKERAGE,
+    },
+  };
+}
+
+export function getLovellCanyonParcelListingSchema(
+  parcel: LovellCanyonParcel,
+  siteUrl: string,
+  parcelPath?: string
+) {
+  const { latitude, longitude } = LOVELL_CANYON_GEO.center;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    name: `Lovell Canyon Land — ${parcel.label} (APN ${parcel.apn})`,
+    url: parcelPath ? `${siteUrl}${parcelPath}` : siteUrl,
+    description: `${parcel.estate} land in Lovell Canyon, Clark County NV. APN ${parcel.apn}. ${parcel.alternateDescription}`,
+    address: getLovellCanyonPostalAddress(),
+    geo: getGeoCoordinatesSchema(latitude, longitude),
+    hasMap: getGoogleMapsViewUrl(latitude, longitude),
+    contentLocation: {
       "@type": "Place",
-      name: "Lovell Canyon, Clark County, Nevada 89120",
+      name: `${LOVELL_CANYON_LOCATION.locality} — ${parcel.label}`,
+      address: getLovellCanyonPostalAddress(),
+      geo: getGeoCoordinatesSchema(latitude, longitude),
+      geoContains: getGeoShapeBoundingBoxSchema(),
+      hasMap: getGoogleMapsViewUrl(latitude, longitude),
+      ...getParcelLegalLocationProperties(),
+    },
+    spatialCoverage: getLovellCanyonSpatialCoverage(),
+    identifier: parcel.apn,
+    category: "Land",
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "APN",
+        value: parcel.apn,
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Certificate of Land Division Lot",
+        value: parcel.certificateLot,
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Section",
+        value: LOVELL_CANYON_LOCATION.section,
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Township",
+        value: LOVELL_CANYON_LOCATION.township,
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Range",
+        value: LOVELL_CANYON_LOCATION.range,
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Assessor Map",
+        value: LOVELL_CANYON_LOCATION.assessorMap,
+      },
+    ],
+    seller: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.agent),
     },
   };
 }
@@ -89,6 +262,10 @@ export function getLovellCanyonFaqSchema(faqs: LandFaq[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    about: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),
+    },
+    spatialCoverage: getLovellCanyonSpatialCoverage(),
     mainEntity: faqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
@@ -97,6 +274,74 @@ export function getLovellCanyonFaqSchema(faqs: LandFaq[]) {
         text: faq.answer,
       },
     })),
+  };
+}
+
+export function getLovellCanyonContactPageSchema() {
+  const siteUrl = getSiteUrl();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    url: `${siteUrl}/contact`,
+    about: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),
+    },
+    spatialCoverage: getLovellCanyonSpatialCoverage(),
+    mainEntity: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.agent),
+    },
+  };
+}
+
+/** Single linked graph for sitewide JSON-LD — avoids duplicate Place nodes. */
+export function getLovellCanyonGlobalSchemaGraph() {
+  const website = getLovellCanyonWebSiteSchema();
+  const place = getLovellCanyonPlaceSchema();
+  const trailhead = getLovellCanyonTrailheadPlaceSchema();
+  const agent = getLovellCanyonAgentSchema();
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [website, place, trailhead, agent],
+  };
+}
+
+export function getLovellCanyonPageHeroImageSchema(
+  hero: LovellCanyonPhoto,
+  pathname: string,
+  pageTitle: string
+) {
+  const siteUrl = getSiteUrl();
+  const pageUrl = pathname === "/" ? siteUrl : `${siteUrl}${pathname}`;
+  const imageId = `${pageUrl}#hero-image`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": pageUrl,
+        name: pageTitle,
+        url: pageUrl,
+        primaryImageOfPage: { "@id": imageId },
+        about: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place) },
+        spatialCoverage: getLovellCanyonSpatialCoverage(),
+      },
+      {
+        "@type": "ImageObject",
+        "@id": imageId,
+        name: hero.name ?? hero.alt,
+        caption: hero.caption ?? hero.alt,
+        description: hero.alt,
+        contentUrl: hero.url,
+        url: hero.url,
+        width: hero.width ?? 1600,
+        height: hero.height ?? 900,
+        contentLocation: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place) },
+        creator: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.agent) },
+      },
+    ],
   };
 }
 

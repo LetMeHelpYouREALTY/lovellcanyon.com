@@ -4,8 +4,16 @@
  *
  * Upload keys (examples):
  *   lovell-canyon/hero.jpg
+ *   lovell-canyon/heroes/home.jpg
  *   lovell-canyon/gallery/01.jpg
  */
+
+import { existsSync } from "fs";
+import path from "path";
+import {
+  getLovellCanyonHeroDefinition,
+  type LovellCanyonHeroDefinition,
+} from "@/lib/lovell-canyon-hero-images";
 
 const DEFAULT_R2_PUBLIC_BASE =
   "https://pub-55f2185197354e748b122f17b695df69.r2.dev";
@@ -54,9 +62,63 @@ export type LovellCanyonPhoto = {
   key: string;
   url: string;
   alt: string;
+  caption?: string;
+  name?: string;
+  width?: number;
+  height?: number;
+  pathname?: string;
 };
 
+function heroDefinitionToPhoto(
+  definition: LovellCanyonHeroDefinition,
+  url: string,
+  key: string
+): LovellCanyonPhoto {
+  return {
+    key,
+    url,
+    alt: definition.alt,
+    caption: definition.caption,
+    name: definition.name,
+    width: definition.width,
+    height: definition.height,
+    pathname: definition.pathname,
+  };
+}
+
+function publicFileExists(localPath: string): boolean {
+  const relativePath = localPath.replace(/^\//, "");
+  return existsSync(path.join(process.cwd(), "public", relativePath));
+}
+
+async function resolveHeroUrl(r2Key: string, localPath: string): Promise<{ url: string; key: string } | null> {
+  const r2Url = getR2ObjectUrl(r2Key);
+  if (await r2ObjectExists(r2Url)) {
+    return { url: r2Url, key: r2Key };
+  }
+
+  if (publicFileExists(localPath)) {
+    return { url: localPath, key: localPath };
+  }
+
+  return null;
+}
+
+/** Page-specific hero — R2 first, then public/images fallback. */
+export async function getLovellCanyonPageHero(pathname: string): Promise<LovellCanyonPhoto | null> {
+  const definition = getLovellCanyonHeroDefinition(pathname);
+  if (!definition) return null;
+
+  const resolved = await resolveHeroUrl(definition.r2Key, definition.localPath);
+  if (!resolved) return null;
+
+  return heroDefinitionToPhoto(definition, resolved.url, resolved.key);
+}
+
 export async function getLovellCanyonHeroPhoto(): Promise<LovellCanyonPhoto | null> {
+  const pageHero = await getLovellCanyonPageHero("/");
+  if (pageHero) return pageHero;
+
   const url = getR2ObjectUrl(LOVELL_CANYON_MEDIA.heroKey);
   const exists = await r2ObjectExists(url);
   if (!exists) return null;

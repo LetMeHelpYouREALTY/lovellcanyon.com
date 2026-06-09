@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { getLovellCanyonMetadata } from "@/lib/lovell-canyon-seo";
+import { LOVELL_CANYON_BRAND } from "@/lib/lovell-canyon-brand";
+import { LOVELL_CANYON_SEO, getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import {
   getLovellCanyonGalleryPhotos,
-  getLovellCanyonHeroPhoto,
+  getLovellCanyonPageHero,
 } from "@/lib/lovell-canyon-media";
 import { LandPropertyGallery } from "@/components/land/LandPropertyGallery";
 import { MainlineHero } from "@/components/land/MainlineHero";
@@ -17,32 +18,15 @@ import {
   SCHEDULE_B_STANDARD_EXCEPTIONS_NOTE,
 } from "@/lib/lovell-canyon-title-schedule-b";
 import { LOVELL_CANYON_FAQS } from "@/lib/lovell-canyon-faq";
-import { getLovellCanyonFaqSchema } from "@/lib/lovell-canyon-schema";
+import { getLovellCanyonFaqSchema, getLovellCanyonPageHeroImageSchema, getLovellCanyonParcelListingSchema } from "@/lib/lovell-canyon-schema";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const base = getLovellCanyonMetadata("/");
-  const heroPhoto = await getLovellCanyonHeroPhoto();
-
-  if (!heroPhoto) return base;
-
-  return {
-    ...base,
-    openGraph: {
-      ...base.openGraph,
-      images: [
-        {
-          url: heroPhoto.url,
-          width: 1600,
-          height: 1067,
-          alt: heroPhoto.alt,
-        },
-      ],
-    },
-    twitter: {
-      ...base.twitter,
-      images: [heroPhoto.url],
-    },
-  };
+  return getLovellCanyonPageMetadataWithHero(
+    "/",
+    LOVELL_CANYON_BRAND.title,
+    LOVELL_CANYON_SEO.description,
+    LOVELL_CANYON_BRAND.ogTitle
+  );
 }
 
 /**
@@ -66,12 +50,16 @@ export async function generateMetadata(): Promise<Metadata> {
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 import Link from "next/link";
-import { Phone, MapPin, Navigation } from "lucide-react";
+import { Phone, MapPin, Navigation, Mail } from "lucide-react";
 import { getPageDomainConfig } from "@/lib/get-domain-config";
-
-const PHONE_DISPLAY = "702-222-1964";
-const PHONE_TEL = "tel:+17022221964";
-const PHONE_SMS = "sms:+17022221964";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import {
+  LOVELL_CANYON_EMAIL,
+  LOVELL_CANYON_EMAIL_HREF,
+  LOVELL_CANYON_PHONE_DISPLAY,
+  LOVELL_CANYON_PHONE_SMS,
+  LOVELL_CANYON_PHONE_TEL,
+} from "@/lib/lovell-canyon-contact";
 
 const ACCESS_ROADS = [
   "Cabin Canyon Rd",
@@ -95,43 +83,30 @@ export default async function Home() {
   const config = await getPageDomainConfig();
   const siteUrl = `https://${config.domain !== "default" ? config.domain : "lovellcanyon.com"}`;
   const [heroPhoto, galleryPhotos] = await Promise.all([
-    getLovellCanyonHeroPhoto(),
+    getLovellCanyonPageHero("/"),
     getLovellCanyonGalleryPhotos(),
   ]);
   const propertyPhotos = heroPhoto
     ? [heroPhoto, ...galleryPhotos.filter((p) => p.key !== heroPhoto.key)]
     : galleryPhotos;
 
-  const listingSchemas = LOVELL_CANYON_PARCELS.map((parcel) => ({
-    "@context": "https://schema.org",
-    "@type": "RealEstateListing",
-    name: `Lovell Canyon Land — ${parcel.label} (APN ${parcel.apn})`,
-    url: siteUrl,
-    description: `${parcel.estate} land in Lovell Canyon, Clark County NV. APN ${parcel.apn}. ${parcel.alternateDescription}`,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: LOVELL_CANYON_LOCATION.locality,
-      addressRegion: LOVELL_CANYON_LOCATION.region,
-      postalCode: LOVELL_CANYON_LOCATION.postalCode,
-      addressCountry: "US",
-    },
-    identifier: parcel.apn,
-    category: "Land",
-    seller: {
-      "@type": "RealEstateAgent",
-      name: "Dr. Jan Duffy",
-      telephone: "+17022221964",
-      memberOf: {
-        "@type": "Organization",
-        name: "Berkshire Hathaway HomeServices Nevada Properties",
-      },
-    },
-  }));
+  const listingSchemas = LOVELL_CANYON_PARCELS.map((parcel) =>
+    getLovellCanyonParcelListingSchema(parcel, siteUrl, `/parcels/${parcel.slug}`)
+  );
 
   const faqSchema = getLovellCanyonFaqSchema(LOVELL_CANYON_FAQS.slice(0, 6));
+  const heroSchema = heroPhoto
+    ? getLovellCanyonPageHeroImageSchema(heroPhoto, "/", config.heroHeadline)
+    : null;
 
   return (
     <>
+      {heroSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(heroSchema) }}
+        />
+      )}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -152,6 +127,8 @@ export default async function Home() {
           heroImageUrl={heroPhoto?.url}
           heroImageAlt={heroPhoto?.alt}
         />
+
+        <BelowHeroEngagement />
 
         <LandPropertyGallery photos={propertyPhotos} />
 
@@ -220,10 +197,6 @@ export default async function Home() {
                     <div className="border-b border-slate-100 pb-3">
                       <dt className="text-slate-600 font-medium mb-1">Estate or interest</dt>
                       <dd className="text-slate-900">{parcel.estate}</dd>
-                    </div>
-                    <div className="border-b border-slate-100 pb-3">
-                      <dt className="text-slate-600 font-medium mb-1">Title vested in</dt>
-                      <dd className="text-slate-900">{parcel.titleVestedIn}</dd>
                     </div>
                     <div className="border-b border-slate-100 pb-3">
                       <dt className="text-slate-600 font-medium mb-1">Certificate lot</dt>
@@ -344,7 +317,7 @@ export default async function Home() {
                 { href: "/access", label: "Access", desc: "NV-160 & dirt roads" },
                 { href: "/title-report", label: "Title report", desc: "Schedule A & B" },
                 { href: "/faq", label: "FAQ", desc: "Common questions" },
-                { href: "/contact", label: "Contact", desc: "702-222-1964" },
+                { href: "/contact", label: "Contact", desc: `${LOVELL_CANYON_PHONE_DISPLAY} · email` },
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -366,19 +339,26 @@ export default async function Home() {
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
               {config.ctaSubheadline}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <a
-                href={PHONE_TEL}
+                href={LOVELL_CANYON_PHONE_TEL}
                 className="inline-flex items-center justify-center bg-white text-blue-600 px-8 py-4 rounded-md font-bold text-lg hover:bg-blue-50 transition-colors"
               >
                 <Phone className="h-5 w-5 mr-2" />
-                Call {PHONE_DISPLAY}
+                Call {LOVELL_CANYON_PHONE_DISPLAY}
               </a>
               <a
-                href={PHONE_SMS}
+                href={LOVELL_CANYON_PHONE_SMS}
                 className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-md font-bold text-lg transition-colors"
               >
-                Text {PHONE_DISPLAY}
+                Text {LOVELL_CANYON_PHONE_DISPLAY}
+              </a>
+              <a
+                href={LOVELL_CANYON_EMAIL_HREF}
+                className="inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-md font-bold text-lg transition-colors"
+              >
+                <Mail className="h-5 w-5 mr-2" />
+                Email
               </a>
               <Link
                 href="/contact"
@@ -388,8 +368,7 @@ export default async function Home() {
               </Link>
             </div>
             <p className="mt-6 text-blue-200 text-sm">
-              Dr. Jan Duffy, REALTOR® | License S.0197614.LLC | Berkshire Hathaway HomeServices
-              Nevada Properties
+              {LOVELL_CANYON_BRAND.agentAttribution} · {LOVELL_CANYON_EMAIL}
             </p>
           </div>
         </section>

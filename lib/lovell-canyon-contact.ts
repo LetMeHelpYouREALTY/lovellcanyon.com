@@ -1,0 +1,30 @@
+/** CallAction WidgetTracker site ID for lovellcanyon.com */
+export const CALLACTION_WIDGET_ID = "WT-XQHVYQWW";
+
+const CALLACTION_DIGITS =
+  process.env.NEXT_PUBLIC_CALLACTION_PHONE?.replace(/\D/g, "") ?? "7025001942";
+
+function formatPhoneDisplay(digits: string): string {
+  if (digits.length === 10) {
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+  }
+  return digits;
+}
+
+/** Public CallAction tracking number shown sitewide (forwards to Dr. Jan Duffy). */
+export const LOVELL_CANYON_PHONE_DISPLAY = formatPhoneDisplay(CALLACTION_DIGITS);
+export const LOVELL_CANYON_PHONE_TEL = `tel:+1${CALLACTION_DIGITS}`;
+export const LOVELL_CANYON_PHONE_SMS = `sms:+1${CALLACTION_DIGITS}`;
+export const LOVELL_CANYON_EMAIL = "DrDuffySells@lovellcanyon.com";
+export const LOVELL_CANYON_EMAIL_HREF = "mailto:DrDuffySells@lovellcanyon.com";
+export const LOVELL_CANYON_CALENDLY_URL = "https://calendly.com/drjanduffy/showing";
+export const REALSCOUT_AGENT_ENCODED_ID = "QWdlbnQtMjI1MDUw";
+export const REALSCOUT_OFFICE_URL = "http://drjanduffy.realscout.com/";
+
+export const LOVELL_CANYON_OFFICE = {
+  street: "9406 W Lake Mead Blvd, Suite 100",
+  city: "Las Vegas",
+  region: "NV",
+  postalCode: "89134",
+  country: "US",
+} as const;

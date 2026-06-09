@@ -2,17 +2,20 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import LandPageHero from "@/components/land/LandPageHero";
+import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
 import ParcelDetailCard from "@/components/land/ParcelDetailCard";
-import { getLovellCanyonPageMetadata } from "@/lib/lovell-canyon-seo";
+import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import { getParcelBySlug } from "@/lib/lovell-canyon-parcels";
+import { getLovellCanyonParcelListingSchema } from "@/lib/lovell-canyon-schema";
+import { getSiteUrl } from "@/lib/site-url";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 
 const parcel = getParcelBySlug("lot-2");
 
 export async function generateMetadata(): Promise<Metadata> {
   if (!parcel) return {};
-  return getLovellCanyonPageMetadata(
+  return getLovellCanyonPageMetadataWithHero(
     "/parcels/lot-2",
     `Lovell Canyon Lot 2 Land | APN ${parcel.apn} | Clark County NV 89120`,
     `Fee simple raw land — Lot 2, APN ${parcel.apn}, Lovell Canyon NV 89120. Schedule A legal description, title vesting, and property tax status.`
@@ -22,15 +25,28 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Lot2Page() {
   if (!parcel) notFound();
 
+  const listingSchema = getLovellCanyonParcelListingSchema(
+    parcel,
+    getSiteUrl(),
+    "/parcels/lot-2"
+  );
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(listingSchema) }}
+      />
       <Navbar />
       <main>
-        <LandPageHero
+        <LandPageHeroSection
+          pathname="/parcels/lot-2"
           badge="Lot 2"
           title={`Lovell Canyon Lot 2 — APN ${parcel.apn}`}
           subtitle="Fee simple land in Section 31, T20S R57E, Clark County, Nevada 89120."
         />
+
+        <BelowHeroEngagement />
         <section className="py-16 bg-slate-50">
           <div className="container mx-auto px-4 max-w-3xl">
             <ParcelDetailCard parcel={parcel} showParcelLink={false} />

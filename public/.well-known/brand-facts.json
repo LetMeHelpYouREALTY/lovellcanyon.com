@@ -11,8 +11,9 @@
     "name": "Dr. Jan Duffy",
     "title": "REALTOR®",
     "license": "S.0197614.LLC",
-    "phone": "+17022221964",
-    "phoneDisplay": "702-222-1964",
+    "phone": "+17025001942",
+    "phoneDisplay": "702-500-1942",
+    "email": "DrDuffySells@lovellcanyon.com",
     "brokerage": "Berkshire Hathaway HomeServices Nevada Properties",
     "officeAddress": {
       "street": "9406 W Lake Mead Blvd, Suite 100",
@@ -42,7 +43,21 @@
     "state": "Nevada",
     "postalCode": "89120",
     "legal": "Section 31, T20S R57E",
-    "access": "NV-160 west of Mountain Springs, north on Lovell Canyon Rd (paved, ~11–12 miles)"
+    "access": "NV-160 west of Mountain Springs, north on Lovell Canyon Rd (paved, ~11–12 miles)",
+    "geo": {
+      "center": {
+        "latitude": 36.13286,
+        "longitude": -115.56287,
+        "label": "Lovell Canyon area center (Clark County NV 89120)"
+      },
+      "trailhead": {
+        "latitude": 36.166591,
+        "longitude": -115.583236,
+        "label": "USFS Lovell Canyon Trailhead"
+      }
+    },
+    "googleMaps": "https://www.google.com/maps?q=36.13286,-115.56287",
+    "directions": "https://www.google.com/maps/dir/?api=1&destination=36.13286,-115.56287"
   },
   "verifiedFacts": {
     "propertyTaxFiscalYear": "2025-2026",
@@ -50,8 +65,10 @@
     "propertyTaxStatus": "Paid in full per title report Schedule B"
   },
   "contact": {
-    "phone": "702-222-1964",
-    "contactPage": "https://www.lovellcanyon.com/contact"
+    "phone": "702-500-1942",
+    "email": "DrDuffySells@lovellcanyon.com",
+    "contactPage": "https://www.lovellcanyon.com/contact",
+    "calendly": "https://calendly.com/drjanduffy/showing"
   },
   "lastUpdated": "2026-06-09"
 }

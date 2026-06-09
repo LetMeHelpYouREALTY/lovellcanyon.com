@@ -2,20 +2,13 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { headers } from "next/headers";
-import {
-  getLovellCanyonAgentSchema,
-  getLovellCanyonPlaceSchema,
-  getLovellCanyonWebSiteSchema,
-} from "@/lib/lovell-canyon-schema";
+import { getLovellCanyonGlobalSchemaGraph } from "@/lib/lovell-canyon-schema";
 import { getLovellCanyonMetadata } from "@/lib/lovell-canyon-seo";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+import { CALLACTION_WIDGET_ID } from "@/lib/lovell-canyon-contact";
 
-const globalSchemas = [
-  getLovellCanyonWebSiteSchema(),
-  getLovellCanyonAgentSchema(),
-  getLovellCanyonPlaceSchema(),
-];
+const globalSchemaGraph = getLovellCanyonGlobalSchemaGraph();
 
 export async function generateMetadata(): Promise<Metadata> {
   const pathname = headers().get("x-pathname") || "/";
@@ -26,6 +19,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={GeistSans.className}>
       <head>
+        <link
+          href="https://assets.calendly.com/assets/external/widget.css"
+          rel="stylesheet"
+        />
         {/* WidgetTracker */}
         <Script id="widget-tracker" strategy="afterInteractive">{`
           (function(w,i,d,g,e,t){w["WidgetTrackerObject"]=g;(w[g]=w[g]||function()
@@ -33,18 +30,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           (t=d.createElement(e)),(e=d.getElementsByTagName(e)[0]);t.async=1;t.src=i;
           e.parentNode.insertBefore(t,e);})
           (window,"https://widgetbe.com/agent",document,"widgetTracker");
-          window.widgetTracker("create","WT-XQHVYQWW");
+          window.widgetTracker("create","${CALLACTION_WIDGET_ID}");
           window.widgetTracker("send","pageview");
         `}</Script>
+        <Script
+          src="https://em.realscout.com/widgets/office-listings.js"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="afterInteractive"
+        />
       </head>
       <body>
-        {globalSchemas.map((schema) => (
-          <script
-            key={schema["@type"]}
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-          />
-        ))}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchemaGraph) }}
+        />
         {children}
         <Analytics />
       </body>

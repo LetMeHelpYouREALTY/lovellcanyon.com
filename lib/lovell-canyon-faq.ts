@@ -1,10 +1,12 @@
+import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
+import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
+
 export type LandFaq = { question: string; answer: string };
 
 export const LOVELL_CANYON_FAQS: LandFaq[] = [
   {
-    question: "What is Lovell Canyon | Land by Dr. Jan Duffy?",
-    answer:
-      "Lovell Canyon | Land by Dr. Jan Duffy is the official listing site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89120 — Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007). Dr. Jan Duffy, REALTOR® (License S.0197614.LLC) with Berkshire Hathaway HomeServices Nevada Properties, is the listing agent. Call or text 702-222-1964.",
+    question: `What is ${LOVELL_CANYON_BRAND.siteName}?`,
+    answer: `${LOVELL_CANYON_BRAND.siteName} is the official listing site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89120 — Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007). ${LOVELL_CANYON_BRAND.agentBio} License ${LOVELL_CANYON_BRAND.license}. Call or text ${LOVELL_CANYON_PHONE_DISPLAY}.`,
   },
   {
     question: "Where is Lovell Canyon land for sale in Nevada?",
@@ -58,11 +60,25 @@ export const LOVELL_CANYON_FAQS: LandFaq[] = [
   {
     question: "How do I get acreage, zoning, utilities, or price?",
     answer:
-      "Those details are not published on this site until confirmed. Call or text Dr. Jan Duffy at 702-222-1964 to request current parcel information.",
+      `Those details are not published on this site until confirmed. Call or text Dr. Jan Duffy at ${LOVELL_CANYON_PHONE_DISPLAY} to request current parcel information.`,
+  },
+  {
+    question: "What are the GPS coordinates for Lovell Canyon?",
+    answer:
+      "The Lovell Canyon area in Clark County NV 89120 is centered near 36.13286° N, 115.56287° W (public map sources). The USFS Lovell Canyon Trailhead at the north end of paved Lovell Canyon Road is approximately 36.16659° N, 115.58324° W. Parcel corners are not published on this site — contact Dr. Jan Duffy for a showing map.",
+  },
+  {
+    question: "Is there a map of Lovell Canyon on this site?",
+    answer:
+      "Yes. Every page includes an embedded Google Map of Lovell Canyon with Get Directions and View on Google Maps links, plus GPS coordinates for Clark County NV 89120.",
+  },
+  {
+    question: "How do I email about Lovell Canyon land?",
+    answer:
+      "Email DrDuffySells@lovellcanyon.com or use the contact page. Messages forward to the listing agent inbox at Berkshire Hathaway HomeServices Nevada Properties.",
   },
   {
     question: "Who is the listing agent?",
-    answer:
-      "Dr. Jan Duffy, REALTOR®, License S.0197614.LLC, Berkshire Hathaway HomeServices Nevada Properties. Call or text 702-222-1964.",
+    answer: `${LOVELL_CANYON_BRAND.agentName}, ${LOVELL_CANYON_BRAND.agentTitleLong}, License ${LOVELL_CANYON_BRAND.license}, ${LOVELL_CANYON_BROKERAGE}. Call or text ${LOVELL_CANYON_PHONE_DISPLAY}.`,
   },
 ];

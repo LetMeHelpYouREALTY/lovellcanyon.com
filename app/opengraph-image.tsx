@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
+import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_SEO } from "@/lib/lovell-canyon-seo";
 
 export const runtime = "edge";
@@ -34,7 +36,7 @@ export default function OpenGraphImage() {
           >
             Clark County, Nevada · Raw Land
           </div>
-          <div style={{ fontSize: 56, fontWeight: 700, lineHeight: 1.15, maxWidth: 900 }}>
+          <div style={{ fontSize: 52, fontWeight: 700, lineHeight: 1.15, maxWidth: 900 }}>
             Lovell Canyon Land — Two Parcels
           </div>
           <div style={{ fontSize: 28, color: "#cbd5e1", lineHeight: 1.4, maxWidth: 820 }}>
@@ -51,12 +53,12 @@ export default function OpenGraphImage() {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            <div style={{ fontSize: 26, fontWeight: 600 }}>Dr. Jan Duffy, REALTOR®</div>
-            <div style={{ fontSize: 22, color: "#94a3b8" }}>
-              Berkshire Hathaway HomeServices Nevada Properties
+            <div style={{ fontSize: 26, fontWeight: 600 }}>
+              {LOVELL_CANYON_BRAND.agentName}, {LOVELL_CANYON_BRAND.agentTitle}
             </div>
+            <div style={{ fontSize: 22, color: "#94a3b8" }}>{LOVELL_CANYON_BROKERAGE}</div>
           </div>
-          <div style={{ fontSize: 30, fontWeight: 700, color: "#60a5fa" }}>702-222-1964</div>
+          <div style={{ fontSize: 30, fontWeight: 700, color: "#60a5fa" }}>{LOVELL_CANYON_PHONE_DISPLAY}</div>
         </div>
       </div>
     ),

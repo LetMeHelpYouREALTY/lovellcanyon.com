@@ -22,6 +22,8 @@ export const LOVELL_CANYON_AREA = {
   /** Mapcarta ~4,278 ft; topographic-map.com average ~5,381 ft in canyon — varies by site */
   elevationNote:
     "Elevation varies within the canyon; public topographic sources cite roughly 4,300–5,400 feet depending on location.",
+  /** See lib/lovell-canyon-geo.ts — Apple Maps center + USFS trailhead */
+  mapCenterCoordinates: "36.13286° N, 115.56287° W",
   recreationNote:
     "Lovell Canyon Road provides access to trailheads, dispersed camping areas, and tributary unpaved roads (4WD recommended on some routes per local trail guides).",
   trailAccessNote:

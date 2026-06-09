@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import LandPageHero from "@/components/land/LandPageHero";
+import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
-import { getLovellCanyonPageMetadata } from "@/lib/lovell-canyon-seo";
+import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 
 const LOCAL_DIRT_ROADS = [
   "Cabin Canyon Rd",
@@ -16,7 +17,7 @@ const LOCAL_DIRT_ROADS = [
 ] as const;
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getLovellCanyonPageMetadata(
+  return getLovellCanyonPageMetadataWithHero(
     "/access",
     "Lovell Canyon Access | NV-160 & Lovell Canyon Rd Directions",
     "How to reach Lovell Canyon land from Las Vegas: NV-160 past Mountain Springs, north on paved Lovell Canyon Rd, then local dirt roads. Clark County NV 89120."
@@ -28,11 +29,14 @@ export default function AccessPage() {
     <>
       <Navbar />
       <main>
-        <LandPageHero
+        <LandPageHeroSection
+          pathname="/access"
           badge="Directions"
           title="Access & Roads"
           subtitle="Primary access via NV-160 and Lovell Canyon Rd (paved). Local parcel access via dirt roads."
         />
+
+        <BelowHeroEngagement />
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4 max-w-3xl space-y-10 text-slate-700 text-lg leading-relaxed">
             <div>

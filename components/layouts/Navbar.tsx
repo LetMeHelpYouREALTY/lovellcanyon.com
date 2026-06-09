@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const PHONE_TEL = "tel:+17022221964";
-const PHONE_DISPLAY = "702-222-1964";
+import {
+  LOVELL_CANYON_PHONE_DISPLAY,
+  LOVELL_CANYON_PHONE_TEL,
+} from "@/lib/lovell-canyon-contact";
+import { LOVELL_CANYON_BRAND } from "@/lib/lovell-canyon-brand";
 
 const mainNavLinks = [
   { href: "/", label: "Home" },
@@ -38,9 +40,9 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <Link href="/" className="flex flex-col">
             <span className="text-lg md:text-xl font-bold text-slate-900 hover:text-blue-600 transition-colors leading-tight">
-              Lovell Canyon <span className="text-blue-600">| Land</span>
+              {LOVELL_CANYON_BRAND.navTitle}
             </span>
-            <span className="text-xs text-slate-500 hidden sm:block">by Dr. Jan Duffy · BHHS Nevada</span>
+            <span className="text-xs text-slate-500 hidden sm:block">{LOVELL_CANYON_BRAND.navSubtitle}</span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-4">
@@ -54,9 +56,9 @@ export default function Navbar() {
               </Link>
             ))}
             <Button asChild className="bg-blue-600 hover:bg-blue-700">
-              <Link href={PHONE_TEL} className="flex items-center gap-2">
+              <Link href={LOVELL_CANYON_PHONE_TEL} className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
-                <span className="hidden xl:inline">{PHONE_DISPLAY}</span>
+                <span className="hidden xl:inline">{LOVELL_CANYON_PHONE_DISPLAY}</span>
                 <span className="xl:hidden">Call</span>
               </Link>
             </Button>
@@ -64,7 +66,7 @@ export default function Navbar() {
 
           <div className="lg:hidden flex items-center gap-3">
             <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
-              <Link href={PHONE_TEL}>
+              <Link href={LOVELL_CANYON_PHONE_TEL}>
                 <Phone className="h-4 w-4" />
               </Link>
             </Button>
@@ -92,9 +94,9 @@ export default function Navbar() {
               </Link>
             ))}
             <Button asChild className="bg-blue-600 hover:bg-blue-700 w-full mt-4">
-              <Link href={PHONE_TEL} className="flex items-center justify-center gap-2">
+              <Link href={LOVELL_CANYON_PHONE_TEL} className="flex items-center justify-center gap-2">
                 <Phone className="h-4 w-4" />
-                Call {PHONE_DISPLAY}
+                Call {LOVELL_CANYON_PHONE_DISPLAY}
               </Link>
             </Button>
           </div>
