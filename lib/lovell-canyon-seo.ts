@@ -21,6 +21,29 @@ export const LOVELL_CANYON_SEO = {
 
 const OG_IMAGE_PATH = "/opengraph-image";
 
+export function getLovellCanyonPageMetadata(
+  pathname: string,
+  title: string,
+  description: string
+): Metadata {
+  const base = getLovellCanyonMetadata(pathname);
+  return {
+    ...base,
+    title,
+    description,
+    openGraph: {
+      ...base.openGraph,
+      title,
+      description,
+    },
+    twitter: {
+      ...base.twitter,
+      title,
+      description,
+    },
+  };
+}
+
 export function getLovellCanyonMetadata(pathname = "/"): Metadata {
   const siteUrl = getSiteUrl();
   const canonicalUrl =

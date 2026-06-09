@@ -11,8 +11,13 @@ Disallow: /admin/
 Disallow: /_next/
 Disallow: /monitoring/
 
-# Indexable pages for this land listing site: / and /contact
+# Indexable land listing pages
 Allow: /contact/
+Allow: /location/
+Allow: /access/
+Allow: /parcels/
+Allow: /title-report/
+Allow: /faq/
 
 # Sitemap location
 Sitemap: https://lovellcanyon.com/sitemap.xml

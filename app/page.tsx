@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { getLovellCanyonMetadata } from "@/lib/lovell-canyon-seo";
 import {
+  getLovellCanyonGalleryPhotos,
+  getLovellCanyonHeroPhoto,
+} from "@/lib/lovell-canyon-media";
+import { LandPropertyGallery } from "@/components/land/LandPropertyGallery";
+import {
   LOVELL_CANYON_LOCATION,
   LOVELL_CANYON_PARCELS,
   PARCEL_PLACEHOLDER_FIELDS,
@@ -12,7 +17,29 @@ import {
 } from "@/lib/lovell-canyon-title-schedule-b";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return getLovellCanyonMetadata("/");
+  const base = getLovellCanyonMetadata("/");
+  const heroPhoto = await getLovellCanyonHeroPhoto();
+
+  if (!heroPhoto) return base;
+
+  return {
+    ...base,
+    openGraph: {
+      ...base.openGraph,
+      images: [
+        {
+          url: heroPhoto.url,
+          width: 1600,
+          height: 1067,
+          alt: heroPhoto.alt,
+        },
+      ],
+    },
+    twitter: {
+      ...base.twitter,
+      images: [heroPhoto.url],
+    },
+  };
 }
 
 /**
@@ -64,6 +91,13 @@ function PlaceholderValue({ fieldKey }: { fieldKey: string }) {
 export default async function Home() {
   const config = await getPageDomainConfig();
   const siteUrl = `https://${config.domain !== "default" ? config.domain : "lovellcanyon.com"}`;
+  const [heroPhoto, galleryPhotos] = await Promise.all([
+    getLovellCanyonHeroPhoto(),
+    getLovellCanyonGalleryPhotos(),
+  ]);
+  const propertyPhotos = heroPhoto
+    ? [heroPhoto, ...galleryPhotos.filter((p) => p.key !== heroPhoto.key)]
+    : galleryPhotos;
 
   const listingSchemas = LOVELL_CANYON_PARCELS.map((parcel) => ({
     "@context": "https://schema.org",
@@ -130,10 +164,16 @@ export default async function Home() {
       <main>
         {/* Hero */}
         <section className="relative bg-slate-900 text-white py-24 md:py-32 overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-30"
-            style={{ backgroundImage: "url('/Image/hero_bg_1.jpg')" }}
-          />
+          {heroPhoto ? (
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-40"
+              style={{ backgroundImage: `url('${heroPhoto.url}')` }}
+              role="img"
+              aria-label={heroPhoto.alt}
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 opacity-90" />
+          )}
           <div className="relative z-10 container mx-auto px-4 text-center">
             <span className="inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-full mb-6">
               {config.ctaBadge}
@@ -156,6 +196,8 @@ export default async function Home() {
             </div>
           </div>
         </section>
+
+        <LandPropertyGallery photos={propertyPhotos} />
 
         {/* Location & Access */}
         <section className="py-16 md:py-20 bg-white">
@@ -330,6 +372,34 @@ export default async function Home() {
               Per-parcel property tax status (Schedule B items 7 and 8) is shown in Parcel Details
               above. Contact Dr. Jan Duffy for the current title commitment and closing requirements.
             </p>
+          </div>
+        </section>
+
+        {/* Site sections */}
+        <section className="py-16 bg-white border-t border-slate-200">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Explore this listing</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { href: "/parcels", label: "Both parcels", desc: "Lot 2 & Lot 3 details" },
+                { href: "/parcels/lot-2", label: "Lot 2", desc: "APN 135-31-801-006" },
+                { href: "/parcels/lot-3", label: "Lot 3", desc: "APN 135-31-801-007" },
+                { href: "/location", label: "Location", desc: "Lovell Canyon NV 89120" },
+                { href: "/access", label: "Access", desc: "NV-160 & dirt roads" },
+                { href: "/title-report", label: "Title report", desc: "Schedule A & B" },
+                { href: "/faq", label: "FAQ", desc: "Common questions" },
+                { href: "/contact", label: "Contact", desc: "702-222-1964" },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block p-5 rounded-lg border border-slate-200 hover:border-blue-300 hover:shadow-sm transition-all"
+                >
+                  <p className="font-bold text-slate-900">{item.label}</p>
+                  <p className="text-sm text-slate-600 mt-1">{item.desc}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 

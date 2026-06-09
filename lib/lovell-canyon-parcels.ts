@@ -11,7 +11,10 @@ export const LOVELL_CANYON_LOCATION = {
   assessorMap: "135-31-8",
 } as const;
 
+export type LovellCanyonParcelSlug = "lot-2" | "lot-3";
+
 export type LovellCanyonParcel = {
+  slug: LovellCanyonParcelSlug;
   apn: string;
   label: string;
   certificateLot: string;
@@ -31,6 +34,7 @@ export const TITLE_ESTATE = "Fee simple";
 
 export const LOVELL_CANYON_PARCELS: LovellCanyonParcel[] = [
   {
+    slug: "lot-2",
     apn: "135-31-801-006",
     label: "Lot 2",
     certificateLot: "Lot 2",
@@ -48,6 +52,7 @@ export const LOVELL_CANYON_PARCELS: LovellCanyonParcel[] = [
     scheduleBItemNumber: 7,
   },
   {
+    slug: "lot-3",
     apn: "135-31-801-007",
     label: "Lot 3",
     certificateLot: "Lot 3",
@@ -77,4 +82,8 @@ export const PARCEL_PLACEHOLDER_FIELDS = [
   { key: "utilities-septic", label: "Septic" },
   { key: "road-maintenance", label: "Road maintenance" },
   { key: "hoa", label: "HOA" },
-] as const;
+];
+
+export function getParcelBySlug(slug: LovellCanyonParcelSlug): LovellCanyonParcel | undefined {
+  return LOVELL_CANYON_PARCELS.find((p) => p.slug === slug);
+}

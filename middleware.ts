@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-
-/** Only these paths should be indexed on lovellcanyon.com. */
-const INDEXABLE_PATHS = new Set(["/", "/contact"]);
+import { isIndexablePath } from "@/lib/lovell-canyon-site-pages";
 
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
 
-  // Canonical host: redirect www → apex
   if (hostname.startsWith("www.")) {
     const url = request.nextUrl.clone();
     url.host = hostname.replace(/^www\./, "");
@@ -18,7 +15,8 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next();
   response.headers.set("x-domain", hostname);
   response.headers.set("x-pathname", pathname);
-  if (!INDEXABLE_PATHS.has(pathname)) {
+
+  if (!isIndexablePath(pathname)) {
     response.headers.set("X-Robots-Tag", "noindex, follow");
   }
 
