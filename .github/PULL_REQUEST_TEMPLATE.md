@@ -19,16 +19,16 @@
 - [ ] JSON-LD schema markup included (if applicable)
 - [ ] H1 tag present and keyword-optimized
 - [ ] Berkshire Hathaway HomeServices branding consistent
-- [ ] Phone number is correct: **(702) 222-1964** for CTAs
+- [ ] Phone number matches CallAction for this site (see `lib/lovell-canyon-contact.ts`)
 
 ## Quality Checklist
-- [ ] Code builds without errors (`npm run build`)
+- [ ] Code builds without errors (`vercel build` or `pnpm validate`)
 - [ ] No TypeScript errors
-- [ ] ESLint passes (`npm run lint`)
+- [ ] ESLint passes (`pnpm lint`)
 - [ ] Tested on mobile viewport
 - [ ] Tested on desktop viewport
 - [ ] No console errors in browser
-- [ ] Devin Review feedback addressed (auto-runs on PR)
+- [ ] PR title follows [Conventional Commits](docs/GIT_WORKFLOW.md) (e.g. `feat(lovell-canyon): …`)
 
 ## Screenshots
 <!-- Add before/after screenshots if UI changes -->
@@ -37,4 +37,4 @@
 <!-- Any other context for reviewers -->
 
 ---
-**Dr. Jan Duffy** | Berkshire Hathaway HomeServices Nevada Properties
+**Dr. Jan Duffy, Land Specialist** | Berkshire Hathaway HomeServices Nevada Properties

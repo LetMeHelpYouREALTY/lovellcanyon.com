@@ -1,0 +1,31 @@
+# Delete inactive remote branches — keeps dependabot/main safe.
+# https://github.com/crs-k/stale-branches
+name: Stale Branch Cleanup
+
+on:
+  schedule:
+    # Mondays 09:00 Pacific (17:00 UTC)
+    - cron: "0 17 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: stale-branches
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    name: Remove stale remote branches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete inactive branches
+        uses: crs-k/stale-branches@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          days-before-stale: 90
+          days-before-delete: 120
+          max-issues: 30
+          pr-check: true

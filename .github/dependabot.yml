@@ -17,6 +17,7 @@ updates:
       - "automated"
     commit-message:
       prefix: "deps"
+      include: "scope"
     groups:
       # Group minor and patch updates together
       minor-and-patch:
@@ -37,3 +38,4 @@ updates:
       - "automated"
     commit-message:
       prefix: "ci"
+      include: "scope"

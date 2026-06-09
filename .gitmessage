@@ -1,0 +1,13 @@
+# <type>(<scope>): <imperative summary — max ~72 chars>
+#
+# Types: feat | fix | content | refactor | chore | deps | ci
+# Scopes: lovell-canyon | seo | realscout | engagement | pages | ci | git
+#
+# Body (optional): why this change, not what line changed.
+# Footer (optional): Fixes #123 | BREAKING CHANGE: ...
+#
+# --- COMMIT CHECKLIST ---
+# [ ] One logical change only (atomic)
+# [ ] pnpm type-check && pnpm lint pass
+# [ ] No .env, secrets, or .vercel staged
+# [ ] SEO/NAP correct for lovellcanyon.com if touching pages

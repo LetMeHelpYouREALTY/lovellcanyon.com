@@ -127,6 +127,19 @@ credentials.json
 *.tmp
 *.temp
 
+# Local-only notes (never commit)
+*.local.md
+LOCAL.md
+
+# Git worktrees (parallel branch checkouts)
+worktrees/
+
+# Cursor agent runtime (not project source)
+.cursor/projects/
+
+# Turborepo / monorepo caches
+.turbo/
+
 # ===================
 # Large Media (use Git LFS if needed)
 # ===================

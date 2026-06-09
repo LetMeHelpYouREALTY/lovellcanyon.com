@@ -1,129 +1,98 @@
-# Contributing to HeyBerkshire.com
+# Contributing to lovellcanyon.com
+
+Dr. Jan Duffy — Lovell Canyon land listing site (Next.js 14 App Router, Vercel).
 
 ## Development Setup
 
 ### Prerequisites
-- Node.js 18+
+
+- Node.js 20+
 - pnpm (recommended) or npm
 
 ### Getting Started
 
 ```bash
-# Clone the repository
-git clone https://github.com/DrJanDuffy/heyberkshire.com.git
-cd heyberkshire.com
-
-# Install dependencies
+git clone https://github.com/LetMeHelpYouREALTY/lovellcanyon.com.git
+cd lovellcanyon.com
 pnpm install
-
-# Start development server
 pnpm dev
 ```
 
 ## Project Structure
 
 ```
-heyberkshire.com/
+lovellcanyon.com/
 ├── app/                    # Next.js App Router pages
-├── components/             # React components
-│   ├── calendly/          # Calendly widget integration
-│   ├── chat/              # AI chat widget
+├── components/
+│   ├── land/              # Lovell Canyon land UI
 │   ├── layouts/           # Navbar, Footer
 │   ├── realscout/         # RealScout MLS widgets
-│   ├── sections/          # Page sections (Hero, CTA, etc.)
-│   └── ui/                # UI primitives (Button, Input)
-├── lib/                   # Utilities and constants
-├── public/                # Static assets
-│   ├── images/            # Image assets (organized by type)
-│   └── videos/            # Video assets
-└── .cursor/rules/         # Cursor AI rules
+│   └── sections/          # Shared page sections
+├── lib/
+│   ├── lovell-canyon-*    # Site-specific SEO, schema, media, geo
+│   └── ...
+├── public/images/         # Static assets (heroes, logos)
+└── docs/GIT_WORKFLOW.md   # Branching, commits, PR hygiene
 ```
-
-## Code Standards
-
-### TypeScript
-- Use strict mode
-- Define types for all props
-- Prefer interfaces over types for objects
-
-### Components
-- Functional components only
-- Use `"use client"` only when needed
-- Keep components under 200 lines
-
-### Styling
-- Tailwind CSS utility classes
-- Use `cn()` helper for conditional classes
-- Mobile-first responsive design
 
 ## Git Workflow
 
-### Branch Naming
-- `feature/description` - New features
-- `fix/description` - Bug fixes
-- `content/description` - Content updates
+**Full guide:** [docs/GIT_WORKFLOW.md](./docs/GIT_WORKFLOW.md)
 
-### Commit Messages
-Use clear, descriptive messages:
+### Branch naming
+
+- `feature/description` — new features
+- `fix/description` — bug fixes
+- `content/description` — SEO / copy / images
+- `chore/description` — tooling, CI, git
+
+### Commit messages (Conventional Commits)
+
+```text
+feat(lovell-canyon): add parcel hero ImageObject schema
+content(seo): update homepage title for Land Specialist branding
+chore(git): add stale branch cleanup workflow
 ```
-feat: Add neighborhood page for Summerlin
-fix: Resolve Calendly widget not loading
-content: Update FAQ section
+
+Optional local commit template:
+
+```bash
+git config commit.template .gitmessage
 ```
 
-### Pull Requests
-1. Create feature branch from `main`
-2. Make changes and test locally
-3. Push and create PR
-4. Fill out PR template
-5. Request review
+### Pull requests
 
-## Adding Media Assets
+1. Branch from `main`, keep PRs atomic (one logical change)
+2. Run `pnpm validate` before opening
+3. Fill out the PR template (pages affected, SEO checklist)
+4. Merge via PR — `main` deploys to production on Vercel
 
-### Images
-- Place in appropriate `/public/images/` subfolder
-- Use WebP format when possible
-- Optimize before committing (<200KB)
-- See `/public/images/README.md` for specs
+## Code Standards
 
-### Videos
-- Place in `/public/videos/`
-- Use MP4 (H.264) format
-- Keep hero videos under 5MB
-- See `/public/videos/README.md` for specs
+- TypeScript strict mode; explicit prop types
+- Server Components by default; `"use client"` only when needed
+- Tailwind CSS; mobile-first
+- Lovell Canyon NAP/schema must match GBP — see `lib/lovell-canyon-brand.ts`
 
 ## Widget Integration
 
-### RealScout
-Script loaded globally in layout. Use `dangerouslySetInnerHTML` for widgets.
-See `.cursor/rules/` for patterns.
+- **RealScout** — script in root layout; widgets via `dangerouslySetInnerHTML`
+- **Calendly** — `afterInteractive` in layout
 
-### Calendly
-Script loaded globally with `afterInteractive` strategy.
-Use `Calendly.initInlineWidget()` API.
-See `.cursor/rules/calendly-widget-integration.mdc`.
-
-## Testing Locally
+## Testing & Deploy
 
 ```bash
-# Type check
 pnpm type-check
-
-# Build for production
-pnpm build
-
-# Preview production build
-pnpm start
+pnpm lint
+pnpm validate          # type-check + lint + format check
+vercel build           # production build (preferred over pnpm build)
 ```
 
-## Deployment
-
-Automatic deployments via Vercel:
-- Push to `main` → Production deploy
-- Push to feature branch → Preview deploy
+- Push to `main` → Vercel production
+- Feature branches → Vercel preview URLs
 
 ## Need Help?
 
-- Check existing `.cursor/rules/` for patterns
-- Review component examples in `/components/`
-- Contact project maintainer
+- Git hygiene: `pwsh scripts/git/status-summary.ps1`
+- Cursor rules: `.cursor/rules/`
+- Site config: `lib/lovell-canyon-brand.ts`, `lib/lovell-canyon-seo.ts`
