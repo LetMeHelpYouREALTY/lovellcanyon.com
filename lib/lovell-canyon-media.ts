@@ -8,8 +8,6 @@
  *   lovell-canyon/gallery/01.jpg
  */
 
-import { existsSync } from "fs";
-import path from "path";
 import {
   getLovellCanyonHeroDefinition,
   type LovellCanyonHeroDefinition,
@@ -86,22 +84,14 @@ function heroDefinitionToPhoto(
   };
 }
 
-function publicFileExists(localPath: string): boolean {
-  const relativePath = localPath.replace(/^\//, "");
-  return existsSync(path.join(process.cwd(), "public", relativePath));
-}
-
-async function resolveHeroUrl(r2Key: string, localPath: string): Promise<{ url: string; key: string } | null> {
+async function resolveHeroUrl(r2Key: string, localPath: string): Promise<{ url: string; key: string }> {
   const r2Url = getR2ObjectUrl(r2Key);
   if (await r2ObjectExists(r2Url)) {
     return { url: r2Url, key: r2Key };
   }
 
-  if (publicFileExists(localPath)) {
-    return { url: localPath, key: localPath };
-  }
-
-  return null;
+  // Edge-safe fallback: public/ paths (no fs — opengraph-image runs on Edge).
+  return { url: localPath, key: localPath };
 }
 
 /** Page-specific hero — R2 first, then public/images fallback. */
@@ -110,7 +100,6 @@ export async function getLovellCanyonPageHero(pathname: string): Promise<LovellC
   if (!definition) return null;
 
   const resolved = await resolveHeroUrl(definition.r2Key, definition.localPath);
-  if (!resolved) return null;
 
   return heroDefinitionToPhoto(definition, resolved.url, resolved.key);
 }

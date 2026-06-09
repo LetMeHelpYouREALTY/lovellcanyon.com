@@ -1,10 +1,12 @@
 import { ImageResponse } from "next/og";
 import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
 import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
-import { LOVELL_CANYON_SEO } from "@/lib/lovell-canyon-seo";
+
+const OG_IMAGE_ALT =
+  "Lovell Canyon raw land parcels — APN 135-31-801-006 and 135-31-801-007";
 
 export const runtime = "edge";
-export const alt = LOVELL_CANYON_SEO.imageAlt;
+export const alt = OG_IMAGE_ALT;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
