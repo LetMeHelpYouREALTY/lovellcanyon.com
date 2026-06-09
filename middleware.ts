@@ -4,13 +4,6 @@ import { isIndexablePath } from "@/lib/lovell-canyon-site-pages";
 
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
-
-  if (hostname.startsWith("www.")) {
-    const url = request.nextUrl.clone();
-    url.host = hostname.replace(/^www\./, "");
-    return NextResponse.redirect(url, 301);
-  }
-
   const { pathname } = request.nextUrl;
   const response = NextResponse.next();
   response.headers.set("x-domain", hostname);
