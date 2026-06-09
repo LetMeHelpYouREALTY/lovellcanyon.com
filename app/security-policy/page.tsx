@@ -1,8 +1,11 @@
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
+import Navbar from "@/components/layouts/Navbar";
+import Footer from "@/components/layouts/Footer";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 
 export const metadata: Metadata = {
-  title: 'Security Policy',
-  description: 'Security policy and responsible disclosure information for heyberkshire.com',
+  title: "Security Policy",
+  description: "Security policy and responsible disclosure information for lovellcanyon.com",
   robots: {
     index: true,
     follow: true,
@@ -11,13 +14,14 @@ export const metadata: Metadata = {
 
 export default function SecurityPolicyPage() {
   return (
-    <div className="min-h-screen bg-white py-12">
-      <div className="container mx-auto max-w-4xl px-4">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">
-          Security Policy
-        </h1>
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-white py-12">
+        <div className="container mx-auto max-w-4xl px-4">
+          <h1 className="text-4xl font-bold text-gray-900 mb-8">Security Policy</h1>
+          <BelowHeroEngagement />
 
-        <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none">
           {/* Overview */}
           <section className="mb-12">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">
@@ -270,6 +274,8 @@ export default function SecurityPolicyPage() {
           </footer>
         </div>
       </div>
-    </div>
-  )
+      </main>
+      <Footer />
+    </>
+  );
 }

@@ -18,6 +18,7 @@ import {
   Heart,
 } from "lucide-react";
 import type { Metadata } from "next";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import {
   businessInfo,
   gbpDescription,
@@ -123,6 +124,8 @@ export default function GoogleBusinessPage() {
               </div>
             </div>
           </section>
+
+          <BelowHeroEngagement />
 
           {/* Business Hours */}
           <section className="max-w-5xl mx-auto mb-16">

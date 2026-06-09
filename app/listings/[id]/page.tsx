@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Bed, Bath, Square, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 
 export const metadata: Metadata = {
   title: "Property Details | Las Vegas & Henderson Real Estate",
@@ -83,6 +84,8 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
             />
           </div>
 
+          <BelowHeroEngagement />
+
           {/* Property Details Grid */}
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {/* Main Content */}
@@ -111,7 +114,9 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                     <Calendar className="h-5 w-5 text-blue-600 mr-2" />
                     <span className="text-slate-700">Built {property.yearBuilt}</span>
                   </div>
-                </div>
+                
+
+        <BelowHeroEngagement /></div>
               </div>
 
               {/* RealScout Widget Integration Point */}

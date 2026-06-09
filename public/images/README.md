@@ -4,6 +4,8 @@
 
 ```
 images/
+├── heroes/
+│   └── lovell-canyon/   # Lovell Canyon land page heroes (see README there)
 ├── hero/           # Homepage hero backgrounds
 ├── agent/          # Dr. Jan Duffy photos
 ├── properties/     # Listing photos

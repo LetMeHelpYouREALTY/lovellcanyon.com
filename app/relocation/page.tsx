@@ -1,6 +1,5 @@
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import RealScoutListings from "@/components/realscout/RealScoutListings";
 import Link from "next/link";
 import { 
   Phone, 
@@ -19,6 +18,7 @@ import {
   Globe,
 } from "lucide-react";
 import type { Metadata } from "next";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 
 export const metadata: Metadata = {
   title: "Relocating to Las Vegas | Berkshire Hathaway HomeServices",
@@ -112,6 +112,7 @@ export default function RelocationPage() {
       />
       <Navbar />
       <main className="pt-24 pb-16">
+        <BelowHeroEngagement />
         <div className="container mx-auto px-4">
           {/* Hero */}
           <div className="max-w-4xl mx-auto text-center mb-16">
@@ -449,7 +450,6 @@ export default function RelocationPage() {
         {/* Last Updated */}
         <div className="text-center text-sm text-slate-500 mt-8">Last Updated: January 2026</div>
       </main>
-      <RealScoutListings />
       <Footer />
     </>
   );

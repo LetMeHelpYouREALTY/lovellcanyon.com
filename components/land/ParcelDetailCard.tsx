@@ -31,10 +31,6 @@ export default function ParcelDetailCard({ parcel, showParcelLink = true }: Parc
           <dd className="text-slate-900">{parcel.estate}</dd>
         </div>
         <div className="border-b border-slate-100 pb-3">
-          <dt className="text-slate-600 font-medium mb-1">Title vested in</dt>
-          <dd className="text-slate-900">{parcel.titleVestedIn}</dd>
-        </div>
-        <div className="border-b border-slate-100 pb-3">
           <dt className="text-slate-600 font-medium mb-1">Certificate lot</dt>
           <dd className="text-slate-900">{parcel.certificateLot}</dd>
         </div>

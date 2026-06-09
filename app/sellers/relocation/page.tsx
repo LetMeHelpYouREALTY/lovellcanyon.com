@@ -1,6 +1,5 @@
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
-import RealScoutListings from "@/components/realscout/RealScoutListings";
 import Link from "next/link";
 import {
   Phone,
@@ -14,6 +13,7 @@ import {
   Calendar,
 } from "lucide-react";
 import type { Metadata } from "next";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 
 export const metadata: Metadata = {
   title: "Relocation Home Sales Las Vegas | Berkshire Hathaway HomeServices",
@@ -33,6 +33,7 @@ export default function RelocationPage() {
     <>
       <Navbar />
       <main className="pt-24 pb-16">
+        <BelowHeroEngagement />
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <div className="max-w-6xl mx-auto mb-6">
@@ -519,7 +520,6 @@ export default function RelocationPage() {
         </div>
         <div className="text-center text-sm text-slate-500 mt-8">Last Updated: January 2026</div>
       </main>
-      <RealScoutListings />
       <Footer />
     </>
   );

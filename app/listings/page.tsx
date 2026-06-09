@@ -1,6 +1,7 @@
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 import Link from "next/link";
+import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import {
   Phone,
   Home,
@@ -136,21 +137,7 @@ export default function ListingsPage() {
             </div>
           </div>
 
-          {/* RealScout Widget - Live MLS Listings */}
-          <section className="mb-16">
-            <div className="max-w-7xl mx-auto">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: `<realscout-office-listings 
-                    agent-encoded-id="QWdlbnQtMjI1MDUw" 
-                    sort-order="NEWEST" 
-                    listing-status="For Sale" 
-                    property-types=",SFR,MF,TC"
-                  ></realscout-office-listings>`,
-                }}
-              />
-            </div>
-          </section>
+          <BelowHeroEngagement />
 
           {/* Popular Searches Section */}
           <section className="mb-16 max-w-6xl mx-auto">
