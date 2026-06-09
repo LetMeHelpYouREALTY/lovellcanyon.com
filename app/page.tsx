@@ -5,6 +5,7 @@ import {
   getLovellCanyonHeroPhoto,
 } from "@/lib/lovell-canyon-media";
 import { LandPropertyGallery } from "@/components/land/LandPropertyGallery";
+import { MainlineHero } from "@/components/land/MainlineHero";
 import {
   LOVELL_CANYON_LOCATION,
   LOVELL_CANYON_PARCELS,
@@ -162,40 +163,13 @@ export default async function Home() {
       ))}
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="relative bg-slate-900 text-white py-24 md:py-32 overflow-hidden">
-          {heroPhoto ? (
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-40"
-              style={{ backgroundImage: `url('${heroPhoto.url}')` }}
-              role="img"
-              aria-label={heroPhoto.alt}
-            />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-blue-950 opacity-90" />
-          )}
-          <div className="relative z-10 container mx-auto px-4 text-center">
-            <span className="inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-full mb-6">
-              {config.ctaBadge}
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              {config.heroHeadline}
-            </h1>
-            <p className="text-xl md:text-2xl text-white/80 mb-6 max-w-3xl mx-auto">
-              {config.heroSubheadline}
-            </p>
-            <div className="flex flex-wrap justify-center gap-3 text-sm text-white/90">
-              {LOVELL_CANYON_PARCELS.map((parcel) => (
-                <span
-                  key={parcel.apn}
-                  className="bg-white/10 border border-white/20 rounded-full px-4 py-2"
-                >
-                  {parcel.label} · APN {parcel.apn}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
+        <MainlineHero
+          badge={config.ctaBadge}
+          headline={config.heroHeadline}
+          subheadline={config.heroSubheadline}
+          heroImageUrl={heroPhoto?.url}
+          heroImageAlt={heroPhoto?.alt}
+        />
 
         <LandPropertyGallery photos={propertyPhotos} />
 
