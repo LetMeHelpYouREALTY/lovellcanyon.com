@@ -11,7 +11,7 @@ export interface DomainConfig {
   heroHeadline: string;
   heroSubheadline: string;
   keywords: string[];
-  pageType: "community" | "search" | "lifestyle" | "investment" | "55plus" | "luxury";
+  pageType: "community" | "search" | "lifestyle" | "investment" | "55plus" | "luxury" | "land";
   realscoutAgentId: string;
   ctaBadge: string;
   ctaHeadline: string;
@@ -82,23 +82,55 @@ export const DOMAIN_CONFIGS: Record<string, DomainConfig> = {
   "vegasvalleyhomesforsale.com": { domain: "vegasvalleyhomesforsale.com", neighborhood: "Las Vegas Valley", tagline: "Vegas Valley Homes for Sale", description: "Search all Vegas Valley homes for sale. Every neighborhood, every price range. Dr. Jan Duffy, BHHS.", heroHeadline: "Vegas Valley Homes for Sale", heroSubheadline: "Every home, every neighborhood, every price point across the entire Las Vegas Valley.", keywords: ["Vegas Valley homes for sale", "Las Vegas Valley real estate", "Southern Nevada homes"], pageType: "search", realscoutAgentId: REALSCOUT_AGENT_ID, ctaBadge: "Valley-Wide Expert", ctaHeadline: "Search the Entire Vegas Valley", ctaSubheadline: "From Henderson to North Las Vegas — I cover every corner of the Valley." },
   "waterfallhomesnorthlasvegas.com": { domain: "waterfallhomesnorthlasvegas.com", neighborhood: "Waterfall Homes", tagline: "Waterfall Homes North Las Vegas", description: "Waterfall Homes community in North Las Vegas. Expert real estate guidance from Dr. Jan Duffy.", heroHeadline: "Waterfall Homes North Las Vegas", heroSubheadline: "Beautiful North Las Vegas community with distinctive waterfall features.", keywords: ["Waterfall Homes North Las Vegas", "North Las Vegas community", "North LV homes for sale"], pageType: "community", realscoutAgentId: REALSCOUT_AGENT_ID, ctaBadge: "North LV Specialist", ctaHeadline: "Find Your Waterfall Homes Property", ctaSubheadline: "Great value, great community — let me show you what is available." },
   "zoomintohomes.com": { domain: "zoomintohomes.com", neighborhood: "Las Vegas", tagline: "Zoom Into Las Vegas Homes", description: "Virtual home tours and in-depth Las Vegas real estate guidance from Dr. Jan Duffy.", heroHeadline: "Zoom Into Las Vegas Homes", heroSubheadline: "Virtual tours, 3D walkthroughs, and live video showings — home buying on your schedule.", keywords: ["virtual home tours Las Vegas", "zoom home tour Las Vegas", "remote home buying Las Vegas"], pageType: "search", realscoutAgentId: REALSCOUT_AGENT_ID, ctaBadge: "Virtual Tour Expert", ctaHeadline: "Tour Homes From Anywhere", ctaSubheadline: "Cannot visit in person? I will do a live video tour of any Las Vegas home. Call 702-222-1964." },
+  "lovellcanyon.com": {
+    domain: "lovellcanyon.com",
+    neighborhood: "Lovell Canyon",
+    tagline: "Raw Land Parcels — Lovell Canyon, NV",
+    description:
+      "Two raw land parcels in Lovell Canyon, Clark County NV (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
+    heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
+    heroSubheadline:
+      "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV. Near Pahrump, off NV-160 via Lovell Canyon Rd.",
+    keywords: [
+      "Lovell Canyon land for sale",
+      "Clark County NV land",
+      "raw land Lovell Canyon",
+      "APN 135-31-801-006",
+      "APN 135-31-801-007",
+      "Nevada land parcels",
+    ],
+    pageType: "land",
+    realscoutAgentId: REALSCOUT_AGENT_ID,
+    ctaBadge: "Land Listing",
+    ctaHeadline: "Inquire About These Parcels",
+    ctaSubheadline: "Call or text Dr. Jan Duffy for parcel details, access information, and next steps.",
+  },
 
 };
 
-// Default config for any domain not specifically listed
+// Default config — lovellcanyon.com dedicated deployment
 export const DEFAULT_CONFIG: DomainConfig = {
-  domain: "default",
-  neighborhood: "Las Vegas",
-  tagline: "Las Vegas Homes for Sale",
-  description: "Search Las Vegas homes for sale. Expert real estate guidance from Dr. Jan Duffy, BHHS Nevada Properties.",
-  heroHeadline: "Las Vegas Homes for Sale",
-  heroSubheadline: "Expert real estate guidance from Dr. Jan Duffy — 30+ years, 500+ families helped.",
-  keywords: ["Las Vegas homes for sale", "Las Vegas real estate", "Dr Jan Duffy"],
-  pageType: "search",
+  domain: "lovellcanyon.com",
+  neighborhood: "Lovell Canyon",
+  tagline: "Raw Land Parcels — Lovell Canyon, NV",
+  description:
+    "Two raw land parcels in Lovell Canyon, Clark County NV (APN 135-31-801-006 & 135-31-801-007). Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
+  heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
+  heroSubheadline:
+    "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV. Near Pahrump, off NV-160 via Lovell Canyon Rd.",
+  keywords: [
+    "Lovell Canyon land for sale",
+    "Clark County NV land",
+    "raw land Lovell Canyon",
+    "APN 135-31-801-006",
+    "APN 135-31-801-007",
+    "Nevada land parcels",
+  ],
+  pageType: "land",
   realscoutAgentId: REALSCOUT_AGENT_ID,
-  ctaBadge: "Las Vegas Expert",
-  ctaHeadline: "Find Your Las Vegas Home",
-  ctaSubheadline: "Call or text Dr. Jan at 702-222-1964 — I answer my own phone.",
+  ctaBadge: "Land Listing",
+  ctaHeadline: "Inquire About These Parcels",
+  ctaSubheadline: "Call or text Dr. Jan Duffy for parcel details, access information, and next steps.",
 };
 
 export function getDomainConfig(hostname: string): DomainConfig {

@@ -1,5 +1,5 @@
-# robots.txt for heyberkshire.com
-# Real estate site for Dr. Jan Duffy
+# robots.txt for lovellcanyon.com
+# Raw land listing — Dr. Jan Duffy
 
 # Allow all search engines
 User-agent: *
@@ -11,16 +11,11 @@ Disallow: /admin/
 Disallow: /_next/
 Disallow: /monitoring/
 
-# Allow critical pages for SEO
-Allow: /neighborhoods/
-Allow: /buyers/
-Allow: /sellers/
-Allow: /about/
+# Indexable pages for this land listing site: / and /contact
 Allow: /contact/
-Allow: /blog/
 
 # Sitemap location
-Sitemap: https://heyberkshire.com/sitemap.xml
+Sitemap: https://lovellcanyon.com/sitemap.xml
 
 # Crawl-delay for aggressive bots (optional)
 User-agent: AhrefsBot
@@ -29,18 +24,18 @@ Crawl-delay: 10
 User-agent: SemrushBot
 Crawl-delay: 10
 
-# Block known bad bots
+# Allow AI crawlers for discoverability
 User-agent: GPTBot
-Disallow: /
+Allow: /
 
 User-agent: CCBot
-Disallow: /
+Allow: /
 
 User-agent: anthropic-ai
-Disallow: /
+Allow: /
 
 User-agent: Claude-Web
-Disallow: /
+Allow: /
 
 # Allow Google's AI bot (for SGE - Search Generative Experience)
 User-agent: Google-Extended
