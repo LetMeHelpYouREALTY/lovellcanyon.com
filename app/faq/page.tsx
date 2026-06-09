@@ -3,8 +3,9 @@ import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 import LandPageHero from "@/components/land/LandPageHero";
 import LandCta from "@/components/land/LandCta";
-import { getLovellCanyonPageMetadata } from "@/lib/lovell-canyon-seo";
 import { LOVELL_CANYON_FAQS } from "@/lib/lovell-canyon-faq";
+import { getLovellCanyonFaqSchema } from "@/lib/lovell-canyon-schema";
+import { getLovellCanyonPageMetadata } from "@/lib/lovell-canyon-seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadata(
@@ -14,15 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   );
 }
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: LOVELL_CANYON_FAQS.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: { "@type": "Answer", text: faq.answer },
-  })),
-};
+const faqSchema = getLovellCanyonFaqSchema(LOVELL_CANYON_FAQS);
 
 export default function FaqPage() {
   return (

@@ -38,9 +38,9 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           <Link href="/" className="flex flex-col">
             <span className="text-lg md:text-xl font-bold text-slate-900 hover:text-blue-600 transition-colors leading-tight">
-              Lovell Canyon <span className="text-blue-600">Land</span>
+              Lovell Canyon <span className="text-blue-600">| Land</span>
             </span>
-            <span className="text-xs text-slate-500 hidden sm:block">Dr. Jan Duffy · BHHS Nevada</span>
+            <span className="text-xs text-slate-500 hidden sm:block">by Dr. Jan Duffy · BHHS Nevada</span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-4">

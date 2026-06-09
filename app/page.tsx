@@ -16,6 +16,8 @@ import {
   SCHEDULE_B_GENERAL_EXCEPTIONS,
   SCHEDULE_B_STANDARD_EXCEPTIONS_NOTE,
 } from "@/lib/lovell-canyon-title-schedule-b";
+import { LOVELL_CANYON_FAQS } from "@/lib/lovell-canyon-faq";
+import { getLovellCanyonFaqSchema } from "@/lib/lovell-canyon-schema";
 
 export async function generateMetadata(): Promise<Metadata> {
   const base = getLovellCanyonMetadata("/");
@@ -126,33 +128,13 @@ export default async function Home() {
     },
   }));
 
-  const agentSchema = {
-    "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
-    name: "Dr. Jan Duffy — Lovell Canyon Land",
-    url: siteUrl,
-    telephone: "+17022221964",
-    jobTitle: "REALTOR®",
-    identifier: "S.0197614.LLC",
-    worksFor: {
-      "@type": "Organization",
-      name: "Berkshire Hathaway HomeServices Nevada Properties",
-    },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "9406 W Lake Mead Blvd, Suite 100",
-      addressLocality: "Las Vegas",
-      addressRegion: "NV",
-      postalCode: "89134",
-      addressCountry: "US",
-    },
-  };
+  const faqSchema = getLovellCanyonFaqSchema(LOVELL_CANYON_FAQS.slice(0, 6));
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(agentSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       {listingSchemas.map((schema) => (
         <script

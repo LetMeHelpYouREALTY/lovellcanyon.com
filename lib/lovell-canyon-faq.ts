@@ -2,14 +2,39 @@ export type LandFaq = { question: string; answer: string };
 
 export const LOVELL_CANYON_FAQS: LandFaq[] = [
   {
+    question: "What is Lovell Canyon | Land by Dr. Jan Duffy?",
+    answer:
+      "Lovell Canyon | Land by Dr. Jan Duffy is the official listing site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89120 — Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007). Dr. Jan Duffy, REALTOR® (License S.0197614.LLC) with Berkshire Hathaway HomeServices Nevada Properties, is the listing agent. Call or text 702-222-1964.",
+  },
+  {
+    question: "Where is Lovell Canyon land for sale in Nevada?",
+    answer:
+      "The parcels are in Lovell Canyon, an unincorporated area of Clark County, Nevada 89120, west of the Las Vegas Valley near Mountain Springs and Pahrump. Legal location: Section 31, Township 20 South, Range 57 East (T20S R57E), assessor map 135-31-8.",
+  },
+  {
     question: "What parcels are offered on this site?",
     answer:
       "Two fee simple land parcels in Lovell Canyon, Clark County NV 89120: Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007), Section 31, T20S R57E.",
   },
   {
+    question: "What is the APN for Lovell Canyon Lot 2 and Lot 3?",
+    answer:
+      "Lot 2 is Clark County APN 135-31-801-006. Lot 3 is APN 135-31-801-007. Both are fee simple estates per title report Schedule A.",
+  },
+  {
     question: "How do I reach Lovell Canyon from Las Vegas?",
     answer:
-      "From NV-160 (Blue Diamond Rd / Pahrump Highway), drive west past Mountain Springs and turn north on Lovell Canyon Rd (paved). Local access to the parcels continues via dirt roads listed on the Access page.",
+      "From NV-160 (Blue Diamond Rd / Pahrump Highway), drive west past Mountain Springs and turn north on Lovell Canyon Rd (paved, approximately 11–12 miles). Local access to the parcels continues via dirt roads listed on the Access page.",
+  },
+  {
+    question: "How far is Lovell Canyon from Las Vegas?",
+    answer:
+      "Lovell Canyon is west of the Las Vegas Valley, reached via NV-160 past Mountain Springs, then north on paved Lovell Canyon Road for roughly 11–12 miles. Drive time varies with traffic and road conditions; plan for a mountain-road drive from the valley.",
+  },
+  {
+    question: "Is the Lovell Canyon land fee simple?",
+    answer:
+      "Yes. Title report Schedule A describes a fee simple estate in both parcels. Full legal descriptions and Schedule B title exceptions are published on the Title Report and parcel pages.",
   },
   {
     question: "What zip code applies to these parcels?",

@@ -2,20 +2,25 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "@/lib/site-url";
 
 export const LOVELL_CANYON_SEO = {
-  title: "Lovell Canyon Land for Sale | APN 135-31-801-006 & 007 | Dr. Jan Duffy",
+  siteName: "Lovell Canyon | Land by Dr. Jan Duffy",
+  brandShort: "Lovell Canyon Land",
+  title: "Lovell Canyon | Land by Dr. Jan Duffy — APN 135-31-801-006 & 007",
   description:
-    "Fee simple land in Lovell Canyon, Clark County NV 89120 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
-  ogTitle: "Lovell Canyon Raw Land — Two Parcels",
-  siteName: "Lovell Canyon Land — Dr. Jan Duffy",
+    "Fee simple raw land in Lovell Canyon, Clark County NV 89120 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Access via NV-160 and Lovell Canyon Rd. Listed by Dr. Jan Duffy, REALTOR®.",
+  ogTitle: "Lovell Canyon | Land by Dr. Jan Duffy — Two Raw Land Parcels",
   imageAlt: "Lovell Canyon raw land parcels — APN 135-31-801-006 and 135-31-801-007",
   keywords: [
     "Lovell Canyon land for sale",
+    "Lovell Canyon NV 89120 land",
     "89120 land for sale",
-    "Clark County NV land",
-    "raw land Lovell Canyon",
+    "Clark County NV raw land",
+    "raw land Lovell Canyon Nevada",
     "APN 135-31-801-006",
     "APN 135-31-801-007",
-    "Nevada land parcels",
+    "fee simple land Lovell Canyon",
+    "how to get to Lovell Canyon from Las Vegas",
+    "Lovell Canyon land listing agent",
+    "Nevada vacant land parcels",
   ],
 } as const;
 
@@ -52,6 +57,7 @@ export function getLovellCanyonMetadata(pathname = "/"): Metadata {
 
   return {
     metadataBase: new URL(siteUrl),
+    applicationName: LOVELL_CANYON_SEO.siteName,
     title: LOVELL_CANYON_SEO.title,
     description: LOVELL_CANYON_SEO.description,
     keywords: [...LOVELL_CANYON_SEO.keywords],

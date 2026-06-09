@@ -2,9 +2,20 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { headers } from "next/headers";
+import {
+  getLovellCanyonAgentSchema,
+  getLovellCanyonPlaceSchema,
+  getLovellCanyonWebSiteSchema,
+} from "@/lib/lovell-canyon-schema";
 import { getLovellCanyonMetadata } from "@/lib/lovell-canyon-seo";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+
+const globalSchemas = [
+  getLovellCanyonWebSiteSchema(),
+  getLovellCanyonAgentSchema(),
+  getLovellCanyonPlaceSchema(),
+];
 
 export async function generateMetadata(): Promise<Metadata> {
   const pathname = headers().get("x-pathname") || "/";
@@ -27,6 +38,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}</Script>
       </head>
       <body>
+        {globalSchemas.map((schema) => (
+          <script
+            key={schema["@type"]}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
         {children}
         <Analytics />
       </body>

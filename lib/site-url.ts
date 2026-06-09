@@ -1,4 +1,5 @@
-const SITE_HOST = "lovellcanyon.com";
+/** Matches Vercel primary domain (apex redirects to www). */
+const SITE_HOST = "www.lovellcanyon.com";
 
 /** Canonical origin for lovellcanyon.com (no trailing slash). */
 export function getSiteUrl(): string {

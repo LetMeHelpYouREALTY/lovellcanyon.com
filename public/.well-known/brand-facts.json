@@ -1,0 +1,57 @@
+{
+  "brand": {
+    "name": "Lovell Canyon | Land by Dr. Jan Duffy",
+    "shortName": "Lovell Canyon Land",
+    "url": "https://www.lovellcanyon.com",
+    "description": "Official listing site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89120.",
+    "category": "Real estate land listing",
+    "language": "en-US"
+  },
+  "agent": {
+    "name": "Dr. Jan Duffy",
+    "title": "REALTOR®",
+    "license": "S.0197614.LLC",
+    "phone": "+17022221964",
+    "phoneDisplay": "702-222-1964",
+    "brokerage": "Berkshire Hathaway HomeServices Nevada Properties",
+    "officeAddress": {
+      "street": "9406 W Lake Mead Blvd, Suite 100",
+      "city": "Las Vegas",
+      "state": "NV",
+      "postalCode": "89134",
+      "country": "US"
+    }
+  },
+  "parcels": [
+    {
+      "label": "Lot 2",
+      "apn": "135-31-801-006",
+      "estate": "Fee simple",
+      "url": "https://www.lovellcanyon.com/parcels/lot-2"
+    },
+    {
+      "label": "Lot 3",
+      "apn": "135-31-801-007",
+      "estate": "Fee simple",
+      "url": "https://www.lovellcanyon.com/parcels/lot-3"
+    }
+  ],
+  "location": {
+    "locality": "Lovell Canyon",
+    "county": "Clark County",
+    "state": "Nevada",
+    "postalCode": "89120",
+    "legal": "Section 31, T20S R57E",
+    "access": "NV-160 west of Mountain Springs, north on Lovell Canyon Rd (paved, ~11–12 miles)"
+  },
+  "verifiedFacts": {
+    "propertyTaxFiscalYear": "2025-2026",
+    "propertyTaxPerParcel": "$285.90",
+    "propertyTaxStatus": "Paid in full per title report Schedule B"
+  },
+  "contact": {
+    "phone": "702-222-1964",
+    "contactPage": "https://www.lovellcanyon.com/contact"
+  },
+  "lastUpdated": "2026-06-09"
+}
