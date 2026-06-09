@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
 
   return {
     rules: [
-      allowPublic,
+      { userAgent: "*", ...allowPublic },
       { userAgent: "Googlebot", ...allowPublic },
       { userAgent: "GPTBot", ...allowPublic },
       { userAgent: "ChatGPT-User", ...allowPublic },
