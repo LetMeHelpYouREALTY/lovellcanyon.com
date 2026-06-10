@@ -21,14 +21,11 @@ After material content changes (ZIP 89124, gallery photos, parcel copy), request
 
 ## GBP NAP alignment
 
-Parcel location ZIP on site and schema: **89124** (Clark County, Lovell Canyon — not 89120 East Las Vegas, not Pahrump 89048).
+See **[gbp-nap-audit.md](./gbp-nap-audit.md)** for copy-paste GBP fields and the ≤750-character business description.
 
-Update Google Business Profile service area / description to match:
-
-- **Area:** Lovell Canyon, Spring Mountains, Clark County NV 89124
-- **Do not use:** "near Pahrump" as primary positioning
-
-Office NAP (brokerage): 9406 W Lake Mead Blvd, Suite 100, Las Vegas, NV 89134 — parcels are not at this address.
+- Parcel ZIP: **89124** (not 89120 or Pahrump 89048)
+- Office ZIP: **89134** (brokerage — not parcel location)
+- Site reference: `/google-business` and `lib/lovell-canyon-gbp.ts`
 
 ## Assessor verification (APNs)
 
