@@ -1,3 +1,4 @@
+import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
 import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
 import { LOVELL_CANYON_LOCATION } from "@/lib/lovell-canyon-parcels";
@@ -12,7 +13,7 @@ export const LOVELL_CANYON_FAQS: LandFaq[] = [
   },
   {
     question: "Where is Lovell Canyon land for sale in Nevada?",
-    answer: `The parcels sit in Lovell Canyon, an unincorporated area of Clark County, Nevada 89124, west of the Las Vegas Valley near Mountain Springs and Pahrump. ${LAND_GLOSSARY.legalLocationPlain}: ${LOVELL_CANYON_LOCATION.section}, Township 20 South, Range 57 East (T20S R57E), ${LAND_GLOSSARY.assessorMapPlain} ${LOVELL_CANYON_LOCATION.assessorMap}.`,
+    answer: `The parcels sit in Lovell Canyon, an unincorporated area of Clark County, Nevada 89124. ${LOVELL_CANYON_AREA.areaContext} ${LAND_GLOSSARY.legalLocationPlain}: ${LOVELL_CANYON_LOCATION.section}, Township 20 South, Range 57 East (T20S R57E), ${LAND_GLOSSARY.assessorMapPlain} ${LOVELL_CANYON_LOCATION.assessorMap}.`,
   },
   {
     question: "What parcels are offered on this site?",
@@ -25,7 +26,7 @@ export const LOVELL_CANYON_FAQS: LandFaq[] = [
   {
     question: "How do I reach Lovell Canyon from Las Vegas?",
     answer:
-      "From NV-160 (Blue Diamond Rd / Pahrump Highway), drive west past Mountain Springs and turn north on Lovell Canyon Rd (paved, approximately 11–12 miles). Local access to the parcels continues via dirt roads listed on the Access page.",
+      `From ${LOVELL_CANYON_AREA.highwayNote}, then continue north on Lovell Canyon Rd (paved, ${LOVELL_CANYON_AREA.lovellCanyonRoadMiles}). Local access to the parcels continues via dirt roads listed on the Access page.`,
   },
   {
     question: "How far is Lovell Canyon from Las Vegas?",

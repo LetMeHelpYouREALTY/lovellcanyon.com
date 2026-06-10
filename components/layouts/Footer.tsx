@@ -1,39 +1,39 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, ExternalLink, Facebook, Instagram, Linkedin } from "lucide-react";
 import {
   LOVELL_CANYON_EMAIL,
   LOVELL_CANYON_EMAIL_HREF,
   LOVELL_CANYON_OFFICE,
   LOVELL_CANYON_PHONE_DISPLAY,
   LOVELL_CANYON_PHONE_TEL,
+  LOVELL_CANYON_SOCIAL,
   AGENT_LISTINGS_LINK_LABEL,
   REALSCOUT_OFFICE_URL,
 } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_BRAND } from "@/lib/lovell-canyon-brand";
+import {
+  LOVELL_CANYON_FOOTER_LAND_LINKS,
+  LOVELL_CANYON_FOOTER_RESOURCE_LINKS,
+} from "@/lib/lovell-canyon-footer";
 
-const LAND_LINKS = [
-  { href: "/parcels", label: "Parcels Overview" },
-  { href: "/parcels/lot-2", label: "Lot 2 — APN 135-31-801-006" },
-  { href: "/parcels/lot-3", label: "Lot 3 — APN 135-31-801-007" },
-  { href: "/location", label: "Location" },
-  { href: "/access", label: "Access & Directions" },
-  { href: "/title-report", label: "Title Report" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
-] as const;
+function FooterLinkItem({ href, label, external }: { href: string; label: string; external?: boolean }) {
+  const className = "text-slate-300 hover:text-white transition-colors text-sm inline-flex items-center gap-1";
 
-const MORE_FROM_AGENT_LINKS = [
-  { href: "/about", label: "About Dr. Jan" },
-  { href: "/buyers", label: "Home Buying" },
-  { href: "/sellers", label: "Home Selling" },
-  { href: "/luxury-homes", label: "Luxury Homes" },
-  { href: "/55-plus-communities", label: "55+ Communities" },
-  { href: "/new-construction", label: "New Construction" },
-  { href: "/buyers/california-relocator", label: "California Relocators" },
-  { href: "/neighborhoods", label: "Neighborhoods" },
-  { href: "/market-report", label: "Market Report" },
-  { href: "/why-berkshire-hathaway", label: "Why BHHS" },
-] as const;
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {label}
+        <ExternalLink className="h-3 w-3 shrink-0 opacity-70" aria-hidden />
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {label}
+    </Link>
+  );
+}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -42,41 +42,79 @@ export default function Footer() {
     <footer className="bg-slate-900 text-white">
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-          {/* Brokerage + RealScout */}
           <div>
-            <h3 className="font-bold text-xl mb-3">Berkshire Hathaway HomeServices</h3>
+            <h3 className="font-bold text-xl mb-3">Lovell Canyon Raw Land</h3>
             <p className="text-slate-300 mb-4 text-sm leading-relaxed">
-              Nevada Properties — Dr. Jan Duffy, Land Specialist, represents fee simple raw land
-              parcels in Lovell Canyon, Clark County NV 89124.
+              Two fee simple vacant land parcels in Lovell Canyon, Clark County NV 89124 — Lot 2
+              &amp; Lot 3 (APN 135-31-801-006 and 007). Listed by Dr. Jan Duffy, Land Specialist,
+              Berkshire Hathaway HomeServices Nevada Properties.
             </p>
             <a
               href={REALSCOUT_OFFICE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
+              className="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium inline-flex items-center gap-1 mb-4"
             >
               {AGENT_LISTINGS_LINK_LABEL}
+              <ExternalLink className="h-3 w-3 shrink-0 opacity-80" aria-hidden />
             </a>
+            <div className="flex items-center gap-3">
+              <a
+                href={LOVELL_CANYON_SOCIAL.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Dr. Jan Duffy on Facebook"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <Facebook className="h-5 w-5" aria-hidden />
+              </a>
+              <a
+                href={LOVELL_CANYON_SOCIAL.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Dr. Jan Duffy on Instagram"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <Instagram className="h-5 w-5" aria-hidden />
+              </a>
+              <a
+                href={LOVELL_CANYON_SOCIAL.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Dr. Jan Duffy on LinkedIn"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <Linkedin className="h-5 w-5" aria-hidden />
+              </a>
+            </div>
           </div>
 
-          {/* Primary: Lovell Canyon land */}
           <div>
             <h3 className="font-bold text-lg mb-4">Lovell Canyon Land</h3>
             <ul className="space-y-2">
-              {LAND_LINKS.map((link) => (
+              {LOVELL_CANYON_FOOTER_LAND_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-slate-300 hover:text-white transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
+                  <FooterLinkItem {...link} />
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact NAP */}
+          <div>
+            <h3 className="font-bold text-lg mb-4">Land Buyer Resources</h3>
+            <p className="text-slate-400 text-xs mb-3 leading-relaxed">
+              Clark County vacant land — access, legal location, title, and taxes. Not homes or
+              neighborhood listings.
+            </p>
+            <ul className="space-y-2">
+              {LOVELL_CANYON_FOOTER_RESOURCE_LINKS.map((link) => (
+                <li key={`${link.href}-${link.label}`}>
+                  <FooterLinkItem {...link} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <div>
             <h3 className="font-bold text-lg mb-4">Contact Dr. Jan Duffy</h3>
             <ul className="space-y-3">
@@ -87,6 +125,9 @@ export default function Footer() {
                   <br />
                   {LOVELL_CANYON_OFFICE.city}, {LOVELL_CANYON_OFFICE.region}{" "}
                   {LOVELL_CANYON_OFFICE.postalCode}
+                  <span className="block text-slate-500 text-xs mt-1">
+                    Parcels are in Lovell Canyon NV 89124 — not at this office address.
+                  </span>
                 </span>
               </li>
               <li className="flex items-center">
@@ -109,28 +150,8 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
-          {/* Demoted: residential / general agent services */}
-          <div className="lg:opacity-80">
-            <h3 className="font-semibold text-sm uppercase tracking-wide text-slate-400 mb-3">
-              More from Dr. Jan Duffy
-            </h3>
-            <ul className="space-y-1.5">
-              {MORE_FROM_AGENT_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-slate-500 hover:text-slate-300 transition-colors text-xs"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
-        {/* Copyright */}
         <div className="border-t border-slate-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-400 text-sm text-center md:text-left">
@@ -144,6 +165,14 @@ export default function Footer() {
               <Link href="/sitemap.xml" className="text-slate-400 hover:text-white transition-colors">
                 Sitemap
               </Link>
+              <a
+                href="/fair-housing.txt"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                Fair Housing
+              </a>
             </div>
           </div>
           <p className="text-slate-500 text-xs mt-4 text-center">

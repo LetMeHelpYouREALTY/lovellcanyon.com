@@ -1,21 +1,12 @@
 import Link from "next/link";
 import type { LovellCanyonParcel } from "@/lib/lovell-canyon-parcels";
 import { CLARK_COUNTY_TAX_PORTAL_URL } from "@/lib/lovell-canyon-title-schedule-b";
-import { PARCEL_PLACEHOLDER_FIELDS } from "@/lib/lovell-canyon-parcels";
+import { ParcelPendingSpecs } from "@/components/land/ParcelPendingSpecs";
 import {
   LAND_UI_LABELS,
   parcelCardTitle,
   parcelNumberLine,
 } from "@/lib/lovell-canyon-glossary";
-
-function PlaceholderValue({ fieldKey }: { fieldKey: string }) {
-  return (
-    <span className="text-slate-500 italic">
-      {/* TODO-VERIFY: {fieldKey} */}
-      Details — request info
-    </span>
-  );
-}
 
 type ParcelDetailCardProps = {
   parcel: LovellCanyonParcel;
@@ -70,22 +61,9 @@ export default function ParcelDetailCard({ parcel, showParcelLink = true }: Parc
         </div>
       </dl>
 
-      <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">
-        Additional details
-      </h3>
-      <dl className="space-y-4 mb-6">
-        {PARCEL_PLACEHOLDER_FIELDS.map((field) => (
-          <div
-            key={`${parcel.apn}-${field.key}`}
-            className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 border-b border-slate-100 pb-3"
-          >
-            <dt className="text-slate-600 font-medium">{field.label}</dt>
-            <dd>
-              <PlaceholderValue fieldKey={`${parcel.apn}-${field.key}`} />
-            </dd>
-          </div>
-        ))}
-      </dl>
+      <div className="mb-6">
+        <ParcelPendingSpecs apn={parcel.apn} />
+      </div>
 
       {showParcelLink && (
         <Link

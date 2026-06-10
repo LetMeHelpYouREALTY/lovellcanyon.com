@@ -12,7 +12,13 @@ export const LOVELL_CANYON_AREA = {
   lovellCanyonRoadMiles: "approximately 11–12 miles",
   lovellCanyonRoadSurface: "paved",
   highwayAccess:
-    "NV-160 (Blue Diamond Rd / Pahrump Highway), west of Mountain Springs; turn north on Lovell Canyon Rd near Mile Marker 24",
+    "NV-160 (Blue Diamond Rd) west of Mountain Springs in the Spring Mountains; turn north on Lovell Canyon Rd near Mile Marker 24",
+  /** Geographic context — Clark County canyon, not Pahrump (Nye County). */
+  areaContext:
+    "In the Spring Mountains west of the Las Vegas Valley, roughly 40–45 minutes from the city via NV-160 past Mountain Springs — Clark County, not the Pahrump valley (Nye County).",
+  /** NV-160 is locally called the Pahrump Highway but Lovell Canyon turnoff is before Nye County. */
+  highwayNote:
+    "NV-160 (Blue Diamond Rd; locally signed as the Pahrump Highway) west past Mountain Springs, then north on paved Lovell Canyon Rd",
   publicLandContext: [
     "Red Rock Canyon National Conservation Area (BLM)",
     "Spring Mountains National Recreation Area (USFS)",

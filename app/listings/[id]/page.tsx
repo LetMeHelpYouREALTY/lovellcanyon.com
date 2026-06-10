@@ -5,6 +5,7 @@ import { Bed, Bath, Square, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import { REALSCOUT_OFFICE_URL } from "@/lib/lovell-canyon-contact";
 
 export const metadata: Metadata = {
   title: "Property Details | Las Vegas & Henderson Real Estate",
@@ -52,7 +53,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
               </li>
               <li>/</li>
               <li>
-                <a href="http://drjanduffy.realscout.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
+                <a href={REALSCOUT_OFFICE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
                   Properties
                 </a>
               </li>

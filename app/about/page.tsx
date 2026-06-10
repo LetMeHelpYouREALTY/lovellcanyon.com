@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import { REALSCOUT_OFFICE_URL } from "@/lib/lovell-canyon-contact";
 
 export const metadata: Metadata = {
   title: "About Dr. Jan Duffy | Berkshire Hathaway HomeServices Las Vegas",
@@ -269,7 +270,7 @@ export default function AboutPage() {
                       <ArrowRight className="h-4 w-4 mr-2 text-blue-600" />
                       Free Home Valuation
                     </Link>
-                    <a href="http://drjanduffy.realscout.com/" target="_blank" rel="noopener noreferrer" className="flex items-center text-slate-700 hover:text-blue-600">
+                    <a href={REALSCOUT_OFFICE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center text-slate-700 hover:text-blue-600">
                       <ArrowRight className="h-4 w-4 mr-2 text-blue-600" />
                       Browse Listings
                     </a>

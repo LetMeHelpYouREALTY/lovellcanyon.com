@@ -7,6 +7,7 @@ import {
   LOVELL_CANYON_EMAIL,
   LOVELL_CANYON_OFFICE,
   LOVELL_CANYON_PHONE_TEL,
+  LOVELL_CANYON_SOCIAL_PROFILES,
 } from "@/lib/lovell-canyon-contact";
 import {
   getGeoCoordinatesSchema,
@@ -16,7 +17,9 @@ import {
   LOVELL_CANYON_GEO,
 } from "@/lib/lovell-canyon-geo";
 import type { LovellCanyonPhoto } from "@/lib/lovell-canyon-media";
-import { getSiteUrl } from "@/lib/site-url";
+import { LOVELL_CANYON_NAV_LABELS } from "@/lib/lovell-canyon-footer";
+import { INDEXABLE_PATHS } from "@/lib/lovell-canyon-site-pages";
+import { getCanonicalUrl, getSiteUrl } from "@/lib/site-url";
 
 const SCHEMA_PHONE = LOVELL_CANYON_PHONE_TEL.replace("tel:", "");
 
@@ -135,7 +138,19 @@ export function getLovellCanyonAgentSchema() {
     jobTitle: LOVELL_CANYON_BRAND.agentTitle,
     description: LOVELL_CANYON_BRAND.agentBio,
     identifier: LOVELL_CANYON_BRAND.license,
-    knowsAbout: ["Raw land", "Vacant land", "Lovell Canyon NV", "Clark County land parcels"],
+    knowsAbout: [
+      "Raw land",
+      "Vacant land",
+      "Fee simple land",
+      "Lovell Canyon NV 89124",
+      "Clark County Nevada land parcels",
+      "APN 135-31-801-006",
+      "APN 135-31-801-007",
+      "NV-160 Lovell Canyon Road access",
+      "Mountain Springs Nevada land",
+      "Off-grid vacant land",
+    ],
+    sameAs: LOVELL_CANYON_SOCIAL_PROFILES,
     worksFor: {
       "@type": "Organization",
       name: LOVELL_CANYON_BROKERAGE,
@@ -188,6 +203,10 @@ export function getLovellCanyonWebSiteSchema() {
     publisher: {
       "@type": "Organization",
       name: LOVELL_CANYON_BROKERAGE,
+    },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Raw land and vacant parcel buyers in Lovell Canyon, Clark County NV 89124",
     },
   };
 }
@@ -294,16 +313,33 @@ export function getLovellCanyonContactPageSchema() {
   };
 }
 
+/** Indexable land pages for AEO/GEO — matches footer and sitemap (no residential routes). */
+export function getLovellCanyonSiteNavigationSchema() {
+  return INDEXABLE_PATHS.map((path) => ({
+    "@type": "SiteNavigationElement" as const,
+    "@id": `${getCanonicalUrl(path)}#navigation`,
+    name: LOVELL_CANYON_NAV_LABELS[path] ?? path,
+    url: getCanonicalUrl(path),
+    isPartOf: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.website),
+    },
+    about: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),
+    },
+  }));
+}
+
 /** Single linked graph for sitewide JSON-LD — avoids duplicate Place nodes. */
 export function getLovellCanyonGlobalSchemaGraph() {
   const website = getLovellCanyonWebSiteSchema();
   const place = getLovellCanyonPlaceSchema();
   const trailhead = getLovellCanyonTrailheadPlaceSchema();
   const agent = getLovellCanyonAgentSchema();
+  const navigation = getLovellCanyonSiteNavigationSchema();
 
   return {
     "@context": "https://schema.org",
-    "@graph": [website, place, trailhead, agent],
+    "@graph": [website, place, trailhead, agent, ...navigation],
   };
 }
 

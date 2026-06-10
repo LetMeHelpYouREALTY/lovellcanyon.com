@@ -44,7 +44,9 @@ export default function AccessPage() {
             <div>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">From Las Vegas / Henderson</h2>
               <ol className="list-decimal pl-6 space-y-3">
-                <li>Take <strong>NV-160</strong> west (Blue Diamond Rd / Pahrump Highway).</li>
+                <li>
+                  Take <strong>NV-160</strong> west — {LOVELL_CANYON_AREA.highwayNote}.
+                </li>
                 <li>Drive over the Mountain Springs summit area, west of Mountain Springs.</li>
                 <li>
                   Turn <strong>right (north)</strong> on <strong>Lovell Canyon Rd</strong> — paved

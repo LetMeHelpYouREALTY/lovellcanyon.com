@@ -19,7 +19,16 @@ export const LOVELL_CANYON_EMAIL = "DrDuffySells@lovellcanyon.com";
 export const LOVELL_CANYON_EMAIL_HREF = "mailto:DrDuffySells@lovellcanyon.com";
 export const LOVELL_CANYON_CALENDLY_URL = "https://calendly.com/drjanduffy/showing";
 export const REALSCOUT_AGENT_ENCODED_ID = "QWdlbnQtMjI1MDUw";
-export const REALSCOUT_OFFICE_URL = "http://drjanduffy.realscout.com/";
+export const REALSCOUT_OFFICE_URL = "https://drjanduffy.realscout.com/";
+
+/** Dr. Jan Duffy social profiles — used in footer and schema sameAs */
+export const LOVELL_CANYON_SOCIAL = {
+  facebook: "https://www.facebook.com/drjanduffy",
+  instagram: "https://www.instagram.com/drjanduffy",
+  linkedin: "https://www.linkedin.com/in/drjanduffy",
+} as const;
+
+export const LOVELL_CANYON_SOCIAL_PROFILES = Object.values(LOVELL_CANYON_SOCIAL);
 
 /** Plain-language labels for links to the agent listing search (no vendor names). */
 export const AGENT_LISTINGS_LINK_LABEL = "Browse Dr. Jan's Full Property Listings";

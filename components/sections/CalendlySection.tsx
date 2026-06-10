@@ -15,6 +15,27 @@ export default function CalendlySection() {
           </p>
         </div>
         <CalendlyWidget url={LOVELL_CANYON_CALENDLY_URL} height="700px" />
+        <p className="text-center mt-6 text-sm text-slate-600">
+          Calendar not loading?{" "}
+          <a
+            href={LOVELL_CANYON_CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 font-medium"
+          >
+            Open scheduling page on Calendly
+          </a>
+        </p>
+        <noscript>
+          <p className="text-center mt-4">
+            <a
+              href={LOVELL_CANYON_CALENDLY_URL}
+              className="text-blue-600 hover:text-blue-700 font-medium"
+            >
+              Schedule a consultation on Calendly
+            </a>
+          </p>
+        </noscript>
       </div>
     </section>
   );

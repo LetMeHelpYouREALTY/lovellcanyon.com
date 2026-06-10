@@ -78,8 +78,7 @@ export default function LocationPage() {
             <div>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Area context</h2>
               <p>
-                Lovell Canyon lies west of the Las Vegas Valley, accessed from NV-160 toward
-                Pahrump. The canyon is described in regional guides as backcountry terrain with
+                {LOVELL_CANYON_AREA.areaContext} The canyon is described in regional guides as backcountry terrain with
                 paved primary road access and a network of unpaved tributary roads.
               </p>
               <p className="mt-4">{LOVELL_CANYON_AREA.elevationNote}</p>

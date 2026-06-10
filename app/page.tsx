@@ -7,11 +7,9 @@ import {
 } from "@/lib/lovell-canyon-media";
 import { LandPropertyGallery } from "@/components/land/LandPropertyGallery";
 import { MainlineHero } from "@/components/land/MainlineHero";
-import {
-  LOVELL_CANYON_LOCATION,
-  LOVELL_CANYON_PARCELS,
-  PARCEL_PLACEHOLDER_FIELDS,
-} from "@/lib/lovell-canyon-parcels";
+import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
+import { LOVELL_CANYON_LOCATION, LOVELL_CANYON_PARCELS } from "@/lib/lovell-canyon-parcels";
+import { ParcelPendingSpecs } from "@/components/land/ParcelPendingSpecs";
 import {
   CLARK_COUNTY_TAX_PORTAL_URL,
   SCHEDULE_B_GENERAL_EXCEPTIONS,
@@ -76,15 +74,6 @@ const ACCESS_ROADS = [
   "Charleston Blvd",
 ] as const;
 
-function PlaceholderValue({ fieldKey }: { fieldKey: string }) {
-  return (
-    <span className="text-slate-500 italic">
-      {/* TODO-VERIFY: {fieldKey} */}
-      Details — request info
-    </span>
-  );
-}
-
 export default async function Home() {
   const config = await getPageDomainConfig();
   const siteUrl = `https://${config.domain !== "default" ? config.domain : "lovellcanyon.com"}`;
@@ -92,9 +81,6 @@ export default async function Home() {
     getLovellCanyonPageHero("/"),
     getLovellCanyonGalleryPhotos(),
   ]);
-  const propertyPhotos = heroPhoto
-    ? [heroPhoto, ...galleryPhotos.filter((p) => p.key !== heroPhoto.key)]
-    : galleryPhotos;
 
   const listingSchemas = LOVELL_CANYON_PARCELS.map((parcel) =>
     getLovellCanyonParcelListingSchema(parcel, siteUrl, `/parcels/${parcel.slug}`)
@@ -136,7 +122,7 @@ export default async function Home() {
 
         <BelowHeroEngagement />
 
-        <LandPropertyGallery photos={propertyPhotos} />
+        <LandPropertyGallery photos={galleryPhotos} />
 
         {/* Location & Access */}
         <section className="py-16 md:py-20 bg-white">
@@ -155,8 +141,7 @@ export default async function Home() {
                 {LAND_SECTION_COPY.locationAssessorNote(LOVELL_CANYON_LOCATION.assessorMap)}
               </p>
               <p>
-                <strong>Area context:</strong> Near Pahrump, in the Lovell Canyon area west of the
-                Las Vegas Valley.
+                <strong>Area context:</strong> {LOVELL_CANYON_AREA.areaContext}
               </p>
               <div>
                 <div className="flex items-start gap-3 mb-3">
@@ -248,22 +233,7 @@ export default async function Home() {
                     </div>
                   </dl>
 
-                  <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">
-                    Additional details
-                  </h4>
-                  <dl className="space-y-4">
-                    {PARCEL_PLACEHOLDER_FIELDS.map((field) => (
-                      <div
-                        key={`${parcel.apn}-${field.key}`}
-                        className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 border-b border-slate-100 pb-3"
-                      >
-                        <dt className="text-slate-600 font-medium">{field.label}</dt>
-                        <dd className="text-right sm:text-right">
-                          <PlaceholderValue fieldKey={`${parcel.apn}-${field.key}`} />
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
+                  <ParcelPendingSpecs apn={parcel.apn} />
                 </div>
               ))}
             </div>
