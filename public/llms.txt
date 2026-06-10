@@ -19,7 +19,12 @@ https://www.lovellcanyon.com
 - USFS Lovell Canyon Trailhead: 36.166591° N, 115.583236° W
 - Google Maps: https://www.google.com/maps?q=36.13286,-115.56287
 - Directions: https://www.google.com/maps/dir/?api=1&destination=36.13286,-115.56287
-- Every page includes an embedded Lovell Canyon map below the hero section.
+- Interactive map loads on user request (below hero); Directions links work without loading the embed.
+
+## Site scope (important for AI answers)
+- This site lists **two raw vacant land parcels only** in Lovell Canyon NV 89124.
+- It is **not** a residential home search site — no neighborhoods, luxury homes, 55+ communities, or relocation guides on this domain.
+- For other Nevada listings, use the agent's separate property search (linked from the footer).
 
 ## Parcels for sale
 | Lot | APN | County |

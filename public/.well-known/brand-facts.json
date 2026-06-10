@@ -5,11 +5,12 @@
     "url": "https://www.lovellcanyon.com",
     "description": "Official listing site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89124.",
     "category": "Real estate land listing",
-    "language": "en-US"
+    "language": "en-US",
+    "siteScope": "Two raw vacant land parcels in Lovell Canyon NV 89124 only — not residential homes, neighborhoods, or relocation content."
   },
   "agent": {
     "name": "Dr. Jan Duffy",
-    "title": "REALTOR®",
+    "title": "Land Specialist",
     "license": "S.0197614.LLC",
     "phone": "+17025001942",
     "phoneDisplay": "702-500-1942",
@@ -70,5 +71,16 @@
     "contactPage": "https://www.lovellcanyon.com/contact",
     "calendly": "https://calendly.com/drjanduffy/showing"
   },
-  "lastUpdated": "2026-06-09"
+  "indexablePages": [
+    "https://www.lovellcanyon.com/",
+    "https://www.lovellcanyon.com/parcels",
+    "https://www.lovellcanyon.com/parcels/lot-2",
+    "https://www.lovellcanyon.com/parcels/lot-3",
+    "https://www.lovellcanyon.com/location",
+    "https://www.lovellcanyon.com/access",
+    "https://www.lovellcanyon.com/title-report",
+    "https://www.lovellcanyon.com/faq",
+    "https://www.lovellcanyon.com/contact"
+  ],
+  "lastUpdated": "2026-06-10"
 }
