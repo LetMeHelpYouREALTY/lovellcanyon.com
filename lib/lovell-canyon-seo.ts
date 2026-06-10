@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
 import { LOVELL_CANYON_GEO } from "@/lib/lovell-canyon-geo";
 import { getLovellCanyonPageHero, type LovellCanyonPhoto } from "@/lib/lovell-canyon-media";
-import { getSiteUrl } from "@/lib/site-url";
+import { getCanonicalUrl, getSiteUrl } from "@/lib/site-url";
 
 export const LOVELL_CANYON_SEO = {
   siteName: LOVELL_CANYON_BRAND.siteName,
@@ -94,9 +94,8 @@ export async function getLovellCanyonPageMetadataWithHero(
 
 export function getLovellCanyonMetadata(pathname = "/"): Metadata {
   const siteUrl = getSiteUrl();
-  const canonicalUrl =
-    pathname === "/" ? siteUrl : `${siteUrl}${pathname.endsWith("/") ? pathname.slice(0, -1) : pathname}`;
-  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
+  const canonicalUrl = getCanonicalUrl(pathname);
+  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
   const { latitude, longitude } = LOVELL_CANYON_GEO.center;
 
   return {

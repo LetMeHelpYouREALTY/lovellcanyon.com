@@ -3,8 +3,8 @@
  * @see https://developers.cloudflare.com/images/transform-images/transform-via-url/
  */
 
-const DEFAULT_TRANSFORM_HOST = "lovellcanyon.com";
-const DEFAULT_SITE_URL = "https://lovellcanyon.com";
+const DEFAULT_TRANSFORM_HOST = "www.lovellcanyon.com";
+const DEFAULT_SITE_URL = "https://www.lovellcanyon.com";
 
 export type CloudflareImageTransformOptions = {
   width: number;

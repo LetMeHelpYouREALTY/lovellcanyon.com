@@ -1,13 +1,14 @@
 import { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/site-url";
-import { SITEMAP_PAGES } from "@/lib/lovell-canyon-site-pages";
+import { getCanonicalUrl } from "@/lib/site-url";
+import { SITEMAP_LAST_MODIFIED, SITEMAP_PAGES } from "@/lib/lovell-canyon-site-pages";
+
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = getSiteUrl();
-  const lastModified = new Date();
+  const lastModified = new Date(SITEMAP_LAST_MODIFIED);
 
   return SITEMAP_PAGES.map((page) => ({
-    url: `${baseUrl}${page.path === "/" ? "" : page.path}`,
+    url: getCanonicalUrl(page.path),
     lastModified,
     changeFrequency: page.changeFrequency,
     priority: page.priority,

@@ -1,9 +1,9 @@
 import { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/site-url";
+import { getSiteHost, getSitemapUrl } from "@/lib/site-url";
+
+export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = getSiteUrl();
-
   const disallow = ["/api/", "/admin/", "/monitoring/"];
   const allowPublic = { allow: "/", disallow };
 
@@ -18,7 +18,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "PerplexityBot", ...allowPublic },
       { userAgent: "Applebot-Extended", ...allowPublic },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl.replace(/^https?:\/\//, ""),
+    sitemap: getSitemapUrl(),
+    host: getSiteHost(),
   };
 }

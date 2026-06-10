@@ -37,9 +37,20 @@ const nextConfig = {
   // Performance optimizations
   swcMinify: true,
 
-  // Redirect non-www to www
+  // Redirect non-www to www (GSC canonical host must match metadataBase + sitemap)
   async redirects() {
     return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'lovellcanyon.com',
+          },
+        ],
+        destination: 'https://www.lovellcanyon.com/:path*',
+        permanent: true,
+      },
       {
         source: '/:path*',
         has: [
