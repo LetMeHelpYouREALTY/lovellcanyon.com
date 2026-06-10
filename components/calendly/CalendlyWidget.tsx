@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { loadCalendlyAssets } from "@/lib/load-calendly";
 
 interface CalendlyWidgetProps {
   url?: string;
@@ -14,53 +15,58 @@ export default function CalendlyWidget({
   height = "700px",
 }: CalendlyWidgetProps) {
   const widgetRef = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // Ensure Calendly script is loaded and widget is initialized
-    const initWidget = () => {
-      if (typeof window !== "undefined" && (window as any).Calendly && widgetRef.current) {
-        // Clear any existing content
-        widgetRef.current.innerHTML = "";
-        
-        // Create the widget div
-        const widgetDiv = document.createElement("div");
-        widgetDiv.className = "calendly-inline-widget";
-        widgetDiv.setAttribute("data-url", url);
-        widgetDiv.style.minWidth = minWidth;
-        widgetDiv.style.height = height;
-        widgetDiv.style.width = "100%";
-        
-        widgetRef.current.appendChild(widgetDiv);
-        
-        // Initialize the widget
-        (window as any).Calendly.initInlineWidget({
-          url: url,
-          parentElement: widgetDiv,
-        });
-      }
+    let cancelled = false;
+
+    loadCalendlyAssets()
+      .then(() => {
+        if (!cancelled) setReady(true);
+      })
+      .catch(() => {
+        if (!cancelled) setReady(false);
+      });
+
+    return () => {
+      cancelled = true;
     };
+  }, []);
 
-    // Try to initialize immediately if Calendly is already loaded
-    if ((window as any).Calendly) {
-      initWidget();
-    } else {
-      // Wait for the script to load
-      const checkCalendly = setInterval(() => {
-        if ((window as any).Calendly) {
-          clearInterval(checkCalendly);
-          initWidget();
-        }
-      }, 100);
+  useEffect(() => {
+    if (!ready || !widgetRef.current) return;
 
-      // Clean up interval after 10 seconds
-      setTimeout(() => clearInterval(checkCalendly), 10000);
-    }
-  }, [url, minWidth, height]);
+    const calendly = (window as Window & { Calendly?: { initInlineWidget: (opts: object) => void } })
+      .Calendly;
+    if (!calendly) return;
+
+    widgetRef.current.innerHTML = "";
+
+    const widgetDiv = document.createElement("div");
+    widgetDiv.className = "calendly-inline-widget";
+    widgetDiv.setAttribute("data-url", url);
+    widgetDiv.style.minWidth = minWidth;
+    widgetDiv.style.height = height;
+    widgetDiv.style.width = "100%";
+
+    widgetRef.current.appendChild(widgetDiv);
+
+    calendly.initInlineWidget({
+      url,
+      parentElement: widgetDiv,
+    });
+  }, [ready, url, minWidth, height]);
 
   return (
-    <div 
-      ref={widgetRef} 
-      style={{ minWidth, height, width: "100%" }}
-    />
+    <div ref={widgetRef} style={{ minWidth, height, width: "100%" }}>
+      {!ready && (
+        <div
+          className="flex h-full min-h-[320px] items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-sm text-slate-500"
+          aria-live="polite"
+        >
+          Loading scheduling calendar…
+        </div>
+      )}
+    </div>
   );
 }

@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { MapPin, Navigation, ExternalLink } from "lucide-react";
 import {
   LOVELL_CANYON_GEO,
@@ -9,6 +12,7 @@ import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
 import { LOVELL_CANYON_PHONE_TEL, LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
 
 export default function LovellCanyonMap() {
+  const [mapLoaded, setMapLoaded] = useState(false);
   const { latitude, longitude } = LOVELL_CANYON_GEO.center;
 
   return (
@@ -35,14 +39,30 @@ export default function LovellCanyonMap() {
         </div>
 
         <div className="max-w-5xl mx-auto rounded-xl overflow-hidden border border-slate-200 shadow-sm">
-          <iframe
-            title="Google Maps — Lovell Canyon, Clark County Nevada 89124"
-            src={getGoogleMapsEmbedUrl(latitude, longitude, 11)}
-            className="w-full h-[360px] md:h-[420px] border-0"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-          />
+          {mapLoaded ? (
+            <iframe
+              title="Google Maps — Lovell Canyon, Clark County Nevada 89124"
+              src={getGoogleMapsEmbedUrl(latitude, longitude, 11)}
+              className="w-full h-[360px] md:h-[420px] border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setMapLoaded(true)}
+              className="flex h-[360px] md:h-[420px] w-full flex-col items-center justify-center gap-4 bg-slate-100 px-6 text-center transition-colors hover:bg-slate-200/80"
+              aria-label="Load interactive Google Map for Lovell Canyon"
+            >
+              <MapPin className="h-10 w-10 text-blue-600" aria-hidden />
+              <span className="text-lg font-semibold text-slate-900">Load Lovell Canyon map</span>
+              <span className="max-w-md text-sm text-slate-600">
+                Tap to load the interactive map. Directions and view links work without loading the
+                embed.
+              </span>
+            </button>
+          )}
         </div>
 
         <div className="max-w-5xl mx-auto mt-6 flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
