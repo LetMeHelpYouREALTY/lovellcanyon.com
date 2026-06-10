@@ -16,11 +16,12 @@ import {
 } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
 import { getLovellCanyonContactPageSchema } from "@/lib/lovell-canyon-schema";
+import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
     "/contact",
-    "Contact Dr. Jan Duffy, Land Specialist | Lovell Canyon Land 89120",
+    "Contact Dr. Jan Duffy, Land Specialist | Lovell Canyon Land 89124",
     `Inquire about Lovell Canyon raw land parcels APN 135-31-801-006 and 007. Call, text, or email Dr. Jan Duffy, Land Specialist, at ${LOVELL_CANYON_PHONE_DISPLAY}.`
   );
 }
@@ -40,7 +41,7 @@ export default function ContactPage() {
           pathname="/contact"
           badge="Contact"
           title="Inquire About Lovell Canyon Land"
-          subtitle="Lot 2 & Lot 3 — APN 135-31-801-006 and 135-31-801-007. Call, text, email, or schedule a consultation."
+          subtitle={LAND_SECTION_COPY.contactHeroSubtitle}
         />
         <BelowHeroEngagement />
         <section className="py-16 bg-white">
@@ -86,7 +87,7 @@ export default function ContactPage() {
                   {LOVELL_CANYON_OFFICE.postalCode}
                 </address>
                 <p className="text-sm text-slate-500 mt-3">
-                  Parcels are in Lovell Canyon, Clark County NV 89120 — not at the office address
+                  Parcels are in Lovell Canyon, Clark County NV 89124 — not at the office address
                   above.
                 </p>
               </div>

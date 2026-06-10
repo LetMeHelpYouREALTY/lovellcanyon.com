@@ -8,11 +8,11 @@ export const LOVELL_CANYON_BRAND = {
   siteName: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
   brandShort: "Lovell Canyon Land",
   navTitle: "Lovell Canyon Land",
-  navSubtitle: "Dr. Jan Duffy · Land Specialist · BHHS Nevada",
+  navSubtitle: "Dr. Jan Duffy · Land Specialist · Berkshire Hathaway HomeServices Nevada",
   title: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist — APN 135-31-801-006 & 007",
   ogTitle: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
   description:
-    "Fee simple raw land in Lovell Canyon, Clark County NV 89120 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
+    "Fee simple raw land in Lovell Canyon, Clark County NV 89124 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
   agentName: "Dr. Jan Duffy",
   agentTitle: "Land Specialist",
   agentTitleLong: "Land Specialist / Land Agent",

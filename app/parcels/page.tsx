@@ -10,12 +10,13 @@ import { LOVELL_CANYON_LOCATION, LOVELL_CANYON_PARCELS } from "@/lib/lovell-cany
 import { getLovellCanyonParcelListingSchema } from "@/lib/lovell-canyon-schema";
 import { getSiteUrl } from "@/lib/site-url";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
     "/parcels",
     "Lovell Canyon Land Parcels | Lot 2 & Lot 3 | APN 006 & 007",
-    "Fee simple raw land parcels in Lovell Canyon NV 89120. Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007). Legal descriptions and title report summaries."
+    "Fee simple raw land parcels in Lovell Canyon NV 89124. Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007). Legal descriptions and title report summaries."
   );
 }
 
@@ -40,7 +41,7 @@ export default function ParcelsPage() {
           pathname="/parcels"
           badge="Two Parcels"
           title="Lovell Canyon Land Parcels"
-          subtitle={`Fee simple land in ${LOVELL_CANYON_LOCATION.locality}, Clark County NV ${LOVELL_CANYON_LOCATION.postalCode}. Section 31, ${LOVELL_CANYON_LOCATION.township} ${LOVELL_CANYON_LOCATION.range}.`}
+          subtitle={LAND_SECTION_COPY.parcelsHeroSubtitle}
         />
 
         <BelowHeroEngagement />

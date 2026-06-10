@@ -5,11 +5,11 @@
  */
 
 export const LOVELL_CANYON_GEO = {
-  /** Representative map center for Lovell Canyon valley (Clark County NV 89120) */
+  /** Representative map center for Lovell Canyon valley (Clark County NV 89124) */
   center: {
     latitude: 36.13286,
     longitude: -115.56287,
-    label: "Lovell Canyon, Clark County, Nevada 89120",
+    label: "Lovell Canyon, Clark County, Nevada 89124",
     source: "https://maps.apple.com/place?place-id=I35D243F2ED2FD200",
   },
   /** USFS Lovell Canyon Trailhead at end of paved Lovell Canyon Rd */

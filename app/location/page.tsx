@@ -10,14 +10,15 @@ import { LOVELL_CANYON_GEO, getGoogleMapsDirectionsUrl } from "@/lib/lovell-cany
 import { getLovellCanyonTrailheadPlaceSchema } from "@/lib/lovell-canyon-schema";
 import { LOVELL_CANYON_LOCATION } from "@/lib/lovell-canyon-parcels";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import { formatParcelLegalLocation, LAND_GLOSSARY } from "@/lib/lovell-canyon-glossary";
 
 const trailheadSchema = getLovellCanyonTrailheadPlaceSchema();
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
     "/location",
-    "Lovell Canyon NV Location | Clark County Land 89120",
-    "Where is Lovell Canyon? Clark County Nevada 89120, west of the Las Vegas Valley near NV-160. GPS map, elevation, and area overview for raw land parcels."
+    "Lovell Canyon NV Location | Clark County Land 89124",
+    "Where is Lovell Canyon? Clark County Nevada 89124, west of the Las Vegas Valley near NV-160. GPS map, elevation, and area overview for raw land parcels."
   );
 }
 
@@ -48,13 +49,12 @@ export default function LocationPage() {
                 The offered parcels (Lot 2 and Lot 3) are in{" "}
                 <strong>{LOVELL_CANYON_LOCATION.locality}</strong>,{" "}
                 <strong>{LOVELL_CANYON_LOCATION.county}</strong>, Nevada{" "}
-                <strong>{LOVELL_CANYON_LOCATION.postalCode}</strong>. Assessor mapping:{" "}
-                {LOVELL_CANYON_LOCATION.section}, {LOVELL_CANYON_LOCATION.township},{" "}
-                {LOVELL_CANYON_LOCATION.range}, map {LOVELL_CANYON_LOCATION.assessorMap}.
+                <strong>{LOVELL_CANYON_LOCATION.postalCode}</strong>. {LAND_GLOSSARY.legalLocationPlain}:{" "}
+                {formatParcelLegalLocation()}
               </p>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">GPS coordinates</h2>
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">{LAND_GLOSSARY.mapCoordinatesPlain}</h2>
               <p>
                 Lovell Canyon area map center:{" "}
                 <strong>

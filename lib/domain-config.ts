@@ -87,10 +87,10 @@ export const DOMAIN_CONFIGS: Record<string, DomainConfig> = {
     neighborhood: "Lovell Canyon",
     tagline: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
     description:
-      "Two raw land parcels in Lovell Canyon, Clark County NV 89120 (APN 135-31-801-006 & 135-31-801-007). Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
+      "Two raw land parcels in Lovell Canyon, Clark County NV 89124 (APN 135-31-801-006 & 135-31-801-007). Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
     heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
     heroSubheadline:
-      "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89120. Listed by Dr. Jan Duffy, Land Specialist — Berkshire Hathaway HomeServices Nevada.",
+      "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89124. Listed by Dr. Jan Duffy, Land Specialist — Berkshire Hathaway HomeServices Nevada.",
     keywords: [
       "Lovell Canyon land for sale",
       "Clark County NV land",
@@ -115,10 +115,10 @@ export const DEFAULT_CONFIG: DomainConfig = {
   neighborhood: "Lovell Canyon",
   tagline: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
   description:
-    "Two raw land parcels in Lovell Canyon, Clark County NV 89120 (APN 135-31-801-006 & 135-31-801-007). Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
+    "Two raw land parcels in Lovell Canyon, Clark County NV 89124 (APN 135-31-801-006 & 135-31-801-007). Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
   heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
   heroSubheadline:
-    "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89120. Listed by Dr. Jan Duffy, Land Specialist — Berkshire Hathaway HomeServices Nevada.",
+    "APN 135-31-801-006 and 135-31-801-007 in Lovell Canyon, Clark County NV 89124. Listed by Dr. Jan Duffy, Land Specialist — Berkshire Hathaway HomeServices Nevada.",
   keywords: [
     "Lovell Canyon land for sale",
     "Clark County NV land",

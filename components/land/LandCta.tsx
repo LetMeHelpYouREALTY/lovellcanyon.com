@@ -42,10 +42,7 @@ export default function LandCta({
             Send an Inquiry
           </Link>
         </div>
-        <p className="mt-6 text-blue-200 text-sm">
-          Dr. Jan Duffy, REALTOR® | License S.0197614.LLC | Berkshire Hathaway HomeServices Nevada
-          Properties
-        </p>
+        <p className="mt-6 text-blue-200 text-sm">{LOVELL_CANYON_BRAND.agentAttribution}</p>
       </div>
     </section>
   );

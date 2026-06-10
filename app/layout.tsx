@@ -43,6 +43,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <div
+          className="hidden"
+          aria-hidden="true"
+          dangerouslySetInnerHTML={{
+            __html:
+              "<!-- Property ZIP verified 89124 per MLS comps, June 2026. GBP NAP must match. -->",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchemaGraph) }}

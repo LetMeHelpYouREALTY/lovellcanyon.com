@@ -1,10 +1,12 @@
-/** Verified from title report Schedule A — Clark County, Nevada */
+/** Verified from title report Schedule A — Clark County, Nevada
+ * Property ZIP: 89124 (verified per MLS comps, June 2026 — must match GBP NAP)
+ */
 
 export const LOVELL_CANYON_LOCATION = {
   locality: "Lovell Canyon",
   county: "Clark County",
   region: "NV",
-  postalCode: "89120",
+  postalCode: "89124",
   section: "Section 31",
   township: "T20S",
   range: "R57E",
@@ -43,7 +45,7 @@ export const LOVELL_CANYON_PARCELS: LovellCanyonParcel[] = [
     scheduleAExceptions:
       "Excepting therefrom any interest in those portions of land as conveyed to the County of Clark, by deed recorded March 15, 1993 in Book 930315, as Instrument No. 00597, of Official Records, Clark County, Nevada.",
     alternateDescription:
-      "Said land is also described as Lot 2 of that certain Certificate of Land Division recorded July 18, 1994 in Book 940719, as Instrument No. 01170, of Official Records, Clark County, Nevada.",
+      "Said land is also described as Lot 2 of that certain Certificate of Land Division recorded July 19, 1994 in Book 940719, as Instrument No. 01170, of Official Records, Clark County, Nevada.",
     propertyTaxFiscalYear: "2025-2026",
     propertyTaxAmountPaid: "$285.90",
     propertyTaxStatus: "Paid in full per title report Schedule B",

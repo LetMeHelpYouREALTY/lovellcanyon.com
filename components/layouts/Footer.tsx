@@ -1,14 +1,39 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import {
   LOVELL_CANYON_EMAIL,
   LOVELL_CANYON_EMAIL_HREF,
   LOVELL_CANYON_OFFICE,
   LOVELL_CANYON_PHONE_DISPLAY,
   LOVELL_CANYON_PHONE_TEL,
+  AGENT_LISTINGS_LINK_LABEL,
   REALSCOUT_OFFICE_URL,
 } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_BRAND } from "@/lib/lovell-canyon-brand";
+
+const LAND_LINKS = [
+  { href: "/parcels", label: "Parcels Overview" },
+  { href: "/parcels/lot-2", label: "Lot 2 — APN 135-31-801-006" },
+  { href: "/parcels/lot-3", label: "Lot 3 — APN 135-31-801-007" },
+  { href: "/location", label: "Location" },
+  { href: "/access", label: "Access & Directions" },
+  { href: "/title-report", label: "Title Report" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
+const MORE_FROM_AGENT_LINKS = [
+  { href: "/about", label: "About Dr. Jan" },
+  { href: "/buyers", label: "Home Buying" },
+  { href: "/sellers", label: "Home Selling" },
+  { href: "/luxury-homes", label: "Luxury Homes" },
+  { href: "/55-plus-communities", label: "55+ Communities" },
+  { href: "/new-construction", label: "New Construction" },
+  { href: "/buyers/california-relocator", label: "California Relocators" },
+  { href: "/neighborhoods", label: "Neighborhoods" },
+  { href: "/market-report", label: "Market Report" },
+  { href: "/why-berkshire-hathaway", label: "Why BHHS" },
+] as const;
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -16,166 +41,42 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-white">
       <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Company Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+          {/* Brokerage + RealScout */}
           <div>
-            <h3 className="font-bold text-xl mb-4">Berkshire Hathaway HomeServices</h3>
-            <p className="text-slate-300 mb-4 text-sm">
-              Nevada Properties - Your trusted real estate partner in Las Vegas, Henderson, and
-              Summerlin. Backed by Warren Buffett's legacy of trust.
+            <h3 className="font-bold text-xl mb-3">Berkshire Hathaway HomeServices</h3>
+            <p className="text-slate-300 mb-4 text-sm leading-relaxed">
+              Nevada Properties — Dr. Jan Duffy, Land Specialist, represents fee simple raw land
+              parcels in Lovell Canyon, Clark County NV 89124.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href={REALSCOUT_OFFICE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors"
-                aria-label="Search Las Vegas Homes"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href={REALSCOUT_OFFICE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors"
-                aria-label="Search Las Vegas Homes"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href={REALSCOUT_OFFICE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors"
-                aria-label="Search Las Vegas Homes"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-            </div>
+            <a
+              href={REALSCOUT_OFFICE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
+            >
+              {AGENT_LISTINGS_LINK_LABEL}
+            </a>
           </div>
 
-          {/* Quick Links */}
+          {/* Primary: Lovell Canyon land */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="font-bold text-lg mb-4">Lovell Canyon Land</h3>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href={REALSCOUT_OFFICE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  All Properties
-                </a>
-              </li>
-              <li>
-                <Link
-                  href="/neighborhoods"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  Neighborhoods
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/why-berkshire-hathaway"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  Why BHHS
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/market-report"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  Market Report
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  About Dr. Jan
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  Contact
-                </Link>
-              </li>
+              {LAND_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-slate-300 hover:text-white transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <h3 className="font-bold text-lg mb-4">Real Estate Services</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/buyers"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  Home Buying
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/buyers/california-relocator"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  California Relocators
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/sellers"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  Home Selling
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/luxury-homes"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  Luxury Homes
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/55-plus-communities"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  55+ Communities
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/new-construction"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  New Construction
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/market-insights"
-                  className="text-slate-300 hover:text-white transition-colors text-sm"
-                >
-                  Market Insights
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Info - NAP (Name, Address, Phone) */}
+          {/* Contact NAP */}
           <div>
             <h3 className="font-bold text-lg mb-4">Contact Dr. Jan Duffy</h3>
             <ul className="space-y-3">
@@ -190,22 +91,41 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-blue-400 flex-shrink-0" />
-                <Link
+                <a
                   href={LOVELL_CANYON_PHONE_TEL}
                   className="text-slate-300 hover:text-white transition-colors text-sm"
                 >
-                  {LOVELL_CANYON_PHONE_DISPLAY}
-                </Link>
+                  Call {LOVELL_CANYON_PHONE_DISPLAY}
+                </a>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-blue-400 flex-shrink-0" />
-                <Link
+                <a
                   href={LOVELL_CANYON_EMAIL_HREF}
                   className="text-slate-300 hover:text-white transition-colors text-sm"
                 >
                   {LOVELL_CANYON_EMAIL}
-                </Link>
+                </a>
               </li>
+            </ul>
+          </div>
+
+          {/* Demoted: residential / general agent services */}
+          <div className="lg:opacity-80">
+            <h3 className="font-semibold text-sm uppercase tracking-wide text-slate-400 mb-3">
+              More from Dr. Jan Duffy
+            </h3>
+            <ul className="space-y-1.5">
+              {MORE_FROM_AGENT_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-slate-500 hover:text-slate-300 transition-colors text-xs"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -228,10 +148,6 @@ export default function Footer() {
           </div>
           <p className="text-slate-500 text-xs mt-4 text-center">
             {LOVELL_CANYON_BRAND.agentAttribution}
-          </p>
-          <p className="text-slate-600 text-xs mt-2 text-center max-w-3xl mx-auto">
-            When you work with a Berkshire Hathaway HomeServices agent, you're backed by a name
-            synonymous with trust, ethical standards, and financial strength.
           </p>
         </div>
       </div>

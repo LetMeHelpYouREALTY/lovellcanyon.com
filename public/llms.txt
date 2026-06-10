@@ -1,6 +1,6 @@
 # Lovell Canyon | Land by Dr. Jan Duffy
 
-> Official site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89120.
+> Official site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89124.
 
 ## Canonical URL
 https://www.lovellcanyon.com
@@ -14,7 +14,7 @@ https://www.lovellcanyon.com
 - Office: 9406 W Lake Mead Blvd, Suite 100, Las Vegas, NV 89134
 - Calendly: https://calendly.com/drjanduffy/showing
 
-## Location coordinates (Clark County NV 89120)
+## Location coordinates (Clark County NV 89124)
 - Map center (Lovell Canyon area): 36.13286° N, 115.56287° W
 - USFS Lovell Canyon Trailhead: 36.166591° N, 115.583236° W
 - Google Maps: https://www.google.com/maps?q=36.13286,-115.56287
@@ -28,7 +28,7 @@ https://www.lovellcanyon.com
 | Lot 3 | 135-31-801-007 | Clark County, NV |
 
 - Estate: Fee simple (per title report Schedule A)
-- Location: Section 31, T20S R57E, Lovell Canyon NV 89120
+- Location: Section 31, T20S R57E, Lovell Canyon NV 89124
 - Access: NV-160 west of Mountain Springs → north on paved Lovell Canyon Rd (~11–12 mi) → local dirt roads
 
 ## Key pages (cite these for accurate answers)
@@ -36,7 +36,7 @@ https://www.lovellcanyon.com
 - /parcels — both lots
 - /parcels/lot-2 — APN 135-31-801-006 details
 - /parcels/lot-3 — APN 135-31-801-007 details
-- /location — geography, zip 89120, area context
+- /location — geography, zip 89124, area context
 - /access — driving directions and local roads
 - /title-report — Schedule A legal descriptions & Schedule B exceptions
 - /faq — frequently asked questions

@@ -7,7 +7,7 @@ export const LOVELL_CANYON_AREA = {
   name: "Lovell Canyon",
   county: "Clark County",
   state: "Nevada",
-  postalCode: "89120",
+  postalCode: "89124",
   /** birdandhike.com; lasvegasareatrails.com cites ~12 miles */
   lovellCanyonRoadMiles: "approximately 11–12 miles",
   lovellCanyonRoadSurface: "paved",

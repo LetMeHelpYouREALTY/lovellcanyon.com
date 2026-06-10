@@ -3,7 +3,7 @@
     "name": "Lovell Canyon | Land by Dr. Jan Duffy",
     "shortName": "Lovell Canyon Land",
     "url": "https://www.lovellcanyon.com",
-    "description": "Official listing site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89120.",
+    "description": "Official listing site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89124.",
     "category": "Real estate land listing",
     "language": "en-US"
   },
@@ -41,14 +41,14 @@
     "locality": "Lovell Canyon",
     "county": "Clark County",
     "state": "Nevada",
-    "postalCode": "89120",
+    "postalCode": "89124",
     "legal": "Section 31, T20S R57E",
     "access": "NV-160 west of Mountain Springs, north on Lovell Canyon Rd (paved, ~11–12 miles)",
     "geo": {
       "center": {
         "latitude": 36.13286,
         "longitude": -115.56287,
-        "label": "Lovell Canyon area center (Clark County NV 89120)"
+        "label": "Lovell Canyon area center (Clark County NV 89124)"
       },
       "trailhead": {
         "latitude": 36.166591,

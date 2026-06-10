@@ -21,6 +21,12 @@ export const LOVELL_CANYON_CALENDLY_URL = "https://calendly.com/drjanduffy/showi
 export const REALSCOUT_AGENT_ENCODED_ID = "QWdlbnQtMjI1MDUw";
 export const REALSCOUT_OFFICE_URL = "http://drjanduffy.realscout.com/";
 
+/** Plain-language labels for links to the agent listing search (no vendor names). */
+export const AGENT_LISTINGS_LINK_LABEL = "Browse Dr. Jan's Full Property Listings";
+export const AGENT_LISTINGS_SECTION_TITLE = "More Nevada Properties from Dr. Jan Duffy";
+export const AGENT_LISTINGS_SECTION_DESC =
+  "Search land, homes, and other listings Dr. Jan Duffy represents through Berkshire Hathaway HomeServices Nevada Properties.";
+
 export const LOVELL_CANYON_OFFICE = {
   street: "9406 W Lake Mead Blvd, Suite 100",
   city: "Las Vegas",

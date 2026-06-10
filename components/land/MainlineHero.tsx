@@ -17,29 +17,12 @@ import {
   LOVELL_CANYON_PHONE_TEL,
 } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_BRAND } from "@/lib/lovell-canyon-brand";
+import {
+  LAND_SECTION_COPY,
+  MAINLINE_HERO_HIGHLIGHTS,
+} from "@/lib/lovell-canyon-glossary";
 
-const highlights = [
-  {
-    title: "Fee simple estate",
-    description: "Title vested per Schedule A — fee simple interest in both parcels.",
-    icon: FileText,
-  },
-  {
-    title: "Two Clark County parcels",
-    description: "Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007), Section 31 T20S R57E.",
-    icon: Layers,
-  },
-  {
-    title: "NV-160 & Lovell Canyon Rd",
-    description: "Access via NV-160 past Mountain Springs, then paved Lovell Canyon Rd north ~11 miles.",
-    icon: Route,
-  },
-  {
-    title: "Lovell Canyon NV 89120",
-    description: "Clark County assessor map 135-31-8. Title report Schedule A & B on file.",
-    icon: MapPin,
-  },
-] as const;
+const HIGHLIGHT_ICONS = [FileText, Layers, Route, MapPin] as const;
 
 type MainlineHeroProps = {
   badge: string;
@@ -97,8 +80,8 @@ export function MainlineHero({
             className="absolute left-0 top-0 max-lg:hidden"
           />
           <DashedLine orientation="horizontal" className="absolute top-0 lg:hidden" />
-          {highlights.map((item) => {
-            const Icon = item.icon;
+          {MAINLINE_HERO_HIGHLIGHTS.map((item, index) => {
+            const Icon = HIGHLIGHT_ICONS[index] ?? MapPin;
             return (
               <div key={item.title} className="flex gap-2.5 lg:gap-5">
                 <Icon className="mt-1 size-4 shrink-0 text-blue-600 lg:size-5" />
@@ -126,7 +109,7 @@ export function MainlineHero({
           ) : (
             <div className="flex h-full min-h-[280px] flex-col items-center justify-center gap-6 bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50 p-8 text-center md:min-h-[400px]">
               <p className="text-sm font-medium uppercase tracking-widest text-slate-500">
-                Property photo — upload to Cloudflare R2
+                {LAND_SECTION_COPY.heroPhotoPlaceholder}
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 {LOVELL_CANYON_PARCELS.map((parcel) => (

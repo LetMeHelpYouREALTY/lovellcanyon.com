@@ -60,6 +60,12 @@ import {
   LOVELL_CANYON_PHONE_SMS,
   LOVELL_CANYON_PHONE_TEL,
 } from "@/lib/lovell-canyon-contact";
+import {
+  LAND_SECTION_COPY,
+  LAND_UI_LABELS,
+  parcelCardTitle,
+  parcelNumberLine,
+} from "@/lib/lovell-canyon-glossary";
 
 const ACCESS_ROADS = [
   "Cabin Canyon Rd",
@@ -145,7 +151,8 @@ export default async function Home() {
               <p>
                 <strong>Location:</strong> Lovell Canyon, Clark County, Nevada {LOVELL_CANYON_LOCATION.postalCode}. Township{" "}
                 {LOVELL_CANYON_LOCATION.township}, Range {LOVELL_CANYON_LOCATION.range},{" "}
-                {LOVELL_CANYON_LOCATION.section}. Assessor map {LOVELL_CANYON_LOCATION.assessorMap}.
+                {LOVELL_CANYON_LOCATION.section}.{" "}
+                {LAND_SECTION_COPY.locationAssessorNote(LOVELL_CANYON_LOCATION.assessorMap)}
               </p>
               <p>
                 <strong>Area context:</strong> Near Pahrump, in the Lovell Canyon area west of the
@@ -175,12 +182,10 @@ export default async function Home() {
               Parcel Details
             </h2>
             <p className="text-center text-slate-600 mb-4 max-w-2xl mx-auto">
-              Title and legal descriptions per Schedule A, Clark County, Nevada. Additional
-              specifications are available upon request.
+              {LAND_SECTION_COPY.parcelDetailsIntro}
             </p>
             <p className="text-center text-sm text-slate-500 mb-12 max-w-2xl mx-auto">
-              Estate or interest covered: fee simple. Title vested as stated in title report
-              Schedule A.
+              {LAND_SECTION_COPY.parcelDetailsOwnership}
             </p>
             <div className="grid md:grid-cols-2 gap-8">
               {LOVELL_CANYON_PARCELS.map((parcel) => (
@@ -189,28 +194,28 @@ export default async function Home() {
                   className="bg-white rounded-lg border border-slate-200 shadow-sm p-6 md:p-8"
                 >
                   <h3 className="text-xl font-bold text-slate-900 mb-1">
-                    {parcel.label} — Certificate of Land Division
+                    {parcelCardTitle(parcel.label)}
                   </h3>
-                  <p className="font-mono text-blue-700 mb-6">APN {parcel.apn}</p>
+                  <p className="font-mono text-blue-700 mb-6">{parcelNumberLine(parcel.apn)}</p>
 
                   <dl className="space-y-4 mb-8">
                     <div className="border-b border-slate-100 pb-3">
-                      <dt className="text-slate-600 font-medium mb-1">Estate or interest</dt>
+                      <dt className="text-slate-600 font-medium mb-1">{LAND_UI_LABELS.ownershipType}</dt>
                       <dd className="text-slate-900">{parcel.estate}</dd>
                     </div>
                     <div className="border-b border-slate-100 pb-3">
-                      <dt className="text-slate-600 font-medium mb-1">Certificate lot</dt>
+                      <dt className="text-slate-600 font-medium mb-1">{LAND_UI_LABELS.certificateLot}</dt>
                       <dd className="text-slate-900">{parcel.certificateLot}</dd>
                     </div>
                     <div className="border-b border-slate-100 pb-3">
-                      <dt className="text-slate-600 font-medium mb-2">Legal description</dt>
+                      <dt className="text-slate-600 font-medium mb-2">{LAND_UI_LABELS.legalDescription}</dt>
                       <dd className="text-slate-800 text-sm leading-relaxed">
                         {parcel.legalDescription}
                       </dd>
                     </div>
                     <div className="border-b border-slate-100 pb-3">
                       <dt className="text-slate-600 font-medium mb-2">
-                        Schedule A exceptions
+                        {LAND_UI_LABELS.scheduleAExceptions}
                       </dt>
                       <dd className="text-slate-800 text-sm leading-relaxed">
                         {parcel.scheduleAExceptions}
@@ -218,7 +223,7 @@ export default async function Home() {
                     </div>
                     <div className="border-b border-slate-100 pb-3">
                       <dt className="text-slate-600 font-medium mb-1">
-                        Property taxes (Schedule B, item {parcel.scheduleBItemNumber})
+                        {LAND_UI_LABELS.propertyTaxes(parcel.scheduleBItemNumber)}
                       </dt>
                       <dd className="text-slate-900">
                         Fiscal year {parcel.propertyTaxFiscalYear}: {parcel.propertyTaxStatus} (
@@ -231,12 +236,12 @@ export default async function Home() {
                           rel="noopener noreferrer"
                           className="text-blue-600 hover:underline"
                         >
-                          Clark County tax records (trweb.co.clark.nv.us)
+                          {LAND_UI_LABELS.clarkCountyTaxLink}
                         </a>
                       </dd>
                     </div>
                     <div className="border-b border-slate-100 pb-3">
-                      <dt className="text-slate-600 font-medium mb-2">Alternate description</dt>
+                      <dt className="text-slate-600 font-medium mb-2">{LAND_UI_LABELS.alternateDescription}</dt>
                       <dd className="text-slate-800 text-sm leading-relaxed">
                         {parcel.alternateDescription}
                       </dd>
@@ -264,7 +269,8 @@ export default async function Home() {
             </div>
             <p className="text-center text-sm text-slate-500 mt-8">
               {LOVELL_CANYON_LOCATION.township} {LOVELL_CANYON_LOCATION.range}{" "}
-              {LOVELL_CANYON_LOCATION.section} · Assessor map {LOVELL_CANYON_LOCATION.assessorMap} ·{" "}
+              {LOVELL_CANYON_LOCATION.section} ·{" "}
+              {LAND_SECTION_COPY.locationAssessorNote(LOVELL_CANYON_LOCATION.assessorMap)} ·{" "}
               {LOVELL_CANYON_LOCATION.locality}, {LOVELL_CANYON_LOCATION.region}{" "}
               {LOVELL_CANYON_LOCATION.postalCode}
             </p>
@@ -275,11 +281,10 @@ export default async function Home() {
         <section className="py-16 md:py-20 bg-white border-t border-slate-200">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Title Report — Schedule B
+              {LAND_SECTION_COPY.titleReportSectionHeading}
             </h2>
             <p className="text-slate-600 mb-2 leading-relaxed">
-              Exceptions to coverage in addition to the printed exceptions and exclusions in the
-              title policy form, as stated in title report Schedule B at the date thereof.
+              {LAND_SECTION_COPY.titleReportSectionIntro}
             </p>
             <p className="text-sm text-slate-500 mb-8 italic">
               {SCHEDULE_B_STANDARD_EXCEPTIONS_NOTE}
@@ -313,9 +318,9 @@ export default async function Home() {
                 { href: "/parcels", label: "Both parcels", desc: "Lot 2 & Lot 3 details" },
                 { href: "/parcels/lot-2", label: "Lot 2", desc: "APN 135-31-801-006" },
                 { href: "/parcels/lot-3", label: "Lot 3", desc: "APN 135-31-801-007" },
-                { href: "/location", label: "Location", desc: "Lovell Canyon NV 89120" },
+                { href: "/location", label: "Location", desc: "Lovell Canyon NV 89124" },
                 { href: "/access", label: "Access", desc: "NV-160 & dirt roads" },
-                { href: "/title-report", label: "Title report", desc: "Schedule A & B" },
+                { href: "/title-report", label: "Title report", desc: LAND_SECTION_COPY.exploreTitleReportDesc },
                 { href: "/faq", label: "FAQ", desc: "Common questions" },
                 { href: "/contact", label: "Contact", desc: `${LOVELL_CANYON_PHONE_DISPLAY} · email` },
               ].map((item) => (

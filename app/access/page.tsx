@@ -6,6 +6,8 @@ import LandCta from "@/components/land/LandCta";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
+import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
 
 const LOCAL_DIRT_ROADS = [
   "Cabin Canyon Rd",
@@ -20,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
     "/access",
     "Lovell Canyon Access | NV-160 & Lovell Canyon Rd Directions",
-    "How to reach Lovell Canyon land from Las Vegas: NV-160 past Mountain Springs, north on paved Lovell Canyon Rd, then local dirt roads. Clark County NV 89120."
+    "How to reach Lovell Canyon land from Las Vegas: NV-160 past Mountain Springs, north on paved Lovell Canyon Rd, then local dirt roads. Clark County NV 89124."
   );
 }
 
@@ -77,12 +79,12 @@ export default function AccessPage() {
               <ul className="list-disc pl-6 space-y-2">
                 <li>Carry water, fuel, and a charged phone; cell service can be spotty in canyon areas.</li>
                 <li>Respect private property boundaries and public land rules.</li>
-                <li>Schedule a showing or access consultation: call or text <strong>702-222-1964</strong>.</li>
+                <li>{LAND_SECTION_COPY.accessVisitLine(LOVELL_CANYON_PHONE_DISPLAY)}</li>
               </ul>
             </div>
           </div>
         </section>
-        <LandCta subheadline="Get exact parcel access and a guided visit — call or text 702-222-1964." />
+        <LandCta subheadline={LAND_SECTION_COPY.accessCtaSubheadline(LOVELL_CANYON_PHONE_DISPLAY)} />
       </main>
       <Footer />
     </>

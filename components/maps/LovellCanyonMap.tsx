@@ -36,7 +36,7 @@ export default function LovellCanyonMap() {
 
         <div className="max-w-5xl mx-auto rounded-xl overflow-hidden border border-slate-200 shadow-sm">
           <iframe
-            title="Google Maps — Lovell Canyon, Clark County Nevada 89120"
+            title="Google Maps — Lovell Canyon, Clark County Nevada 89124"
             src={getGoogleMapsEmbedUrl(latitude, longitude, 11)}
             className="w-full h-[360px] md:h-[420px] border-0"
             loading="lazy"

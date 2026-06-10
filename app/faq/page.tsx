@@ -7,12 +7,13 @@ import { LOVELL_CANYON_FAQS } from "@/lib/lovell-canyon-faq";
 import { getLovellCanyonFaqSchema } from "@/lib/lovell-canyon-schema";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
     "/faq",
     "Lovell Canyon Land FAQ | Parcels, Access & Title",
-    "Frequently asked questions about Lovell Canyon raw land parcels APN 135-31-801-006 and 007, access, zip 89120, taxes, and how to inquire."
+    "Frequently asked questions about Lovell Canyon raw land parcels APN 135-31-801-006 and 007, access, zip 89124, taxes, and how to inquire."
   );
 }
 
@@ -31,7 +32,7 @@ export default function FaqPage() {
           pathname="/faq"
           badge="FAQ"
           title="Lovell Canyon Land FAQ"
-          subtitle="Questions about the parcels, access, title information, and how to inquire."
+          subtitle={LAND_SECTION_COPY.faqHeroSubtitle}
         />
 
         <BelowHeroEngagement />
