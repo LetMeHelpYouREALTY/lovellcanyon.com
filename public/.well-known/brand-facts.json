@@ -43,6 +43,9 @@
     "county": "Clark County",
     "state": "Nevada",
     "postalCode": "89124",
+    "postalCodeNote": "Clark County 89124 (Spring Mountains) — not 89120 East Las Vegas or Pahrump 89048",
+    "assessorInquiry": "https://trweb.co.clark.nv.us/search_public1.asp",
+    "assessorGis": "https://maps.clarkcountynv.gov/assessor/",
     "legal": "Section 31, T20S R57E",
     "access": "NV-160 west of Mountain Springs, north on Lovell Canyon Rd (paved, ~11–12 miles)",
     "geo": {

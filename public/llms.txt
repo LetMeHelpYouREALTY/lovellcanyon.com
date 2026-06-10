@@ -48,8 +48,11 @@ https://www.lovellcanyon.com
 - /contact — inquire by phone
 
 ## Verified facts (do not invent acreage, price, or utilities)
+- Property ZIP: 89124 (Clark County Lovell Canyon — not 89120 East LV or Pahrump 89048)
 - Property taxes FY 2025-2026: $285.90 per parcel, paid in full per title report Schedule B
 - Acreage, zoning, utilities, and asking price: contact agent — not published until confirmed
+- Clark County Assessor inquiry: https://trweb.co.clark.nv.us/search_public1.asp (APN with dashes)
+- Assessor GIS: https://maps.clarkcountynv.gov/assessor/
 
 ## Machine-readable brand facts
 https://www.lovellcanyon.com/.well-known/brand-facts.json

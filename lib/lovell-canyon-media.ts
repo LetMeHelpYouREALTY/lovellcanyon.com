@@ -9,6 +9,9 @@
  */
 
 import {
+  LOVELL_CANYON_GALLERY_DEFINITIONS,
+} from "@/lib/lovell-canyon-gallery-images";
+import {
   getLovellCanyonHeroDefinition,
   type LovellCanyonHeroDefinition,
 } from "@/lib/lovell-canyon-hero-images";
@@ -119,20 +122,29 @@ export async function getLovellCanyonHeroPhoto(): Promise<LovellCanyonPhoto | nu
   };
 }
 
+async function resolveGalleryUrl(
+  r2Key: string,
+  localPath: string
+): Promise<{ url: string; key: string }> {
+  const r2Url = getR2ObjectUrl(r2Key);
+  if (await r2ObjectExists(r2Url)) {
+    return { url: r2Url, key: r2Key };
+  }
+  return { url: localPath, key: localPath };
+}
+
+/** Gallery photos — R2 first, then distinct local fallbacks (never homepage hero). */
 export async function getLovellCanyonGalleryPhotos(): Promise<LovellCanyonPhoto[]> {
   const results = await Promise.all(
-    LOVELL_CANYON_MEDIA.galleryKeys.map(async (key, index) => {
-      const url = getR2ObjectUrl(key);
-      const exists = await r2ObjectExists(url);
-      if (!exists) return null;
-
+    LOVELL_CANYON_GALLERY_DEFINITIONS.map(async (definition) => {
+      const resolved = await resolveGalleryUrl(definition.r2Key, definition.localPath);
       return {
-        key,
-        url,
-        alt: `${LOVELL_CANYON_MEDIA.heroAlt} — photo ${index + 1}`,
+        key: resolved.key,
+        url: resolved.url,
+        alt: definition.alt,
       };
     })
   );
 
-  return results.filter((photo) => photo !== null) as LovellCanyonPhoto[];
+  return results;
 }

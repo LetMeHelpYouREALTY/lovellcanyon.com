@@ -4,6 +4,7 @@ import Footer from "@/components/layouts/Footer";
 import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import CalendlySection from "@/components/sections/CalendlySection";
 import { Phone, MapPin, Mail } from "lucide-react";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import {
@@ -43,7 +44,8 @@ export default function ContactPage() {
           title="Inquire About Lovell Canyon Land"
           subtitle={LAND_SECTION_COPY.contactHeroSubtitle}
         />
-        <BelowHeroEngagement />
+        <CalendlySection />
+        <BelowHeroEngagement showCalendly={false} />
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-2xl space-y-8">
             <div className="flex items-start bg-slate-50 rounded-lg p-6">

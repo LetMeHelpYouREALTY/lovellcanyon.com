@@ -1,7 +1,12 @@
 import Link from "next/link";
 import type { LovellCanyonParcel } from "@/lib/lovell-canyon-parcels";
 import { CLARK_COUNTY_TAX_PORTAL_URL } from "@/lib/lovell-canyon-title-schedule-b";
+import { ParcelAssessorLink } from "@/components/land/ParcelAssessorLink";
 import { ParcelPendingSpecs } from "@/components/land/ParcelPendingSpecs";
+import {
+  hasVerifiedSpecs,
+  ParcelVerifiedSpecs,
+} from "@/components/land/ParcelVerifiedSpecs";
 import {
   LAND_UI_LABELS,
   parcelCardTitle,
@@ -61,9 +66,17 @@ export default function ParcelDetailCard({ parcel, showParcelLink = true }: Parc
         </div>
       </dl>
 
-      <div className="mb-6">
-        <ParcelPendingSpecs apn={parcel.apn} />
-      </div>
+      <ParcelAssessorLink apn={parcel.apn} />
+
+      {parcel.specs && hasVerifiedSpecs(parcel.specs) && (
+        <ParcelVerifiedSpecs specs={parcel.specs} />
+      )}
+
+      {!hasVerifiedSpecs(parcel.specs) && (
+        <div className="mb-6">
+          <ParcelPendingSpecs apn={parcel.apn} />
+        </div>
+      )}
 
       {showParcelLink && (
         <Link

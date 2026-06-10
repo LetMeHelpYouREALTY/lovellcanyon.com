@@ -1,7 +1,7 @@
 /** Paths indexed on lovellcanyon.com — keep in sync with middleware and sitemap. */
 
 /** Bump when land listing content changes materially (GSC sitemap lastmod). */
-export const SITEMAP_LAST_MODIFIED = "2026-06-10";
+export const SITEMAP_LAST_MODIFIED = "2026-06-10T18:00:00.000Z";
 
 export const INDEXABLE_PATHS = [
   "/",

@@ -15,6 +15,19 @@ export const LOVELL_CANYON_LOCATION = {
 
 export type LovellCanyonParcelSlug = "lot-2" | "lot-3";
 
+/** Optional listing specs — populate only when verified (MLS, assessor, or title). */
+export type LovellCanyonParcelSpecs = {
+  acreage?: string;
+  price?: string;
+  lotDimensions?: string;
+  zoning?: string;
+  water?: string;
+  power?: string;
+  septic?: string;
+  roadMaintenance?: string;
+  hoa?: string;
+};
+
 export type LovellCanyonParcel = {
   slug: LovellCanyonParcelSlug;
   apn: string;
@@ -29,6 +42,8 @@ export type LovellCanyonParcel = {
   propertyTaxAmountPaid: string;
   propertyTaxStatus: string;
   scheduleBItemNumber: number;
+  /** Verified specs only — omit fields until confirmed */
+  specs?: LovellCanyonParcelSpecs;
 };
 
 export const TITLE_ESTATE = "Fee simple";

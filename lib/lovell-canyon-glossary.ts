@@ -29,6 +29,10 @@ export const LAND_UI_LABELS = {
   alternateDescription: "Alternate legal description",
   landDivisionSuffix: "Recorded lot split (Certificate of Land Division)",
   clarkCountyTaxLink: "Look up property taxes on Clark County's site",
+  clarkCountyAssessorLink: "Clark County Assessor property account inquiry",
+  clarkCountyAssessorGisLink: "Assessor GIS map",
+  assessorLookupIntro: (apn: string) =>
+    `Public assessor records for APN ${apn} (Clark County NV 89124) are available via the`,
   propertyTaxes: (scheduleBItem: number) =>
     `Property taxes (Schedule B, item ${scheduleBItem})`,
 } as const;

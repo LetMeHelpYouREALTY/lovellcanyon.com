@@ -25,16 +25,25 @@ const CalendlySection = dynamic(() => import("@/components/sections/CalendlySect
   loading: () => null,
 });
 
-export default function BelowHeroEngagement() {
+type BelowHeroEngagementProps = {
+  /** Set false when page renders CalendlySection separately (e.g. /contact). */
+  showCalendly?: boolean;
+};
+
+export default function BelowHeroEngagement({
+  showCalendly = true,
+}: BelowHeroEngagementProps) {
   return (
     <>
       <LovellCanyonMap />
       <WhenVisible minHeight="320px">
         <RealScoutOfficeWidget />
       </WhenVisible>
-      <WhenVisible minHeight="400px">
-        <CalendlySection />
-      </WhenVisible>
+      {showCalendly && (
+        <WhenVisible minHeight="400px">
+          <CalendlySection />
+        </WhenVisible>
+      )}
     </>
   );
 }

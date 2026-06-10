@@ -239,12 +239,40 @@ export function getLovellCanyonParcelListingSchema(
     spatialCoverage: getLovellCanyonSpatialCoverage(),
     identifier: parcel.apn,
     category: "Land",
+    ...(parcel.specs?.price
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: parcel.specs.price.replace(/[^0-9.]/g, ""),
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+          },
+        }
+      : {}),
     additionalProperty: [
       {
         "@type": "PropertyValue",
         name: "APN",
         value: parcel.apn,
       },
+      ...(parcel.specs?.acreage
+        ? [
+            {
+              "@type": "PropertyValue" as const,
+              name: "Acreage",
+              value: parcel.specs.acreage,
+            },
+          ]
+        : []),
+      ...(parcel.specs?.zoning
+        ? [
+            {
+              "@type": "PropertyValue" as const,
+              name: "Zoning",
+              value: parcel.specs.zoning,
+            },
+          ]
+        : []),
       {
         "@type": "PropertyValue",
         name: "Certificate of Land Division Lot",
