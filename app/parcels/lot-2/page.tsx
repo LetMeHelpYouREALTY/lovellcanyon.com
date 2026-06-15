@@ -37,7 +37,7 @@ export default async function Lot2Page() {
 
   const hero = await getLovellCanyonPageHero(pathname);
   const listingSchema = getLovellCanyonParcelListingSchema(parcel, getSiteUrl(), pathname, {
-    imageUrl: hero?.url,
+    ...(hero ? { imagePhoto: hero } : {}),
   });
   const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.lot2);
   const overview = getParcelOverviewCopy(parcel);

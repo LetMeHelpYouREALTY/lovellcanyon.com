@@ -18,6 +18,7 @@ import {
   getLovellCanyonParcelListingSchema,
 } from "@/lib/lovell-canyon-schema";
 import { getSiteUrl } from "@/lib/site-url";
+import { getLovellCanyonPageHero } from "@/lib/lovell-canyon-media";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import { formatParcelLegalLocation, LAND_GLOSSARY } from "@/lib/lovell-canyon-glossary";
 
@@ -29,12 +30,17 @@ export async function generateMetadata(): Promise<Metadata> {
   );
 }
 
-export default function Zip89124LandPage() {
+export default async function Zip89124LandPage() {
   const siteUrl = getSiteUrl();
   const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.hub89124);
   const faqSchema = getLovellCanyonFaqSchema(FAQ_89124_LAND);
-  const listingSchemas = LOVELL_CANYON_PARCELS.map((parcel) =>
-    getLovellCanyonParcelListingSchema(parcel, siteUrl, `/parcels/${parcel.slug}`)
+  const listingSchemas = await Promise.all(
+    LOVELL_CANYON_PARCELS.map(async (parcel) => {
+      const parcelHero = await getLovellCanyonPageHero(`/parcels/${parcel.slug}`);
+      return getLovellCanyonParcelListingSchema(parcel, siteUrl, `/parcels/${parcel.slug}`, {
+        ...(parcelHero ? { imagePhoto: parcelHero } : {}),
+      });
+    })
   );
 
   return (

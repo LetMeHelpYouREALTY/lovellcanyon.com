@@ -30,7 +30,7 @@ import { getCanonicalUrl, getSiteUrl } from "@/lib/site-url";
 const SCHEMA_PHONE = LOVELL_CANYON_PHONE_TEL.replace("tel:", "");
 
 /** Google Image Metadata — Person creator + licensing fields (not RealEstateAgent @id). */
-function getLovellCanyonHeroImageRightsMetadata(siteUrl: string) {
+function getLovellCanyonImageRightsMetadata(siteUrl: string) {
   const licenseUrl = getCanonicalUrl("/contact");
 
   return {
@@ -46,6 +46,43 @@ function getLovellCanyonHeroImageRightsMetadata(siteUrl: string) {
       email: LOVELL_CANYON_EMAIL,
     },
   };
+}
+
+function toAbsoluteImageUrl(url: string, siteUrl: string) {
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `${siteUrl}${url.startsWith("/") ? url : `/${url}`}`;
+}
+
+/** Single ImageObject node — used for hero, gallery, and listing photos sitewide. */
+export function getLovellCanyonImageObjectNode(
+  photo: LovellCanyonPhoto,
+  imageId: string,
+  siteUrl = getSiteUrl()
+) {
+  const absoluteUrl = toAbsoluteImageUrl(photo.url, siteUrl);
+
+  return {
+    "@type": "ImageObject" as const,
+    "@id": imageId,
+    name: photo.name ?? photo.alt,
+    caption: photo.caption ?? photo.alt,
+    description: photo.alt,
+    contentUrl: absoluteUrl,
+    url: absoluteUrl,
+    width: photo.width ?? 1600,
+    height: photo.height ?? 900,
+    encodingFormat: "image/jpeg",
+    contentLocation: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place) },
+    ...getLovellCanyonImageRightsMetadata(siteUrl),
+  };
+}
+
+function getLovellCanyonListingImageObject(
+  photo: LovellCanyonPhoto,
+  listingUrl: string,
+  siteUrl: string
+) {
+  return getLovellCanyonImageObjectNode(photo, `${listingUrl}#listing-image`, siteUrl);
 }
 
 export const LOVELL_CANYON_SCHEMA_IDS = {
@@ -250,10 +287,19 @@ export function getLovellCanyonParcelListingSchema(
   parcel: LovellCanyonParcel,
   siteUrl: string,
   parcelPath?: string,
-  options?: { imageUrl?: string }
+  options?: { imageUrl?: string; imagePhoto?: LovellCanyonPhoto }
 ) {
   const { latitude, longitude } = LOVELL_CANYON_GEO.center;
   const listingUrl = parcelPath ? `${siteUrl}${parcelPath}` : siteUrl;
+  const listingImage =
+    options?.imagePhoto ??
+    (options?.imageUrl
+      ? {
+          url: options.imageUrl,
+          alt: `Lovell Canyon land — ${parcel.label} APN ${parcel.apn}`,
+          key: `${parcel.slug}-listing`,
+        }
+      : null);
 
   return {
     "@context": "https://schema.org",
@@ -263,7 +309,9 @@ export function getLovellCanyonParcelListingSchema(
     url: listingUrl,
     datePosted: LOVELL_CANYON_LISTING_DATE_POSTED,
     description: `${parcel.estate} land in Lovell Canyon, Clark County NV. APN ${parcel.apn}. ${parcel.alternateDescription}`,
-    ...(options?.imageUrl ? { image: options.imageUrl } : {}),
+    ...(listingImage
+      ? { image: getLovellCanyonListingImageObject(listingImage, listingUrl, siteUrl) }
+      : {}),
     address: getLovellCanyonPostalAddress(),
     geo: getGeoCoordinatesSchema(latitude, longitude),
     hasMap: getGoogleMapsViewUrl(latitude, longitude),
@@ -441,40 +489,55 @@ export function getLovellCanyonGlobalSchemaGraph() {
 export function getLovellCanyonPageHeroImageSchema(
   hero: LovellCanyonPhoto,
   pathname: string,
-  pageTitle: string
+  pageTitle: string,
+  galleryPhotos: LovellCanyonPhoto[] = []
 ) {
   const siteUrl = getSiteUrl();
   const pageUrl = pathname === "/" ? siteUrl : `${siteUrl}${pathname}`;
-  const imageId = `${pageUrl}#hero-image`;
-  const imageRights = getLovellCanyonHeroImageRightsMetadata(siteUrl);
+  const heroImageId = `${pageUrl}#hero-image`;
+  const heroNode = getLovellCanyonImageObjectNode(hero, heroImageId, siteUrl);
+
+  const galleryNodes = galleryPhotos.map((photo, index) =>
+    getLovellCanyonImageObjectNode(photo, `${pageUrl}#gallery-image-${index + 1}`, siteUrl)
+  );
+
+  const associatedMedia = [
+    { "@id": heroImageId },
+    ...galleryNodes.map((node) => ({ "@id": node["@id"] })),
+  ];
+
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": "WebPage",
+      "@id": pageUrl,
+      name: pageTitle,
+      url: pageUrl,
+      primaryImageOfPage: { "@id": heroImageId },
+      ...(associatedMedia.length > 1 ? { associatedMedia } : {}),
+      about: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place) },
+      spatialCoverage: getLovellCanyonSpatialCoverage(),
+    },
+    heroNode,
+    ...galleryNodes,
+  ];
+
+  if (galleryNodes.length > 0) {
+    graph.push({
+      "@type": "ItemList",
+      "@id": `${pageUrl}#property-photos`,
+      name: "Lovell Canyon Property Photos",
+      numberOfItems: galleryNodes.length,
+      itemListElement: galleryNodes.map((node, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: { "@id": node["@id"] },
+      })),
+    });
+  }
 
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": pageUrl,
-        name: pageTitle,
-        url: pageUrl,
-        primaryImageOfPage: { "@id": imageId },
-        about: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place) },
-        spatialCoverage: getLovellCanyonSpatialCoverage(),
-      },
-      {
-        "@type": "ImageObject",
-        "@id": imageId,
-        name: hero.name ?? hero.alt,
-        caption: hero.caption ?? hero.alt,
-        description: hero.alt,
-        contentUrl: hero.url,
-        url: hero.url,
-        width: hero.width ?? 1600,
-        height: hero.height ?? 900,
-        encodingFormat: "image/jpeg",
-        contentLocation: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place) },
-        ...imageRights,
-      },
-    ],
+    "@graph": graph,
   };
 }
 

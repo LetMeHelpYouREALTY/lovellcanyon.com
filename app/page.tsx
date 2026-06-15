@@ -77,13 +77,23 @@ export default async function Home() {
     getLovellCanyonGalleryPhotos(),
   ]);
 
-  const listingSchemas = LOVELL_CANYON_PARCELS.map((parcel) =>
-    getLovellCanyonParcelListingSchema(parcel, siteUrl, `/parcels/${parcel.slug}`)
+  const listingSchemas = await Promise.all(
+    LOVELL_CANYON_PARCELS.map(async (parcel) => {
+      const parcelHero = await getLovellCanyonPageHero(`/parcels/${parcel.slug}`);
+      return getLovellCanyonParcelListingSchema(parcel, siteUrl, `/parcels/${parcel.slug}`, {
+        ...(parcelHero ? { imagePhoto: parcelHero } : {}),
+      });
+    })
   );
 
   const faqSchema = getLovellCanyonFaqSchema(LOVELL_CANYON_FAQS.slice(0, 6));
   const heroSchema = heroPhoto
-    ? getLovellCanyonPageHeroImageSchema(heroPhoto, "/", config.heroHeadline)
+    ? getLovellCanyonPageHeroImageSchema(
+        heroPhoto,
+        "/",
+        config.heroHeadline,
+        galleryPhotos
+      )
     : null;
 
   return (
