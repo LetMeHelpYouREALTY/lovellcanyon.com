@@ -7,10 +7,17 @@ import LandCta from "@/components/land/LandCta";
 import ParcelDetailCard from "@/components/land/ParcelDetailCard";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import { LOVELL_CANYON_LOCATION, LOVELL_CANYON_PARCELS } from "@/lib/lovell-canyon-parcels";
-import { getLovellCanyonParcelListingSchema } from "@/lib/lovell-canyon-schema";
+import {
+  getLovellCanyonBreadcrumbSchema,
+  getLovellCanyonParcelItemListSchema,
+  getLovellCanyonParcelListingSchema,
+} from "@/lib/lovell-canyon-schema";
 import { getSiteUrl } from "@/lib/site-url";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
+import { LandRelatedPages } from "@/components/land/LandRelatedPages";
+import { LOVELL_CANYON_BREADCRUMBS } from "@/lib/lovell-canyon-breadcrumbs";
+import { LandBreadcrumbs } from "@/components/land/LandBreadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
@@ -25,9 +32,29 @@ export default function ParcelsPage() {
   const listingSchemas = LOVELL_CANYON_PARCELS.map((parcel) =>
     getLovellCanyonParcelListingSchema(parcel, siteUrl, `/parcels/${parcel.slug}`)
   );
+  const itemListSchema = getLovellCanyonParcelItemListSchema(LOVELL_CANYON_PARCELS, siteUrl);
+  const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.parcels);
+
+  const relatedPages = [
+    { href: "/89124-land", label: "89124 land", desc: "Zip code hub" },
+    { href: "/location", label: "Location", desc: "Map & area context" },
+    { href: "/access", label: "Access", desc: "Driving directions" },
+    { href: "/title-report", label: "Title report", desc: "Schedule A & B" },
+    { href: "/buying-raw-land", label: "Buying guide", desc: "Due diligence" },
+    { href: "/faq", label: "FAQ", desc: "Common questions" },
+    { href: "/contact", label: "Contact", desc: "Inquire about parcels" },
+  ];
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
       {listingSchemas.map((schema) => (
         <script
           key={schema.identifier}
@@ -36,6 +63,7 @@ export default function ParcelsPage() {
         />
       ))}
       <Navbar />
+      <LandBreadcrumbs items={LOVELL_CANYON_BREADCRUMBS.parcels} />
       <main className="pt-0">
         <LandPageHeroSection
           pathname="/parcels"
@@ -53,16 +81,25 @@ export default function ParcelsPage() {
               ))}
             </div>
             <p className="text-center mt-10 text-slate-600">
+              Both parcels are in Lovell Canyon, Clark County NV {LOVELL_CANYON_LOCATION.postalCode},{" "}
+              {LOVELL_CANYON_LOCATION.section}, {LOVELL_CANYON_LOCATION.township}{" "}
+              {LOVELL_CANYON_LOCATION.range}. See{" "}
+              <Link href="/89124-land" className="text-blue-600 font-semibold hover:underline">
+                89124 land overview
+              </Link>
+              ,{" "}
               <Link href="/title-report" className="text-blue-600 font-semibold hover:underline">
-                View full title report summary
+                title report summary
               </Link>
-              {" · "}
+              , and{" "}
               <Link href="/access" className="text-blue-600 font-semibold hover:underline">
-                Driving directions
+                driving directions
               </Link>
+              .
             </p>
           </div>
         </section>
+        <LandRelatedPages pages={relatedPages} className="py-12 bg-white border-t border-slate-200" />
         <LandCta />
       </main>
       <Footer />

@@ -16,7 +16,10 @@ export type LovellCanyonHeroPageId =
   | "access"
   | "title-report"
   | "faq"
-  | "contact";
+  | "contact"
+  | "89124-land"
+  | "buying-raw-land"
+  | "vs-pahrump";
 
 export type LovellCanyonHeroDefinition = {
   id: LovellCanyonHeroPageId;
@@ -134,6 +137,39 @@ export const LOVELL_CANYON_HERO_PAGES: LovellCanyonHeroDefinition[] = [
     name: "Contact Dr. Jan Duffy — Lovell Canyon Land Specialist",
     alt: `Contact ${AGENT} about Lovell Canyon raw land — Clark County NV 89124 parcels APN 135-31-801-006 and 007`,
     caption: `Inquire about Lovell Canyon land with ${AGENT}, Berkshire Hathaway HomeServices Nevada Properties.`,
+    width: 1600,
+    height: 900,
+  },
+  {
+    id: "89124-land",
+    pathname: "/89124-land",
+    r2Key: "lovell-canyon/heroes/89124-land.jpg",
+    localPath: "/images/heroes/lovell-canyon/89124-land.jpg",
+    name: "89124 land for sale — Lovell Canyon Clark County Nevada",
+    alt: `89124 land for sale in Lovell Canyon Clark County NV — raw vacant parcels APN 135-31-801-006 and 007, Section 31 T20S R57E`,
+    caption: `Clark County Nevada zip 89124 covers Lovell Canyon in the Spring Mountains west of Las Vegas. Two fee simple raw land parcels listed on this site.`,
+    width: 1600,
+    height: 900,
+  },
+  {
+    id: "buying-raw-land",
+    pathname: "/buying-raw-land",
+    r2Key: "lovell-canyon/heroes/buying-raw-land.jpg",
+    localPath: "/images/heroes/lovell-canyon/buying-raw-land.jpg",
+    name: "How to buy raw land in Clark County Nevada",
+    alt: `Buying raw land in Clark County NV — due diligence, title report, APN verification for Lovell Canyon 89124 parcels`,
+    caption: `Buyer guide for fee simple raw land in Lovell Canyon, Clark County Nevada 89124. Title, access, and assessor research steps.`,
+    width: 1600,
+    height: 900,
+  },
+  {
+    id: "vs-pahrump",
+    pathname: "/lovell-canyon-vs-pahrump",
+    r2Key: "lovell-canyon/heroes/vs-pahrump.jpg",
+    localPath: "/images/heroes/lovell-canyon/vs-pahrump.jpg",
+    name: "Lovell Canyon vs Pahrump — Clark County vs Nye County land",
+    alt: `Lovell Canyon Clark County NV 89124 vs Pahrump Nye County — geographic difference for Nevada land buyers near NV-160`,
+    caption: `Lovell Canyon is in Clark County 89124 west of Las Vegas. Pahrump is in Nye County. NV-160 connects both but the Lovell Canyon turnoff is before Nye County.`,
     width: 1600,
     height: 900,
   },

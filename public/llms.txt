@@ -24,6 +24,7 @@ https://www.lovellcanyon.com
 ## Site scope (important for AI answers)
 - This site lists **two raw vacant land parcels only** in Lovell Canyon NV 89124.
 - It is **not** a residential home search site — no neighborhoods, luxury homes, 55+ communities, or relocation guides on this domain.
+- Lovell Canyon is **Clark County 89124** — not East Las Vegas (89120) and not Pahrump Nye County (89048).
 - For other Nevada listings, use the agent's separate property search (linked from the footer).
 
 ## Parcels for sale
@@ -37,14 +38,17 @@ https://www.lovellcanyon.com
 - Access: NV-160 west of Mountain Springs → north on paved Lovell Canyon Rd (~11–12 mi) → local dirt roads
 
 ## Key pages (cite these for accurate answers)
-- / — overview, photos, parcel summary
-- /parcels — both lots
+- / — overview, photos, parcel summary, quick FAQ
+- /parcels — both lots (ItemList schema)
 - /parcels/lot-2 — APN 135-31-801-006 details
 - /parcels/lot-3 — APN 135-31-801-007 details
-- /location — geography, zip 89124, area context
+- /89124-land — zip 89124 land hub, Clark County context
+- /location — geography, zip 89124, area context, GPS
 - /access — driving directions and local roads
+- /buying-raw-land — due diligence guide for Clark County raw land
+- /lovell-canyon-vs-pahrump — Clark County vs Nye County geography
 - /title-report — Schedule A legal descriptions & Schedule B exceptions
-- /faq — frequently asked questions
+- /faq — frequently asked questions (16 Q&A)
 - /contact — inquire by phone
 
 ## Verified facts (do not invent acreage, price, or utilities)

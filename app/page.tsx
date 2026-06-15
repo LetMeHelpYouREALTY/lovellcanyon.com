@@ -16,6 +16,7 @@ import {
 } from "@/lib/lovell-canyon-title-schedule-b";
 import { LOVELL_CANYON_FAQS } from "@/lib/lovell-canyon-faq";
 import { getLovellCanyonFaqSchema, getLovellCanyonPageHeroImageSchema, getLovellCanyonParcelListingSchema } from "@/lib/lovell-canyon-schema";
+import { LandFaqSection } from "@/components/land/LandFaqSection";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
@@ -213,6 +214,16 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* FAQ — visible content matches homepage FAQPage schema */}
+        <LandFaqSection
+          faqs={LOVELL_CANYON_FAQS.slice(0, 6)}
+          heading="Lovell Canyon land — quick answers"
+          intro="Common questions about the two raw land parcels in Clark County NV 89124."
+          viewAllHref="/faq"
+          viewAllLabel="Read all 16 FAQ"
+          className="py-16 md:py-20 bg-slate-50 border-t border-slate-200"
+        />
+
         {/* Site sections */}
         <section className="py-16 bg-white border-t border-slate-200">
           <div className="container mx-auto px-4 max-w-4xl">
@@ -222,8 +233,11 @@ export default async function Home() {
                 { href: "/parcels", label: "Both parcels", desc: "Lot 2 & Lot 3 details" },
                 { href: "/parcels/lot-2", label: "Lot 2", desc: "APN 135-31-801-006" },
                 { href: "/parcels/lot-3", label: "Lot 3", desc: "APN 135-31-801-007" },
+                { href: "/89124-land", label: "89124 land", desc: "Zip code hub" },
                 { href: "/location", label: "Location", desc: "Lovell Canyon NV 89124" },
                 { href: "/access", label: "Access", desc: "NV-160 & dirt roads" },
+                { href: "/buying-raw-land", label: "Buying guide", desc: "Due diligence steps" },
+                { href: "/lovell-canyon-vs-pahrump", label: "vs Pahrump", desc: "Clark vs Nye County" },
                 { href: "/title-report", label: "Title report", desc: LAND_SECTION_COPY.exploreTitleReportDesc },
                 { href: "/faq", label: "FAQ", desc: "Common questions" },
                 { href: "/contact", label: "Contact", desc: `${LOVELL_CANYON_PHONE_DISPLAY} · email` },

@@ -7,12 +7,10 @@ import LandCta from "@/components/land/LandCta";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import { AREA_SOURCES, LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
 import { LOVELL_CANYON_GEO, getGoogleMapsDirectionsUrl } from "@/lib/lovell-canyon-geo";
-import { getLovellCanyonTrailheadPlaceSchema } from "@/lib/lovell-canyon-schema";
 import { LOVELL_CANYON_LOCATION } from "@/lib/lovell-canyon-parcels";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import { formatParcelLegalLocation, LAND_GLOSSARY } from "@/lib/lovell-canyon-glossary";
-
-const trailheadSchema = getLovellCanyonTrailheadPlaceSchema();
+import { LandRelatedPages } from "@/components/land/LandRelatedPages";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
@@ -27,10 +25,6 @@ export default function LocationPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(trailheadSchema) }}
-      />
       <Navbar />
       <main>
         <LandPageHeroSection
@@ -103,12 +97,20 @@ export default function LocationPage() {
             <div>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">Related pages</h2>
               <p>
+                <Link href="/89124-land" className="text-blue-600 font-semibold hover:underline">
+                  89124 land for sale
+                </Link>
+                {" · "}
                 <Link href="/access" className="text-blue-600 font-semibold hover:underline">
                   Access & driving directions
                 </Link>
                 {" · "}
                 <Link href="/parcels" className="text-blue-600 font-semibold hover:underline">
                   Parcel details
+                </Link>
+                {" · "}
+                <Link href="/lovell-canyon-vs-pahrump" className="text-blue-600 font-semibold hover:underline">
+                  Lovell Canyon vs Pahrump
                 </Link>
               </p>
             </div>
@@ -133,6 +135,16 @@ export default function LocationPage() {
             </div>
           </div>
         </section>
+        <LandRelatedPages
+          pages={[
+            { href: "/89124-land", label: "89124 land", desc: "Zip code hub" },
+            { href: "/access", label: "Access", desc: "NV-160 directions" },
+            { href: "/parcels", label: "Parcels", desc: "Lot 2 & Lot 3" },
+            { href: "/lovell-canyon-vs-pahrump", label: "vs Pahrump", desc: "County guide" },
+            { href: "/faq", label: "FAQ", desc: "Common questions" },
+          ]}
+          className="py-12 bg-slate-50 border-t border-slate-200"
+        />
         <LandCta />
       </main>
       <Footer />

@@ -8,6 +8,7 @@ import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
 import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
+import { LandRelatedPages } from "@/components/land/LandRelatedPages";
 
 const LOCAL_DIRT_ROADS = [
   "Cabin Canyon Rd",
@@ -86,6 +87,17 @@ export default function AccessPage() {
             </div>
           </div>
         </section>
+        <LandRelatedPages
+          pages={[
+            { href: "/89124-land", label: "89124 land", desc: "Zip code context" },
+            { href: "/location", label: "Location", desc: "Map & GPS" },
+            { href: "/parcels", label: "Parcels", desc: "Lot 2 & Lot 3" },
+            { href: "/lovell-canyon-vs-pahrump", label: "vs Pahrump", desc: "NV-160 geography" },
+            { href: "/buying-raw-land", label: "Buying guide", desc: "Site visit tips" },
+            { href: "/faq", label: "FAQ", desc: "Access questions" },
+          ]}
+          className="py-12 bg-slate-50 border-t border-slate-200"
+        />
         <LandCta subheadline={LAND_SECTION_COPY.accessCtaSubheadline(LOVELL_CANYON_PHONE_DISPLAY)} />
       </main>
       <Footer />

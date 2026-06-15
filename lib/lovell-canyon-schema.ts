@@ -37,6 +37,13 @@ export const LOVELL_CANYON_SCHEMA_IDS = {
   parcelArea: "#parcel-section-31",
 } as const;
 
+/** ISO date when listings were first published on this site (schema datePosted). */
+export const LOVELL_CANYON_LISTING_DATE_POSTED = "2026-06-01";
+
+export function getLovellCanyonParcelListingId(parcelPath: string) {
+  return `${getSiteUrl()}${parcelPath}#listing`;
+}
+
 function schemaId(fragment: string) {
   const siteUrl = getSiteUrl();
   if (fragment.startsWith("#")) {
@@ -223,16 +230,21 @@ export function getLovellCanyonWebSiteSchema() {
 export function getLovellCanyonParcelListingSchema(
   parcel: LovellCanyonParcel,
   siteUrl: string,
-  parcelPath?: string
+  parcelPath?: string,
+  options?: { imageUrl?: string }
 ) {
   const { latitude, longitude } = LOVELL_CANYON_GEO.center;
+  const listingUrl = parcelPath ? `${siteUrl}${parcelPath}` : siteUrl;
 
   return {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
+    ...(parcelPath ? { "@id": getLovellCanyonParcelListingId(parcelPath) } : {}),
     name: `Lovell Canyon Land — ${parcel.label} (APN ${parcel.apn})`,
-    url: parcelPath ? `${siteUrl}${parcelPath}` : siteUrl,
+    url: listingUrl,
+    datePosted: LOVELL_CANYON_LISTING_DATE_POSTED,
     description: `${parcel.estate} land in Lovell Canyon, Clark County NV. APN ${parcel.apn}. ${parcel.alternateDescription}`,
+    ...(options?.imageUrl ? { image: options.imageUrl } : {}),
     address: getLovellCanyonPostalAddress(),
     geo: getGeoCoordinatesSchema(latitude, longitude),
     hasMap: getGoogleMapsViewUrl(latitude, longitude),
@@ -258,6 +270,9 @@ export function getLovellCanyonParcelListingSchema(
           },
         }
       : {}),
+    offeredBy: {
+      "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.agent),
+    },
     additionalProperty: [
       {
         "@type": "PropertyValue",
@@ -311,6 +326,30 @@ export function getLovellCanyonParcelListingSchema(
     seller: {
       "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.agent),
     },
+  };
+}
+
+/** ItemList for /parcels — links both RealEstateListing nodes for SERP clarity. */
+export function getLovellCanyonParcelItemListSchema(
+  parcels: LovellCanyonParcel[],
+  siteUrl: string
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Lovell Canyon Land Parcels — Clark County NV 89124",
+    description:
+      "Fee simple raw land parcels in Lovell Canyon, Section 31 T20S R57E, Clark County Nevada 89124.",
+    numberOfItems: parcels.length,
+    itemListElement: parcels.map((parcel, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: `${parcel.label} — APN ${parcel.apn}`,
+      url: `${siteUrl}/parcels/${parcel.slug}`,
+      item: {
+        "@id": getLovellCanyonParcelListingId(`/parcels/${parcel.slug}`),
+      },
+    })),
   };
 }
 
