@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin, ExternalLink, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Phone, Mail, MapPin, ExternalLink, Facebook, Instagram, Linkedin, Clock } from "lucide-react";
 import {
   LOVELL_CANYON_EMAIL,
   LOVELL_CANYON_EMAIL_HREF,
@@ -15,6 +15,7 @@ import {
   LOVELL_CANYON_FOOTER_LAND_LINKS,
   LOVELL_CANYON_FOOTER_RESOURCE_LINKS,
 } from "@/lib/lovell-canyon-footer";
+import { LOVELL_CANYON_HOURS_SUMMARY } from "@/lib/lovell-canyon-gbp-hours";
 
 function FooterLinkItem({ href, label, external }: { href: string; label: string; external?: boolean }) {
   const className = "text-slate-300 hover:text-white transition-colors text-sm inline-flex items-center gap-1";
@@ -147,6 +148,10 @@ export default function Footer() {
                 >
                   {LOVELL_CANYON_EMAIL}
                 </a>
+              </li>
+              <li className="flex items-start">
+                <Clock className="h-5 w-5 mr-3 text-blue-400 flex-shrink-0 mt-0.5" />
+                <span className="text-slate-300 text-sm">{LOVELL_CANYON_HOURS_SUMMARY}</span>
               </li>
             </ul>
           </div>

@@ -4,7 +4,11 @@
  */
 
 import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
-import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
+import {
+  LOVELL_CANYON_BRAND,
+  LOVELL_CANYON_BROKERAGE,
+  LOVELL_CANYON_GBP_NAME,
+} from "@/lib/lovell-canyon-brand";
 import {
   LOVELL_CANYON_EMAIL,
   LOVELL_CANYON_OFFICE,
@@ -13,6 +17,8 @@ import {
   LOVELL_CANYON_SOCIAL_PROFILES,
 } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_GEO } from "@/lib/lovell-canyon-geo";
+import { getLovellCanyonOpeningHoursSchema } from "@/lib/lovell-canyon-gbp-hours";
+import { LOVELL_CANYON_OFFICE_GEO, getOfficeGoogleMapsViewUrl } from "@/lib/lovell-canyon-office";
 import { LOVELL_CANYON_LOCATION, LOVELL_CANYON_PARCELS } from "@/lib/lovell-canyon-parcels";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -20,7 +26,7 @@ const SITE_URL = getSiteUrl();
 
 /** Office NAP — must match GBP physical location exactly. */
 export const lovellCanyonGbpBusiness = {
-  name: `Dr. Jan Duffy — ${LOVELL_CANYON_BROKERAGE}`,
+  name: LOVELL_CANYON_GBP_NAME,
   address: {
     streetAddress: LOVELL_CANYON_OFFICE.street,
     addressLocality: LOVELL_CANYON_OFFICE.city,
@@ -36,10 +42,7 @@ export const lovellCanyonGbpBusiness = {
   url: SITE_URL,
   license: LOVELL_CANYON_BRAND.license,
   /** Office coordinates (Summerlin/Lake Mead office). */
-  officeGeo: {
-    latitude: 36.1941,
-    longitude: -115.2678,
-  },
+  officeGeo: LOVELL_CANYON_OFFICE_GEO,
   /** Parcel area center — service geography, not office address. */
   parcelGeo: {
     latitude: LOVELL_CANYON_GEO.center.latitude,
@@ -89,7 +92,7 @@ export const lovellCanyonGbpBusiness = {
 
 /** ≤750 characters for GBP business description field. */
 export const lovellCanyonGbpShortDescription =
-  "Dr. Jan Duffy, Land Specialist, lists two fee simple raw land parcels in Lovell Canyon, Clark County NV 89124 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Spring Mountains west of Las Vegas via NV-160 and Lovell Canyon Rd. Not Pahrump. Office: 9406 W Lake Mead Blvd Ste 100, Las Vegas NV 89134. Call (702) 500-1942 or DrDuffySells@lovellcanyon.com.";
+  "Dr. Jan Duffy, Land Specialist, lists two fee simple raw land parcels in Lovell Canyon, Clark County NV 89124 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Spring Mountains west of Las Vegas via NV-160 and Lovell Canyon Rd. Not Pahrump. Office: 9406 W Lake Mead Blvd Ste 100, Las Vegas NV 89134. Call (702) 842-9736 or DrDuffySells@lovellcanyon.com.";
 
 export const lovellCanyonGbpDescription = {
   whoWeAre: `${LOVELL_CANYON_BRAND.agentName} is the Land Specialist for ${LOVELL_CANYON_BROKERAGE}, representing two fee simple vacant land parcels in Lovell Canyon, Clark County, Nevada 89124. Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007) are in Section 31, Township 20 South, Range 57 East. License ${LOVELL_CANYON_BRAND.license}.`,
@@ -148,6 +151,8 @@ export function generateLovellCanyonLocalBusinessSchema() {
       latitude: biz.officeGeo.latitude,
       longitude: biz.officeGeo.longitude,
     },
+    hasMap: getOfficeGoogleMapsViewUrl(),
+    openingHoursSpecification: getLovellCanyonOpeningHoursSchema(),
     areaServed: [
       {
         "@type": "Place",

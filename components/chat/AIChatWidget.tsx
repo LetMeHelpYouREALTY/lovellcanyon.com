@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Send, MessageCircle, X, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
 
 interface Message {
   role: "user" | "assistant";
@@ -80,7 +81,7 @@ export default function AIChatWidget() {
       const errorMessage: Message = {
         role: "assistant",
         content:
-          "I'm sorry, I'm having trouble connecting right now. Please try again or contact Dr. Jan Duffy directly at (702) 500-1942.",
+          `I'm sorry, I'm having trouble connecting right now. Please try again or contact Dr. Jan Duffy directly at ${LOVELL_CANYON_PHONE_DISPLAY}.`,
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -181,7 +182,7 @@ export default function AIChatWidget() {
               </Button>
             </div>
             <p className="text-xs text-slate-500 mt-2 text-center">
-              Powered by AI • Contact: (702) 500-1942
+              Powered by AI • Contact: {LOVELL_CANYON_PHONE_DISPLAY}
             </p>
           </div>
         </div>

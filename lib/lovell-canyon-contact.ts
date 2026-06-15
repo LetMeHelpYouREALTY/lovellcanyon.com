@@ -1,17 +1,31 @@
 /** CallAction WidgetTracker site ID for lovellcanyon.com */
 export const CALLACTION_WIDGET_ID = "WT-XQHVYQWW";
 
+/** Public tracking number — shown on site, GBP, schema, and tel:/sms: links. */
 const CALLACTION_DIGITS =
-  process.env.NEXT_PUBLIC_CALLACTION_PHONE?.replace(/\D/g, "") ?? "7025001942";
+  process.env.NEXT_PUBLIC_CALLACTION_PHONE?.replace(/\D/g, "") ?? "7028429736";
+
+/**
+ * CallAction call-forward destination (Jan Duffy direct line).
+ * Configured in CallAction dashboard only — never use for public NAP, GBP, or tel: links.
+ */
+export const CALLACTION_FORWARD_DESTINATION = "(702) 222-1964";
+
+/** CallAction campaign tracking (dashboard: Campaign Name). */
+export const CALLACTION_CAMPAIGN_NAME = "Lovell Canyon";
+
+/** CallAction drip campaign for land buyer leads. */
+export const CALLACTION_DRIP_CAMPAIGN =
+  "KTS New Land Buyer Lead - US/Pacific - Admin";
 
 function formatPhoneDisplay(digits: string): string {
   if (digits.length === 10) {
-    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
   }
   return digits;
 }
 
-/** Public CallAction tracking number shown sitewide (forwards to Dr. Jan Duffy). */
+/** Public CallAction tracking number shown sitewide. Forwards to CALLACTION_FORWARD_DESTINATION. */
 export const LOVELL_CANYON_PHONE_DISPLAY = formatPhoneDisplay(CALLACTION_DIGITS);
 export const LOVELL_CANYON_PHONE_TEL = `tel:+1${CALLACTION_DIGITS}`;
 export const LOVELL_CANYON_PHONE_SMS = `sms:+1${CALLACTION_DIGITS}`;

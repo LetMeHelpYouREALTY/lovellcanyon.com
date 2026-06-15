@@ -5,7 +5,6 @@ import {
   Phone,
   Mail,
   MapPin,
-  Clock,
   MessageSquare,
   CheckCircle,
   Users,
@@ -13,25 +12,27 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import BusinessHours from "@/components/land/BusinessHours";
+import OfficeMapEmbed from "@/components/maps/OfficeMapEmbed";
 import {
   lovellCanyonGbpBusiness,
   lovellCanyonGbpDescription,
   lovellCanyonGbpFaqs,
   lovellCanyonGbpShortDescription,
   generateLovellCanyonGbpFaqSchema,
-  generateLovellCanyonLocalBusinessSchema,
 } from "@/lib/lovell-canyon-gbp";
+import { LOVELL_CANYON_BROKERAGE, LOVELL_CANYON_GBP_NAME } from "@/lib/lovell-canyon-brand";
 import { LOVELL_CANYON_LOCATION } from "@/lib/lovell-canyon-parcels";
 import { getSiteUrl } from "@/lib/site-url";
 
 const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: "GBP Reference | Lovell Canyon Land — Dr. Jan Duffy",
+  title: `GBP Reference | ${LOVELL_CANYON_GBP_NAME}`,
   description: lovellCanyonGbpShortDescription,
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Dr. Jan Duffy — Lovell Canyon Land Specialist",
+    title: LOVELL_CANYON_GBP_NAME,
     description: lovellCanyonGbpShortDescription,
     url: `${siteUrl}/google-business`,
     type: "website",
@@ -39,16 +40,11 @@ export const metadata: Metadata = {
 };
 
 export default function GoogleBusinessPage() {
-  const localBusinessSchema = generateLovellCanyonLocalBusinessSchema();
   const faqSchema = generateLovellCanyonGbpFaqSchema();
   const biz = lovellCanyonGbpBusiness;
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -63,11 +59,11 @@ export default function GoogleBusinessPage() {
                   <p className="text-blue-300 text-sm mb-2 uppercase tracking-wide">
                     Google Business Profile reference
                   </p>
-                  <h1 className="text-4xl md:text-5xl font-bold mb-4">Dr. Jan Duffy</h1>
+                  <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">{biz.name}</h1>
                   <p className="text-xl text-blue-200 mb-2">
-                    Land Specialist | License {biz.license}
+                    License {biz.license} · {LOVELL_CANYON_BROKERAGE}
                   </p>
-                  <p className="text-slate-300 mb-6">{biz.name.split("—")[1]?.trim()}</p>
+                  <p className="text-slate-300 mb-6">Google Business Profile business name (copy exactly)</p>
 
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
@@ -127,36 +123,10 @@ export default function GoogleBusinessPage() {
 
           <BelowHeroEngagement showCalendly={false} />
 
-          <section className="max-w-5xl mx-auto mb-16">
-            <div className="bg-slate-50 rounded-xl p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Clock className="h-5 w-5 text-blue-600" />
-                <h2 className="text-xl font-bold text-slate-900">Business Hours</h2>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <span className="font-medium">Monday:</span> 9am - 6pm
-                </div>
-                <div>
-                  <span className="font-medium">Tuesday:</span> 9am - 6pm
-                </div>
-                <div>
-                  <span className="font-medium">Wednesday:</span> 9am - 6pm
-                </div>
-                <div>
-                  <span className="font-medium">Thursday:</span> 9am - 6pm
-                </div>
-                <div>
-                  <span className="font-medium">Friday:</span> 9am - 6pm
-                </div>
-                <div>
-                  <span className="font-medium">Saturday:</span> 10am - 4pm
-                </div>
-                <div>
-                  <span className="font-medium">Sunday:</span> By appointment
-                </div>
-              </div>
-            </div>
+          <OfficeMapEmbed />
+
+          <section className="max-w-5xl mx-auto mb-16 px-4">
+            <BusinessHours />
           </section>
 
           <section className="max-w-4xl mx-auto mb-16 space-y-8">
@@ -258,7 +228,8 @@ export default function GoogleBusinessPage() {
           </section>
         </div>
         <p className="text-center text-sm text-slate-500 mt-8">
-          GBP audit doc: docs/seo/gbp-nap-audit.md · Last updated June 2026
+          GBP docs: docs/seo/gbp-nap-audit.md · docs/seo/gbp-verification-checklist.md · Last updated
+          June 2026
         </p>
       </main>
       <Footer />

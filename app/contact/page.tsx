@@ -6,6 +6,8 @@ import LandCta from "@/components/land/LandCta";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import CalendlySection from "@/components/sections/CalendlySection";
 import { Phone, MapPin, Mail } from "lucide-react";
+import BusinessHours from "@/components/land/BusinessHours";
+import OfficeMapEmbed from "@/components/maps/OfficeMapEmbed";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import {
   LOVELL_CANYON_EMAIL,
@@ -94,8 +96,10 @@ export default function ContactPage() {
                 </p>
               </div>
             </div>
+            <BusinessHours />
           </div>
         </section>
+        <OfficeMapEmbed />
         <LandCta />
       </main>
       <Footer />

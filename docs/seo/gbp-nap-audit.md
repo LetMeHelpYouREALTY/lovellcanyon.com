@@ -6,14 +6,15 @@ Update [Google Business Profile](https://business.google.com) to match this site
 
 | Field | Value |
 |-------|--------|
-| **Business name** | Dr. Jan Duffy — Berkshire Hathaway HomeServices Nevada Properties |
+| **Business name** | Lovell Canyon Land \| Dr. Jan Duffy · Land Specialist |
 | **Street** | 9406 W Lake Mead Blvd, Suite 100 |
 | **City** | Las Vegas |
 | **State** | NV |
 | **ZIP** | **89134** |
-| **Phone** | (702) 500-1942 |
+| **Phone** | (702) 842-9736 *(CallAction tracking — forwards to agent direct line; see [callaction-lovell-canyon.md](../integrations/callaction-lovell-canyon.md))* |
 | **Website** | https://www.lovellcanyon.com |
 | **Email** | DrDuffySells@lovellcanyon.com |
+| **Hours** | Mon–Fri 9am–6pm, Sat 10am–4pm, Sun by appointment |
 
 ## Parcel geography (service area — not office ZIP)
 
@@ -38,7 +39,7 @@ Update [Google Business Profile](https://business.google.com) to match this site
 ## GBP business description (copy-paste, ≤750 chars)
 
 ```
-Dr. Jan Duffy, Land Specialist, lists two fee simple raw land parcels in Lovell Canyon, Clark County NV 89124 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Spring Mountains west of Las Vegas via NV-160 and Lovell Canyon Rd. Not Pahrump. Office: 9406 W Lake Mead Blvd Ste 100, Las Vegas NV 89134. Call (702) 500-1942 or DrDuffySells@lovellcanyon.com.
+Dr. Jan Duffy, Land Specialist, lists two fee simple raw land parcels in Lovell Canyon, Clark County NV 89124 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Spring Mountains west of Las Vegas via NV-160 and Lovell Canyon Rd. Not Pahrump. Office: 9406 W Lake Mead Blvd Ste 100, Las Vegas NV 89134. Call (702) 842-9736 or DrDuffySells@lovellcanyon.com.
 ```
 
 ## Service areas to add in GBP
@@ -58,10 +59,14 @@ Dr. Jan Duffy, Land Specialist, lists two fee simple raw land parcels in Lovell 
 
 Internal mirror of GBP fields: `/google-business` (uses `lib/lovell-canyon-gbp.ts`).
 
+**Verification workflow:** [gbp-verification-checklist.md](./gbp-verification-checklist.md)
+
+**Edit profile (field-by-field):** [gbp-edit-profile-guide.md](./gbp-edit-profile-guide.md)
+
 ## Monthly check
 
 - [ ] GBP description still says 89124 / Lovell Canyon (not Pahrump or 89120)
-- [ ] Phone matches `(702) 500-1942` sitewide
+- [ ] Phone matches `(702) 842-9736` sitewide (CallAction tracking — **not** forward destination 222-1964)
 - [ ] Website link points to https://www.lovellcanyon.com
 - [ ] Hours match office listing
 - [ ] New GBP posts mention land parcels with correct APNs when promoting this listing

@@ -1,6 +1,6 @@
 {
   "brand": {
-    "name": "Lovell Canyon | Land by Dr. Jan Duffy",
+    "name": "Lovell Canyon Land | Dr. Jan Duffy · Land Specialist",
     "shortName": "Lovell Canyon Land",
     "url": "https://www.lovellcanyon.com",
     "description": "Official listing site for two fee simple raw land parcels in Lovell Canyon, Clark County, Nevada 89124.",
@@ -12,8 +12,8 @@
     "name": "Dr. Jan Duffy",
     "title": "Land Specialist",
     "license": "S.0197614.LLC",
-    "phone": "+17022221964",
-    "phoneDisplay": "702-222-1964",
+    "phone": "+17028429736",
+    "phoneDisplay": "(702) 842-9736",
     "email": "DrDuffySells@lovellcanyon.com",
     "brokerage": "Berkshire Hathaway HomeServices Nevada Properties",
     "officeAddress": {
@@ -22,7 +22,8 @@
       "state": "NV",
       "postalCode": "89134",
       "country": "US"
-    }
+    },
+    "businessHours": "Mon–Fri 9am–6pm, Sat 10am–4pm, Sun by appointment"
   },
   "parcels": [
     {
@@ -69,7 +70,7 @@
     "propertyTaxStatus": "Paid in full per title report Schedule B"
   },
   "contact": {
-    "phone": "702-222-1964",
+    "phone": "(702) 842-9736",
     "email": "DrDuffySells@lovellcanyon.com",
     "contactPage": "https://www.lovellcanyon.com/contact",
     "calendly": "https://calendly.com/drjanduffy/showing"
@@ -85,5 +86,5 @@
     "https://www.lovellcanyon.com/faq",
     "https://www.lovellcanyon.com/contact"
   ],
-  "lastUpdated": "2026-06-10"
+  "lastUpdated": "2026-06-15"
 }

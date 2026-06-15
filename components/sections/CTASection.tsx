@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Home } from "lucide-react";
-import { REALSCOUT_OFFICE_URL } from "@/lib/lovell-canyon-contact";
+import { REALSCOUT_OFFICE_URL, LOVELL_CANYON_PHONE_TEL } from "@/lib/lovell-canyon-contact";
 
 export default function CTASection() {
   return (
@@ -40,7 +40,7 @@ export default function CTASection() {
               variant="outline"
               className="border-white text-white hover:bg-white/10"
             >
-              <Link href="tel:+17025001942" className="flex items-center gap-2">
+              <Link href={LOVELL_CANYON_PHONE_TEL} className="flex items-center gap-2">
                 <Phone className="h-5 w-5" />
                 Call Now
               </Link>

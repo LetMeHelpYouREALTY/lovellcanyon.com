@@ -4,19 +4,23 @@ export const LOVELL_CANYON_BROKERAGE = "Berkshire Hathaway HomeServices Nevada P
 
 export const LOVELL_CANYON_BROKERAGE_SHORT = "Berkshire Hathaway HomeServices Nevada" as const;
 
+/** GBP business name and primary public brand — must match Google Business Profile exactly. */
+export const LOVELL_CANYON_GBP_NAME =
+  "Lovell Canyon Land | Dr. Jan Duffy · Land Specialist" as const;
+
 export const LOVELL_CANYON_BRAND = {
-  siteName: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
+  siteName: LOVELL_CANYON_GBP_NAME,
   brandShort: "Lovell Canyon Land",
   navTitle: "Lovell Canyon Land",
   navSubtitle: "Dr. Jan Duffy · Land Specialist · Berkshire Hathaway HomeServices Nevada",
-  title: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist — APN 135-31-801-006 & 007",
-  ogTitle: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
+  title: `${LOVELL_CANYON_GBP_NAME} — APN 135-31-801-006 & 007`,
+  ogTitle: LOVELL_CANYON_GBP_NAME,
   description:
     "Fee simple raw land in Lovell Canyon, Clark County NV 89124 — Lot 2 & Lot 3 (APN 135-31-801-006 & 007), Section 31 T20S R57E. Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
   agentName: "Dr. Jan Duffy",
   agentTitle: "Land Specialist",
   agentTitleLong: "Land Specialist / Land Agent",
-  agentAlternateName: "Dr. Jan Duffy — Lovell Canyon Land Specialist",
+  agentAlternateName: LOVELL_CANYON_GBP_NAME,
   agentBio:
     "Dr. Jan Duffy is the Land Specialist and Land Agent for Berkshire Hathaway HomeServices Nevada Properties.",
   agentAttribution: `Dr. Jan Duffy, Land Specialist | License S.0197614.LLC | ${LOVELL_CANYON_BROKERAGE}`,

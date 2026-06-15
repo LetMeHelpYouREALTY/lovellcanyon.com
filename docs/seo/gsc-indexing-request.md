@@ -23,6 +23,8 @@ After material content changes (ZIP 89124, gallery photos, parcel copy), request
 
 See **[gbp-nap-audit.md](./gbp-nap-audit.md)** for copy-paste GBP fields and the ≤750-character business description.
 
+**Verification checklist:** **[gbp-verification-checklist.md](./gbp-verification-checklist.md)**
+
 - Parcel ZIP: **89124** (not 89120 or Pahrump 89048)
 - Office ZIP: **89134** (brokerage — not parcel location)
 - Site reference: `/google-business` and `lib/lovell-canyon-gbp.ts`

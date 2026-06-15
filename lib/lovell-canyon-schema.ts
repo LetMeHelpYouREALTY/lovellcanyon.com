@@ -16,6 +16,12 @@ import {
   getLovellCanyonSpatialCoverage,
   LOVELL_CANYON_GEO,
 } from "@/lib/lovell-canyon-geo";
+import { getLovellCanyonOpeningHoursSchema } from "@/lib/lovell-canyon-gbp-hours";
+import { lovellCanyonGbpBusiness } from "@/lib/lovell-canyon-gbp";
+import {
+  getOfficeGoogleMapsViewUrl,
+  LOVELL_CANYON_OFFICE_GEO,
+} from "@/lib/lovell-canyon-office";
 import type { LovellCanyonPhoto } from "@/lib/lovell-canyon-media";
 import { LOVELL_CANYON_NAV_LABELS } from "@/lib/lovell-canyon-footer";
 import { INDEXABLE_PATHS } from "@/lib/lovell-canyon-site-pages";
@@ -125,13 +131,14 @@ export function getLovellCanyonTrailheadPlaceSchema() {
 export function getLovellCanyonAgentSchema() {
   const siteUrl = getSiteUrl();
   const { latitude, longitude } = LOVELL_CANYON_GEO.center;
+  const { latitude: officeLat, longitude: officeLng } = LOVELL_CANYON_OFFICE_GEO;
 
   return {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.agent),
-    name: LOVELL_CANYON_BRAND.agentName,
-    alternateName: LOVELL_CANYON_BRAND.agentAlternateName,
+    name: lovellCanyonGbpBusiness.name,
+    alternateName: LOVELL_CANYON_BRAND.agentName,
     url: siteUrl,
     telephone: SCHEMA_PHONE,
     email: LOVELL_CANYON_EMAIL,
@@ -163,7 +170,9 @@ export function getLovellCanyonAgentSchema() {
       postalCode: LOVELL_CANYON_OFFICE.postalCode,
       addressCountry: LOVELL_CANYON_OFFICE.country,
     },
-    geo: getGeoCoordinatesSchema(latitude, longitude),
+    geo: getGeoCoordinatesSchema(officeLat, officeLng),
+    hasMap: getOfficeGoogleMapsViewUrl(),
+    openingHoursSpecification: getLovellCanyonOpeningHoursSchema(),
     areaServed: [
       {
         "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place),

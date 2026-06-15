@@ -65,9 +65,9 @@
       {
         "name": "phone-number-check",
         "description": "Verify correct phone number is used",
-        "pattern": "702-222-1964|7022221964|702-500-1955|7025001955",
+        "pattern": "702-500-1942|7025001942|702-500-1955|7025001955",
         "severity": "error",
-        "message": "Old phone number detected! Use (702) 500-1942 for all phone numbers sitewide"
+        "message": "Wrong public phone! Lovell Canyon NAP/GBP must use (702) 842-9736 (CallAction tracking). (702) 222-1964 is forward destination only — not for site or schema."
       },
       {
         "name": "berkshire-branding",

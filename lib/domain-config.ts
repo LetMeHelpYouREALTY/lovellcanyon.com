@@ -85,7 +85,7 @@ export const DOMAIN_CONFIGS: Record<string, DomainConfig> = {
   "lovellcanyon.com": {
     domain: "lovellcanyon.com",
     neighborhood: "Lovell Canyon",
-    tagline: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
+    tagline: "Lovell Canyon Land | Dr. Jan Duffy · Land Specialist",
     description:
       "Two raw land parcels in Lovell Canyon, Clark County NV 89124 (APN 135-31-801-006 & 135-31-801-007). Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
     heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
@@ -113,7 +113,7 @@ export const DOMAIN_CONFIGS: Record<string, DomainConfig> = {
 export const DEFAULT_CONFIG: DomainConfig = {
   domain: "lovellcanyon.com",
   neighborhood: "Lovell Canyon",
-  tagline: "Lovell Canyon Land | Dr. Jan Duffy Land Specialist",
+  tagline: "Lovell Canyon Land | Dr. Jan Duffy · Land Specialist",
   description:
     "Two raw land parcels in Lovell Canyon, Clark County NV 89124 (APN 135-31-801-006 & 135-31-801-007). Dr. Jan Duffy, Land Specialist for Berkshire Hathaway HomeServices Nevada Properties.",
   heroHeadline: "Lovell Canyon Raw Land — Two Parcels",
