@@ -41,7 +41,7 @@ Update [Google Business Profile](https://business.google.com) to match this site
 Full guide with character count and preview: **[gbp-business-description.md](./gbp-business-description.md)**
 
 ```
-Lovell Canyon Land — Dr. Jan Duffy, Land Specialist and REALTOR with Berkshire Hathaway HomeServices Nevada Properties, represents two fee simple raw land parcels in Clark County NV 89124. Lot 2 (APN 135-31-801-006) and Lot 3 (APN 135-31-801-007) are in Section 31 T20S R57E, Spring Mountains west of Las Vegas, accessed via NV-160 and Lovell Canyon Road. This is Clark County land — not Pahrump or Nye County. Services include vacant land buyer representation, parcel consultations, due diligence on title and legal descriptions, Clark County assessor research, access guidance, site visits, and closing support for off-grid raw land. Nevada License S.0197614.LLC. Office: 9406 W Lake Mead Blvd Ste 100, Las Vegas NV 89134.
+Dr Jan Duffy, Land Specialist with Berkshire Hathaway HomeServices Nevada Properties, helps buyers with raw land in Lovell Canyon, Clark County, Nevada 89124. Two fee simple vacant parcels are listed in the Spring Mountains west of Las Vegas, reached from Highway 160 and Lovell Canyon Road. Services include land buyer representation, parcel consultations, due diligence, title and legal description review, Clark County assessor research, access guidance, site visits, and closing support for off-grid raw land. Office at 9406 W Lake Mead Boulevard, Suite 100, Las Vegas, Nevada 89134.
 ```
 
 ## Service areas to add in GBP
