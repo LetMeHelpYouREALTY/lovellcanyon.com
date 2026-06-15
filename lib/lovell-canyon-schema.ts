@@ -29,6 +29,25 @@ import { getCanonicalUrl, getSiteUrl } from "@/lib/site-url";
 
 const SCHEMA_PHONE = LOVELL_CANYON_PHONE_TEL.replace("tel:", "");
 
+/** Google Image Metadata — Person creator + licensing fields (not RealEstateAgent @id). */
+function getLovellCanyonHeroImageRightsMetadata(siteUrl: string) {
+  const licenseUrl = getCanonicalUrl("/contact");
+
+  return {
+    creditText: `${LOVELL_CANYON_BRAND.agentName}, ${LOVELL_CANYON_BRAND.agentTitle} / ${LOVELL_CANYON_BROKERAGE}`,
+    copyrightNotice: `© 2026 ${LOVELL_CANYON_BRAND.agentName} / ${LOVELL_CANYON_BROKERAGE}`,
+    copyrightYear: "2026",
+    license: licenseUrl,
+    acquireLicensePage: licenseUrl,
+    creator: {
+      "@type": "Person" as const,
+      name: LOVELL_CANYON_BRAND.agentName,
+      url: siteUrl,
+      email: LOVELL_CANYON_EMAIL,
+    },
+  };
+}
+
 export const LOVELL_CANYON_SCHEMA_IDS = {
   website: "#website",
   place: "#lovell-canyon",
@@ -427,6 +446,7 @@ export function getLovellCanyonPageHeroImageSchema(
   const siteUrl = getSiteUrl();
   const pageUrl = pathname === "/" ? siteUrl : `${siteUrl}${pathname}`;
   const imageId = `${pageUrl}#hero-image`;
+  const imageRights = getLovellCanyonHeroImageRightsMetadata(siteUrl);
 
   return {
     "@context": "https://schema.org",
@@ -450,8 +470,9 @@ export function getLovellCanyonPageHeroImageSchema(
         url: hero.url,
         width: hero.width ?? 1600,
         height: hero.height ?? 900,
+        encodingFormat: "image/jpeg",
         contentLocation: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.place) },
-        creator: { "@id": schemaId(LOVELL_CANYON_SCHEMA_IDS.agent) },
+        ...imageRights,
       },
     ],
   };
