@@ -114,6 +114,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Sync indexable paths manifest
+        run: npm run sync:indexable-paths
+
+      - name: ImageObject schema validation (unit verifier)
+        run: npm run validate:image-object
+
       - name: Run tests
         run: npm run test:ci
 

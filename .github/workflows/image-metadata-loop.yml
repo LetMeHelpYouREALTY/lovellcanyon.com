@@ -1,0 +1,55 @@
+name: Image Metadata Verify Loop
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: "Site URL to validate"
+        required: false
+        default: "https://www.lovellcanyon.com"
+
+concurrency:
+  group: image-metadata-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  unit-verifier:
+    name: Local ImageObject tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run sync:indexable-paths
+      - run: npm run validate:image-object
+
+  live-verifier:
+    name: Live Image Metadata loop
+    runs-on: ubuntu-latest
+    needs: unit-verifier
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Wait for Vercel production deploy
+        run: sleep 90
+
+      - name: Verify until pass (goal loop)
+        run: npm run verify:image-metadata
+        env:
+          SITE_URL: ${{ github.event.inputs.site_url || 'https://www.lovellcanyon.com' }}
+          VERIFY_MAX_ATTEMPTS: "6"
+          VERIFY_WAIT_MS: "45000"

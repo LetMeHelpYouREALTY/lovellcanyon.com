@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { LOVELL_CANYON_GALLERY_DEFINITIONS } from "@/lib/lovell-canyon-gallery-images";
@@ -40,6 +40,12 @@ function heroPhotoFromPath(pathname: string): LovellCanyonPhoto {
 }
 
 describe("Lovell Canyon Image Metadata loop", () => {
+  it("keeps live validator paths in sync with INDEXABLE_PATHS", () => {
+    const jsonPath = join(process.cwd(), "scripts", "indexable-paths.json");
+    const livePaths = JSON.parse(readFileSync(jsonPath, "utf8")) as string[];
+    expect([...livePaths].sort()).toEqual([...INDEXABLE_PATHS].sort());
+  });
+
   it("keeps INDEXABLE_PATHS aligned with sitemap and hero registry", () => {
     const indexable = [...INDEXABLE_PATHS].sort();
     const sitemap = SITEMAP_PAGES.map((page) => page.path).sort();

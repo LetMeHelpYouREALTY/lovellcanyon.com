@@ -1,27 +1,16 @@
 #!/usr/bin/env node
 /**
- * Live Image Metadata validation loop — fetches each indexable URL and checks JSON-LD ImageObjects.
- * Run after deploy: node scripts/validate-image-metadata-live.mjs
- * Optional: SITE_URL=https://www.lovellcanyon.com node scripts/validate-image-metadata-live.mjs
+ * Live Image Metadata validation — external verifier in the verify loop.
+ * Paths: scripts/indexable-paths.json (sync via npm run sync:indexable-paths)
  */
 
-const SITE_URL = (process.env.SITE_URL ?? "https://www.lovellcanyon.com").replace(/\/$/, "");
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 
-const INDEXABLE_PATHS = [
-  "/",
-  "/contact",
-  "/location",
-  "/access",
-  "/parcels",
-  "/parcels/lot-2",
-  "/parcels/lot-3",
-  "/title-report",
-  "/faq",
-  "/89124-land",
-  "/buying-raw-land",
-  "/lovell-canyon-vs-pahrump",
-  "/image-license",
-];
+const root = dirname(fileURLToPath(import.meta.url));
+const SITE_URL = (process.env.SITE_URL ?? "https://www.lovellcanyon.com").replace(/\/$/, "");
+const INDEXABLE_PATHS = JSON.parse(readFileSync(join(root, "indexable-paths.json"), "utf8"));
 
 const REQUIRED = ["contentUrl", "creditText", "copyrightNotice", "license", "acquireLicensePage", "creator"];
 

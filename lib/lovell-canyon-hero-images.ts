@@ -178,7 +178,7 @@ export const LOVELL_CANYON_HERO_PAGES: LovellCanyonHeroDefinition[] = [
     id: "image-license",
     pathname: "/image-license",
     r2Key: "lovell-canyon/heroes/image-license.jpg",
-    localPath: "/images/heroes/lovell-canyon/image-license.jpg",
+    localPath: "/images/heroes/lovell-canyon/access.jpg",
     name: "Lovell Canyon land photo usage and licensing",
     alt: `Photo usage and licensing for Lovell Canyon land listing images — Dr. Jan Duffy, Land Specialist, Clark County NV 89124`,
     caption: `Usage terms for Lovell Canyon listing photography published on lovellcanyon.com. Copyright Dr. Jan Duffy / Berkshire Hathaway HomeServices Nevada Properties.`,
