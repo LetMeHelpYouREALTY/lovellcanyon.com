@@ -1,7 +1,7 @@
 /** Paths indexed on lovellcanyon.com — keep in sync with middleware and sitemap. */
 
 /** Bump when land listing content changes materially (GSC sitemap lastmod). */
-export const SITEMAP_LAST_MODIFIED = "2026-06-15T22:00:00.000Z";
+export const SITEMAP_LAST_MODIFIED = "2026-06-15T23:30:00.000Z";
 
 export const INDEXABLE_PATHS = [
   "/",
@@ -16,6 +16,7 @@ export const INDEXABLE_PATHS = [
   "/89124-land",
   "/buying-raw-land",
   "/lovell-canyon-vs-pahrump",
+  "/image-license",
 ] as const;
 
 export type IndexablePath = (typeof INDEXABLE_PATHS)[number];
@@ -37,6 +38,7 @@ export const SITEMAP_PAGES: Array<{
   { path: "/89124-land", priority: 0.85, changeFrequency: "monthly" },
   { path: "/buying-raw-land", priority: 0.75, changeFrequency: "monthly" },
   { path: "/lovell-canyon-vs-pahrump", priority: 0.75, changeFrequency: "monthly" },
+  { path: "/image-license", priority: 0.6, changeFrequency: "yearly" },
 ];
 
 export function isIndexablePath(pathname: string): pathname is IndexablePath {

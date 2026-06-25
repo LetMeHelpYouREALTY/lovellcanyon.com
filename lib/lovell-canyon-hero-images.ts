@@ -19,7 +19,8 @@ export type LovellCanyonHeroPageId =
   | "contact"
   | "89124-land"
   | "buying-raw-land"
-  | "vs-pahrump";
+  | "vs-pahrump"
+  | "image-license";
 
 export type LovellCanyonHeroDefinition = {
   id: LovellCanyonHeroPageId;
@@ -170,6 +171,17 @@ export const LOVELL_CANYON_HERO_PAGES: LovellCanyonHeroDefinition[] = [
     name: "Lovell Canyon vs Pahrump — Clark County vs Nye County land",
     alt: `Lovell Canyon Clark County NV 89124 vs Pahrump Nye County — geographic difference for Nevada land buyers near NV-160`,
     caption: `Lovell Canyon is in Clark County 89124 west of Las Vegas. Pahrump is in Nye County. NV-160 connects both but the Lovell Canyon turnoff is before Nye County.`,
+    width: 1600,
+    height: 900,
+  },
+  {
+    id: "image-license",
+    pathname: "/image-license",
+    r2Key: "lovell-canyon/heroes/image-license.jpg",
+    localPath: "/images/heroes/lovell-canyon/image-license.jpg",
+    name: "Lovell Canyon land photo usage and licensing",
+    alt: `Photo usage and licensing for Lovell Canyon land listing images — Dr. Jan Duffy, Land Specialist, Clark County NV 89124`,
+    caption: `Usage terms for Lovell Canyon listing photography published on lovellcanyon.com. Copyright Dr. Jan Duffy / Berkshire Hathaway HomeServices Nevada Properties.`,
     width: 1600,
     height: 900,
   },

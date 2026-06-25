@@ -87,7 +87,12 @@
     "https://www.lovellcanyon.com/lovell-canyon-vs-pahrump",
     "https://www.lovellcanyon.com/title-report",
     "https://www.lovellcanyon.com/faq",
-    "https://www.lovellcanyon.com/contact"
+    "https://www.lovellcanyon.com/contact",
+    "https://www.lovellcanyon.com/image-license"
   ],
+  "imageLicense": {
+    "license": "https://www.lovellcanyon.com/image-license",
+    "acquireLicensePage": "https://www.lovellcanyon.com/contact"
+  },
   "lastUpdated": "2026-06-15"
 }

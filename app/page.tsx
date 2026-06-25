@@ -50,6 +50,7 @@ import Footer from "@/components/layouts/Footer";
 import Link from "next/link";
 import { Phone, MapPin, Navigation, Mail } from "lucide-react";
 import { getPageDomainConfig } from "@/lib/get-domain-config";
+import { getSiteUrl } from "@/lib/site-url";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import {
   LOVELL_CANYON_EMAIL,
@@ -71,7 +72,7 @@ const ACCESS_ROADS = [
 
 export default async function Home() {
   const config = await getPageDomainConfig();
-  const siteUrl = `https://${config.domain !== "default" ? config.domain : "lovellcanyon.com"}`;
+  const siteUrl = getSiteUrl();
   const [heroPhoto, galleryPhotos] = await Promise.all([
     getLovellCanyonPageHero("/"),
     getLovellCanyonGalleryPhotos(),

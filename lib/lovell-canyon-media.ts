@@ -142,6 +142,10 @@ export async function getLovellCanyonGalleryPhotos(): Promise<LovellCanyonPhoto[
         key: resolved.key,
         url: resolved.url,
         alt: definition.alt,
+        name: definition.alt,
+        caption: definition.alt,
+        width: 1600,
+        height: 900,
       };
     })
   );

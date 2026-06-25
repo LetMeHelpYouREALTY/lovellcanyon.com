@@ -39,6 +39,7 @@ export const LOVELL_CANYON_FOOTER_RESOURCE_LINKS: FooterLink[] = [
     external: true,
   },
   { href: "/fair-housing.txt", label: "Fair Housing Notice", external: true },
+  { href: "/image-license", label: "Photo Usage & License" },
 ];
 
 /** Labels for SiteNavigationElement schema (indexable paths only). */
@@ -52,6 +53,7 @@ export const LOVELL_CANYON_NAV_LABELS: Record<string, string> = {
   "/access": "NV-160 & Lovell Canyon Road Access",
   "/buying-raw-land": "How to Buy Raw Land in Clark County",
   "/lovell-canyon-vs-pahrump": "Lovell Canyon vs Pahrump — County Guide",
+  "/image-license": "Photo Usage & Image License",
   "/title-report": "Title Report Summary",
   "/faq": "Raw Land FAQ",
   "/contact": "Inquire About Lovell Canyon Land",

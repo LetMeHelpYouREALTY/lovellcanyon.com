@@ -26,19 +26,20 @@ import type { LovellCanyonPhoto } from "@/lib/lovell-canyon-media";
 import { LOVELL_CANYON_NAV_LABELS } from "@/lib/lovell-canyon-footer";
 import { INDEXABLE_PATHS } from "@/lib/lovell-canyon-site-pages";
 import { getCanonicalUrl, getSiteUrl } from "@/lib/site-url";
+import { getLovellCanyonImageLicenseUrls } from "@/lib/lovell-canyon-image-license";
 
 const SCHEMA_PHONE = LOVELL_CANYON_PHONE_TEL.replace("tel:", "");
 
 /** Google Image Metadata — Person creator + licensing fields (not RealEstateAgent @id). */
 function getLovellCanyonImageRightsMetadata(siteUrl: string) {
-  const licenseUrl = getCanonicalUrl("/contact");
+  const { license, acquireLicensePage } = getLovellCanyonImageLicenseUrls();
 
   return {
     creditText: `${LOVELL_CANYON_BRAND.agentName}, ${LOVELL_CANYON_BRAND.agentTitle} / ${LOVELL_CANYON_BROKERAGE}`,
     copyrightNotice: `© 2026 ${LOVELL_CANYON_BRAND.agentName} / ${LOVELL_CANYON_BROKERAGE}`,
     copyrightYear: "2026",
-    license: licenseUrl,
-    acquireLicensePage: licenseUrl,
+    license,
+    acquireLicensePage,
     creator: {
       "@type": "Person" as const,
       name: LOVELL_CANYON_BRAND.agentName,

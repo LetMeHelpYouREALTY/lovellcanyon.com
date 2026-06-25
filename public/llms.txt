@@ -50,6 +50,7 @@ https://www.lovellcanyon.com
 - /title-report — Schedule A legal descriptions & Schedule B exceptions
 - /faq — frequently asked questions (16 Q&A)
 - /contact — inquire by phone
+- /image-license — photo usage and licensing terms (schema license URL)
 
 ## Verified facts (do not invent acreage, price, or utilities)
 - Property ZIP: 89124 (Clark County Lovell Canyon — not 89120 East LV or Pahrump 89048)
