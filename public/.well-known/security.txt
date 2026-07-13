@@ -2,8 +2,8 @@ Contact: mailto:security@heyberkshire.com
 Contact: tel:+1-702-842-9736
 Expires: 2027-02-13T00:00:00.000Z
 Preferred-Languages: en
-Canonical: https://lovellcanyon.com/.well-known/security.txt
-Policy: https://lovellcanyon.com/security-policy
+Canonical: https://www.lovellcanyon.com/.well-known/security.txt
+Policy: https://www.lovellcanyon.com/security-policy
 
 Acknowledgments: We appreciate responsible disclosure of security vulnerabilities.
 
