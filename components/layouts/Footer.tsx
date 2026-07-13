@@ -126,7 +126,7 @@ export default function Footer() {
                   <br />
                   {LOVELL_CANYON_OFFICE.city}, {LOVELL_CANYON_OFFICE.region}{" "}
                   {LOVELL_CANYON_OFFICE.postalCode}
-                  <span className="block text-slate-500 text-xs mt-1">
+                  <span className="block text-slate-400 text-xs mt-1">
                     Parcels are in Lovell Canyon NV 89124 — not at this office address.
                   </span>
                 </span>
@@ -180,7 +180,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          <p className="text-slate-500 text-xs mt-4 text-center">
+          <p className="text-slate-400 text-xs mt-4 text-center">
             {LOVELL_CANYON_BRAND.agentAttribution}
           </p>
         </div>

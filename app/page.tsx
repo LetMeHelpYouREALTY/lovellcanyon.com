@@ -270,7 +270,7 @@ export default async function Home() {
         <section className="py-16 md:py-20 bg-blue-600 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">{config.ctaHeadline}</h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-blue-50 mb-8 max-w-2xl mx-auto">
               {config.ctaSubheadline}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
@@ -301,7 +301,7 @@ export default async function Home() {
                 Send an Inquiry
               </Link>
             </div>
-            <p className="mt-6 text-blue-200 text-sm">
+            <p className="mt-6 text-blue-50 text-sm">
               {LOVELL_CANYON_BRAND.agentAttribution} · {LOVELL_CANYON_EMAIL}
             </p>
           </div>

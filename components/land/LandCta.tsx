@@ -20,7 +20,7 @@ export default function LandCta({
     <section className="py-16 md:py-20 bg-blue-600 text-white">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">{headline}</h2>
-        <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">{subheadline}</p>
+        <p className="text-xl text-blue-50 mb-8 max-w-2xl mx-auto">{subheadline}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href={LOVELL_CANYON_PHONE_TEL}
@@ -42,7 +42,7 @@ export default function LandCta({
             Send an Inquiry
           </Link>
         </div>
-        <p className="mt-6 text-blue-200 text-sm">{LOVELL_CANYON_BRAND.agentAttribution}</p>
+        <p className="mt-6 text-blue-50 text-sm">{LOVELL_CANYON_BRAND.agentAttribution}</p>
       </div>
     </section>
   );

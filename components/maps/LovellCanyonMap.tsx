@@ -53,7 +53,6 @@ export default function LovellCanyonMap() {
               type="button"
               onClick={() => setMapLoaded(true)}
               className="flex h-[360px] md:h-[420px] w-full flex-col items-center justify-center gap-4 bg-slate-100 px-6 text-center transition-colors hover:bg-slate-200/80"
-              aria-label="Load interactive Google Map for Lovell Canyon"
             >
               <MapPin className="h-10 w-10 text-blue-600" aria-hidden />
               <span className="text-lg font-semibold text-slate-900">Load Lovell Canyon map</span>

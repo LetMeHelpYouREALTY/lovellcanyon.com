@@ -29,6 +29,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           window.widgetTracker("create","${CALLACTION_WIDGET_ID}");
           window.widgetTracker("send","pageview");
         `}</Script>
+        {/* WidgetTracker renders an untitled iframe we don't control the markup of —
+            patch a title on it for screen readers once it appears. */}
+        <Script id="widget-tracker-a11y" strategy="lazyOnload">{`
+          (function () {
+            function labelWidgetFrame(frame) {
+              if (!frame.title) frame.title = "Contact Dr. Jan Duffy — call or text widget";
+            }
+            document.querySelectorAll('iframe[name="widgetCta"]').forEach(labelWidgetFrame);
+            new MutationObserver(function (mutations) {
+              mutations.forEach(function (mutation) {
+                mutation.addedNodes.forEach(function (node) {
+                  if (node.nodeType !== 1) return;
+                  if (node.matches && node.matches('iframe[name="widgetCta"]')) {
+                    labelWidgetFrame(node);
+                  }
+                  if (node.querySelectorAll) {
+                    node.querySelectorAll('iframe[name="widgetCta"]').forEach(labelWidgetFrame);
+                  }
+                });
+              });
+            }).observe(document.body, { childList: true, subtree: true });
+          })();
+        `}</Script>
         <Script
           src="https://em.realscout.com/widgets/office-listings.js"
           strategy="lazyOnload"
