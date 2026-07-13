@@ -24,7 +24,7 @@ export type IndexablePath = (typeof INDEXABLE_PATHS)[number];
 export const SITEMAP_PAGES: Array<{
   path: IndexablePath;
   priority: number;
-  changeFrequency: "weekly" | "monthly";
+  changeFrequency: "weekly" | "monthly" | "yearly";
 }> = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
   { path: "/parcels", priority: 0.95, changeFrequency: "weekly" },
