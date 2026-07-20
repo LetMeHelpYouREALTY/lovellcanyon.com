@@ -7,6 +7,7 @@ import { getLovellCanyonMetadata } from "@/lib/lovell-canyon-seo";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import { CALLACTION_WIDGET_ID } from "@/lib/lovell-canyon-contact";
+import GlobalHeroBanner from "@/components/layout/GlobalHeroBanner";
 
 const globalSchemaGraph = getLovellCanyonGlobalSchemaGraph();
 
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchemaGraph) }}
         />
+        <GlobalHeroBanner />
         {children}
         <Analytics />
       </body>
