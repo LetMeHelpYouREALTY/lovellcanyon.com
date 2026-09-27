@@ -38,12 +38,13 @@
 # ===================
 # Environment Files
 # ===================
-.env
+.env*
+!.env.example
+!*.example
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.env*.local
 
 # ===================
 # IDE & Editor

@@ -14,6 +14,7 @@ const mainNavLinks = [
   { href: "/", label: "Home" },
   { href: "/parcels", label: "Parcels" },
   { href: "/location", label: "Location" },
+  { href: "/amenities", label: "Amenities" },
   { href: "/access", label: "Access" },
   { href: "/title-report", label: "Title Report" },
   { href: "/faq", label: "FAQ" },
