@@ -12,6 +12,9 @@ import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import NearbyAmenitiesSection from "@/components/sections/NearbyAmenitiesSection";
 import { formatParcelLegalLocation, LAND_GLOSSARY } from "@/lib/lovell-canyon-glossary";
 import { LandRelatedPages } from "@/components/land/LandRelatedPages";
+import { LandBreadcrumbs } from "@/components/land/LandBreadcrumbs";
+import { LOVELL_CANYON_BREADCRUMBS } from "@/lib/lovell-canyon-breadcrumbs";
+import { getLovellCanyonBreadcrumbSchema } from "@/lib/lovell-canyon-schema";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
@@ -23,10 +26,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function LocationPage() {
   const { latitude, longitude } = LOVELL_CANYON_GEO.center;
+  const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.location);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
+      <LandBreadcrumbs items={LOVELL_CANYON_BREADCRUMBS.location} />
       <main>
         <LandPageHeroSection
           pathname="/location"

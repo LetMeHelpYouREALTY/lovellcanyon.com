@@ -9,9 +9,10 @@ import {
   getGoogleMapsApiKey,
   getGoogleMapsMapId,
 } from "@/lib/lovell-canyon-amenity-config";
+import { searchAmenityCategory } from "@/lib/lovell-canyon-amenity-search";
 import { getCuratedPlacesByCategory, type CuratedAmenityPlace } from "@/lib/lovell-canyon-amenity-places";
 import { getGoogleMapsDirectionsUrl, getGoogleMapsEmbedUrl } from "@/lib/lovell-canyon-geo";
-import { loadGoogleMapsScript } from "@/lib/load-google-maps";
+import { loadGoogleMaps, mapsAuthFailed } from "@/lib/load-google-maps";
 
 const MAP_HEIGHT_CLASS = "h-[360px] md:h-[480px]";
 
@@ -25,12 +26,68 @@ type CommunityAmenityMapProps = {
 
 type MapMode = "idle" | "loading" | "interactive" | "fallback";
 
+type ListPlace = {
+  id: string;
+  name: string;
+  address: string;
+  description?: string;
+};
+
 function formatDirectionsUrl(lat: number, lng: number) {
   return getGoogleMapsDirectionsUrl(lat, lng);
 }
 
 function formatPlaceDirectionsQuery(name: string, address: string) {
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${name}, ${address}`)}`;
+}
+
+function setInfoWindowDomContent(
+  infoWindow: google.maps.InfoWindow,
+  title: string,
+  lines: string[],
+  directionsUrl: string
+) {
+  const wrap = document.createElement("div");
+  wrap.style.maxWidth = "240px";
+  wrap.style.fontFamily = "system-ui, sans-serif";
+  wrap.style.fontSize = "14px";
+  wrap.style.lineHeight = "1.4";
+
+  const heading = document.createElement("strong");
+  heading.textContent = title;
+  wrap.appendChild(heading);
+
+  lines.filter(Boolean).forEach((line) => {
+    const lineEl = document.createElement("div");
+    lineEl.style.marginTop = "6px";
+    lineEl.style.color = "#475569";
+    lineEl.textContent = line;
+    wrap.appendChild(lineEl);
+  });
+
+  const linkWrap = document.createElement("div");
+  linkWrap.style.marginTop = "10px";
+  const link = document.createElement("a");
+  link.href = directionsUrl;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.style.color = "#2563eb";
+  link.style.fontWeight = "600";
+  link.textContent = "Directions";
+  linkWrap.appendChild(link);
+  wrap.appendChild(linkWrap);
+
+  infoWindow.setContent(wrap);
+}
+
+function curatedToListPlace(place: CuratedAmenityPlace): ListPlace {
+  const addressParts = [place.address, place.addressLocality, place.postalCode].filter(Boolean);
+  return {
+    id: place.id,
+    name: place.name,
+    address: addressParts.join(", "),
+    description: place.description,
+  };
 }
 
 export default function CommunityAmenityMap({
@@ -51,20 +108,18 @@ export default function CommunityAmenityMap({
   const [visible, setVisible] = useState(false);
   const [mode, setMode] = useState<MapMode>("idle");
   const [activeCategory, setActiveCategory] = useState<AmenityCategoryId>(initialCategory);
-  const [loadError, setLoadError] = useState<string | null>(null);
-  const [apiPlaces, setApiPlaces] = useState<CuratedAmenityPlace[]>([]);
+  const [apiListPlaces, setApiListPlaces] = useState<ListPlace[]>([]);
+  const [useCuratedList, setUseCuratedList] = useState(false);
 
   const filterGroupId = useId();
   const apiKey = getGoogleMapsApiKey();
   const { lat, lng } = LOVELL_CANYON_AMENITY_MAP.center;
 
-  const staticForCategory =
-    mode === "fallback" || mode === "interactive"
-      ? getCuratedPlacesByCategory(activeCategory)
-      : getCuratedPlacesByCategory(activeCategory);
-
+  const curatedForCategory = getCuratedPlacesByCategory(activeCategory).map(curatedToListPlace);
   const listPlaces =
-    mode === "interactive" && apiPlaces.length > 0 ? apiPlaces : staticForCategory;
+    mode === "interactive" && apiListPlaces.length > 0 && !useCuratedList
+      ? apiListPlaces
+      : curatedForCategory;
 
   const clearPlaceMarkers = useCallback(() => {
     placeMarkersRef.current.forEach((marker) => {
@@ -77,62 +132,77 @@ export default function CommunityAmenityMap({
     placeMarkersRef.current = [];
   }, []);
 
+  const destroyMap = useCallback(() => {
+    clearPlaceMarkers();
+    if (communityMarkerRef.current) {
+      if ("map" in communityMarkerRef.current) {
+        communityMarkerRef.current.map = null;
+      } else if ("setMap" in communityMarkerRef.current) {
+        communityMarkerRef.current.setMap(null);
+      }
+      communityMarkerRef.current = null;
+    }
+    infoWindowRef.current?.close();
+    infoWindowRef.current = null;
+    mapInstanceRef.current = null;
+  }, [clearPlaceMarkers]);
+
+  const enterFallback = useCallback(() => {
+    destroyMap();
+    setApiListPlaces([]);
+    setUseCuratedList(true);
+    setMode("fallback");
+  }, [destroyMap]);
+
   const openInfo = useCallback(
     (title: string, lines: string[], directionsUrl: string) => {
       if (!infoWindowRef.current || !mapInstanceRef.current) return;
-      const html = `
-        <div style="max-width:240px;font-family:system-ui,sans-serif;font-size:14px;line-height:1.4">
-          <strong>${title}</strong>
-          ${lines.map((line) => `<div style="margin-top:6px;color:#475569">${line}</div>`).join("")}
-          <div style="margin-top:10px">
-            <a href="${directionsUrl}" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:600">
-              Directions
-            </a>
-          </div>
-        </div>
-      `;
-      infoWindowRef.current.setContent(html);
+      setInfoWindowDomContent(infoWindowRef.current, title, lines, directionsUrl);
     },
     []
   );
 
-  const addCommunityMarker = useCallback(async (map: google.maps.Map) => {
-    const position = { lat, lng };
-    const mapId = getGoogleMapsMapId();
-    const title = LOVELL_CANYON_AMENITY_MAP.communityMarkerTitle;
+  const addCommunityMarker = useCallback(
+    async (map: google.maps.Map) => {
+      const position = { lat, lng };
+      const mapId = getGoogleMapsMapId();
+      const title = LOVELL_CANYON_AMENITY_MAP.communityMarkerTitle;
 
-    if (mapId && google.maps.marker?.AdvancedMarkerElement) {
-      const pin = document.createElement("div");
-      pin.className =
-        "rounded-full bg-blue-700 text-white text-xs font-bold px-2 py-1 shadow-md border-2 border-white";
-      pin.textContent = "Lovell Canyon";
-      const marker = new google.maps.marker.AdvancedMarkerElement({
+      if (mapId && google.maps.marker?.AdvancedMarkerElement) {
+        await google.maps.importLibrary("marker");
+        const pin = document.createElement("div");
+        pin.className =
+          "rounded-full bg-blue-700 text-white text-xs font-bold px-2 py-1 shadow-md border-2 border-white";
+        pin.textContent = "Lovell Canyon";
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+          map,
+          position,
+          title,
+          content: pin,
+        });
+        communityMarkerRef.current = marker;
+        marker.addListener("click", () => {
+          openInfo(title, [LOVELL_CANYON_AMENITY_MAP.communityName], formatDirectionsUrl(lat, lng));
+          infoWindowRef.current?.open({ map, anchor: marker });
+        });
+        return;
+      }
+
+      const marker = new google.maps.Marker({
         map,
         position,
         title,
-        content: pin,
+        label: { text: "★", color: "#ffffff", fontWeight: "700" },
+        zIndex: 1000,
       });
       communityMarkerRef.current = marker;
       marker.addListener("click", () => {
         openInfo(title, [LOVELL_CANYON_AMENITY_MAP.communityName], formatDirectionsUrl(lat, lng));
         infoWindowRef.current?.open({ map, anchor: marker });
       });
-      return;
-    }
-
-    const marker = new google.maps.Marker({
-      map,
-      position,
-      title,
-      label: { text: "★", color: "#ffffff", fontWeight: "700" },
-      zIndex: 1000,
-    });
-    communityMarkerRef.current = marker;
-    marker.addListener("click", () => {
-      openInfo(title, [LOVELL_CANYON_AMENITY_MAP.communityName], formatDirectionsUrl(lat, lng));
-      infoWindowRef.current?.open({ map, anchor: marker });
-    });
-  }, [lat, lng, openInfo]);
+    },
+    [lat, lng, openInfo]
+  );
 
   const renderCuratedMarkers = useCallback(
     (map: google.maps.Map, places: CuratedAmenityPlace[]) => {
@@ -149,11 +219,14 @@ export default function CommunityAmenityMap({
           position,
           title: place.name,
         });
+        const addressLine = [place.address, place.addressLocality, place.postalCode]
+          .filter(Boolean)
+          .join(", ");
         marker.addListener("click", () => {
           openInfo(
             place.name,
-            [place.address, place.description ?? ""].filter(Boolean),
-            formatPlaceDirectionsQuery(place.name, place.address)
+            [addressLine, place.description ?? ""].filter(Boolean),
+            formatPlaceDirectionsQuery(place.name, addressLine)
           );
           infoWindowRef.current?.open({ map, anchor: marker });
         });
@@ -165,52 +238,38 @@ export default function CommunityAmenityMap({
 
   const searchNearby = useCallback(
     async (map: google.maps.Map, category: AmenityCategoryId) => {
-      const config = LOVELL_CANYON_AMENITY_CATEGORIES.find((c) => c.id === category);
-      if (!config) return;
-
       clearPlaceMarkers();
-      setApiPlaces([]);
+      setApiListPlaces([]);
+      setUseCuratedList(false);
 
       try {
-        const placesLib = (await google.maps.importLibrary("places")) as google.maps.PlacesLibrary;
-        const { Place } = placesLib;
+        const places = await searchAmenityCategory({ lat, lng }, category);
 
-        const request = {
-          fields: ["displayName", "location", "formattedAddress", "rating", "googleMapsURI"],
-          locationRestriction: {
-            center: { lat, lng },
-            radius: LOVELL_CANYON_AMENITY_MAP.searchRadiusMeters,
-          },
-          includedPrimaryTypes: config.placeTypes,
-          maxResultCount: LOVELL_CANYON_AMENITY_MAP.maxPlaceResults,
-        };
-
-        const { places } = await Place.searchNearby(request);
-
-        if (!places?.length) {
+        if (!places.length) {
+          setUseCuratedList(true);
           renderCuratedMarkers(map, getCuratedPlacesByCategory(category));
           return;
         }
 
-        const mapped: CuratedAmenityPlace[] = [];
+        const mapped: ListPlace[] = [];
 
         places.forEach((place) => {
           const location = place.location;
           if (!location) return;
 
+          const coords = location.toJSON();
           const name = place.displayName ?? "Place";
           const address = place.formattedAddress ?? "";
-          const rating = place.rating != null ? `Rating: ${place.rating}` : "";
           const directions =
             place.googleMapsURI ?? formatPlaceDirectionsQuery(name, address);
 
           const marker = new google.maps.Marker({
             map,
-            position: location,
+            position: coords,
             title: name,
           });
           marker.addListener("click", () => {
-            openInfo(name, [address, rating].filter(Boolean), directions);
+            openInfo(name, [address], directions);
             infoWindowRef.current?.open({ map, anchor: marker });
           });
           placeMarkersRef.current.push(marker);
@@ -218,14 +277,13 @@ export default function CommunityAmenityMap({
           mapped.push({
             id: `api-${name}-${address}`.slice(0, 80),
             name,
-            category,
             address,
-            schemaType: "Place",
           });
         });
 
-        setApiPlaces(mapped);
+        setApiListPlaces(mapped);
       } catch {
+        setUseCuratedList(true);
         renderCuratedMarkers(map, getCuratedPlacesByCategory(category));
       }
     },
@@ -235,18 +293,21 @@ export default function CommunityAmenityMap({
   const initInteractiveMap = useCallback(async () => {
     if (!mapDivRef.current || mapInstanceRef.current) return;
 
-    setMode("loading");
-    setLoadError(null);
-
-    if (!apiKey) {
-      setMode("fallback");
+    if (!apiKey || mapsAuthFailed) {
+      enterFallback();
       return;
     }
 
-    try {
-      await loadGoogleMapsScript({ apiKey });
-      const mapId = getGoogleMapsMapId();
+    setMode("loading");
 
+    try {
+      await loadGoogleMaps(apiKey);
+      if (mapsAuthFailed) {
+        enterFallback();
+        return;
+      }
+
+      const mapId = getGoogleMapsMapId();
       const map = new google.maps.Map(mapDivRef.current, {
         center: { lat, lng },
         zoom: LOVELL_CANYON_AMENITY_MAP.defaultZoom,
@@ -264,10 +325,15 @@ export default function CommunityAmenityMap({
       await searchNearby(map, initialCategory);
       setMode("interactive");
     } catch {
-      setLoadError("Map could not load. Showing the static map instead.");
-      setMode("fallback");
+      enterFallback();
     }
-  }, [addCommunityMarker, apiKey, initialCategory, lat, lng, searchNearby]);
+  }, [addCommunityMarker, apiKey, enterFallback, initialCategory, lat, lng, searchNearby]);
+
+  useEffect(() => {
+    const onAuthFailure = () => enterFallback();
+    window.addEventListener("gmaps:auth-failure", onAuthFailure);
+    return () => window.removeEventListener("gmaps:auth-failure", onAuthFailure);
+  }, [enterFallback]);
 
   useEffect(() => {
     const node = containerRef.current;
@@ -289,8 +355,12 @@ export default function CommunityAmenityMap({
 
   useEffect(() => {
     if (!visible) return;
+    if (mapsAuthFailed) {
+      enterFallback();
+      return;
+    }
     void initInteractiveMap();
-  }, [visible, initInteractiveMap]);
+  }, [visible, initInteractiveMap, enterFallback]);
 
   useEffect(() => {
     const map = mapInstanceRef.current;
@@ -354,7 +424,7 @@ export default function CommunityAmenityMap({
         ) : (
           <div ref={mapDivRef} className="absolute inset-0 h-full w-full" />
         )}
-        {mode === "loading" && (
+        {mode === "loading" && !showFallbackEmbed && (
           <div
             className="absolute inset-0 flex items-center justify-center bg-slate-100/80 text-slate-600 text-sm"
             aria-live="polite"
@@ -363,12 +433,6 @@ export default function CommunityAmenityMap({
           </div>
         )}
       </div>
-
-      {loadError && (
-        <p className="mt-2 text-sm text-amber-800" role="status">
-          {loadError}
-        </p>
-      )}
 
       <div className="mt-4 flex flex-wrap gap-3">
         <a
@@ -420,8 +484,8 @@ export default function CommunityAmenityMap({
           )}
           {mode === "fallback" && (
             <p className="mt-4 text-xs text-slate-500">
-              Set <code className="font-mono">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> in Vercel for
-              interactive category search. Featured places above are verified offline references.
+              Interactive category search is unavailable — showing a static map and verified place
+              references below.
             </p>
           )}
         </div>

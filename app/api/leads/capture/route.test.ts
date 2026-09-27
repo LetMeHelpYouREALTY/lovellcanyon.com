@@ -1,78 +1,55 @@
 /**
  * Test: /api/leads/capture Route Handler
- * Critical path: Lead generation API endpoint
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { POST } from './route'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { POST } from './route';
 
-// Mock FUB client
-vi.mock('@/lib/fub/client', () => ({
-  fubClient: {
-    createLead: vi.fn(),
-  },
-}))
+const originalEnv = process.env;
 
 describe('POST /api/leads/capture', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
-  })
+    vi.clearAllMocks();
+    process.env = { ...originalEnv };
+    delete process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+    delete process.env.TURNSTILE_SECRET_KEY;
+    process.env.FOLLOW_UP_BOSS_API_KEY = 'test-fub-key';
+  });
 
-  it('creates lead with valid data', async () => {
-    const { fubClient } = await import('@/lib/fub/client')
-    
-    // Mock successful lead creation
-    ;(fubClient.createLead as any).mockResolvedValueOnce({
-      id: 'lead-123',
-      email: 'john@example.com',
-    })
+  afterEach(() => {
+    process.env = originalEnv;
+    vi.restoreAllMocks();
+  });
 
+  it('returns 400 for empty JSON body', async () => {
+    const request = new Request('http://localhost:3000/api/leads/capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+
+    const response = await POST(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(400);
+    expect(data.error).toContain('required');
+  });
+
+  it('returns 400 for missing name', async () => {
     const request = new Request('http://localhost:3000/api/leads/capture', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john@example.com',
-        phone: '7025551234',
-        message: 'Interested in buying',
-        source: 'website-form',
-        stage: 'New Lead',
-        tags: ['website'],
-      }),
-    })
-
-    const response = await POST(request)
-    const data = await response.json()
-
-    expect(response.status).toBe(200)
-    expect(data.success).toBe(true)
-    expect(data.leadId).toBe('lead-123')
-    expect(fubClient.createLead).toHaveBeenCalledWith(
-      expect.objectContaining({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john@example.com',
-      })
-    )
-  })
-
-  it('returns 400 for missing required fields', async () => {
-    const request = new Request('http://localhost:3000/api/leads/capture', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        // Missing firstName, lastName, email
         phone: '7025551234',
       }),
-    })
+    });
 
-    const response = await POST(request)
-    const data = await response.json()
+    const response = await POST(request);
+    const data = await response.json();
 
-    expect(response.status).toBe(400)
-    expect(data.error).toContain('required')
-  })
+    expect(response.status).toBe(400);
+    expect(data.error).toContain('required');
+  });
 
   it('returns 400 for invalid email', async () => {
     const request = new Request('http://localhost:3000/api/leads/capture', {
@@ -84,22 +61,17 @@ describe('POST /api/leads/capture', () => {
         email: 'not-an-email',
         phone: '7025551234',
       }),
-    })
+    });
 
-    const response = await POST(request)
-    const data = await response.json()
+    const response = await POST(request);
+    const data = await response.json();
 
-    expect(response.status).toBe(400)
-    expect(data.error).toContain('email')
-  })
+    expect(response.status).toBe(400);
+    expect(data.error).toContain('email');
+  });
 
-  it('handles FUB API errors gracefully', async () => {
-    const { fubClient } = await import('@/lib/fub/client')
-    
-    // Mock FUB API failure
-    ;(fubClient.createLead as any).mockRejectedValueOnce(
-      new Error('FUB API unavailable')
-    )
+  it('returns 503 when FOLLOW_UP_BOSS_API_KEY is missing', async () => {
+    delete process.env.FOLLOW_UP_BOSS_API_KEY;
 
     const request = new Request('http://localhost:3000/api/leads/capture', {
       method: 'POST',
@@ -109,21 +81,109 @@ describe('POST /api/leads/capture', () => {
         lastName: 'Doe',
         email: 'john@example.com',
       }),
-    })
+    });
 
-    const response = await POST(request)
-    const data = await response.json()
+    const response = await POST(request);
+    const data = await response.json();
 
-    expect(response.status).toBe(500)
-    expect(data.error).toBeDefined()
-  })
+    expect(response.status).toBe(503);
+    expect(data.error).toBeDefined();
+  });
 
-  it('enriches lead with source and tags', async () => {
-    const { fubClient } = await import('@/lib/fub/client')
-    
-    ;(fubClient.createLead as any).mockResolvedValueOnce({
-      id: 'lead-123',
-    })
+  it('posts FUB event with valid data', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 201,
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const request = new Request('http://localhost:3000/api/leads/capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john@example.com',
+        phone: '7025551234',
+        message: 'Interested in buying',
+        source: 'website-form',
+        tags: ['website'],
+      }),
+    });
+
+    const response = await POST(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(data.success).toBe(true);
+
+    const fubCall = fetchMock.mock.calls.find(
+      (call) => call[0] === 'https://api.followupboss.com/v1/events'
+    );
+    expect(fubCall).toBeDefined();
+
+    const body = JSON.parse(fubCall![1].body as string);
+    expect(body.source).toBe('lovellcanyon.com');
+    expect(body.system).toBe('lovellcanyon.com');
+    expect(body.type).toBe('General Inquiry');
+    expect(body.person.firstName).toBe('John');
+    expect(body.person.emails).toEqual([{ value: 'john@example.com' }]);
+    expect(body.person.phones).toEqual([{ value: '7025551234' }]);
+    expect(body.person.tags).toContain('lovellcanyon.com');
+    expect(body.person.tags).toContain('website-form');
+  });
+
+  it('returns 502 when FUB responds with error status', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 500,
+      })
+    );
+
+    const request = new Request('http://localhost:3000/api/leads/capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john@example.com',
+      }),
+    });
+
+    const response = await POST(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(502);
+    expect(data.error).toBeDefined();
+  });
+
+  it('returns success without calling FUB when honeypot is filled', async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    const request = new Request('http://localhost:3000/api/leads/capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company: 'spam corp',
+        firstName: 'Bot',
+        email: 'bot@example.com',
+      }),
+    });
+
+    const response = await POST(request);
+    const data = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(data.success).toBe(true);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('uses Seller Inquiry type for home valuation sources', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200 });
+    vi.stubGlobal('fetch', fetchMock);
 
     const request = new Request('http://localhost:3000/api/leads/capture', {
       method: 'POST',
@@ -132,68 +192,22 @@ describe('POST /api/leads/capture', () => {
         firstName: 'Jane',
         lastName: 'Smith',
         email: 'jane@example.com',
-        source: 'hero-section',
-        stage: 'Hot Lead',
-        tags: ['website', 'hero-cta', 'q1-2026'],
+        source: 'home-valuation',
       }),
-    })
+    });
 
-    await POST(request)
+    await POST(request);
 
-    expect(fubClient.createLead).toHaveBeenCalledWith(
-      expect.objectContaining({
-        source: 'hero-section',
-        stage: 'Hot Lead',
-        tags: expect.arrayContaining(['website', 'hero-cta', 'q1-2026']),
-      })
-    )
-  })
+    const fubCall = fetchMock.mock.calls.find(
+      (call) => call[0] === 'https://api.followupboss.com/v1/events'
+    );
+    const body = JSON.parse(fubCall![1].body as string);
+    expect(body.type).toBe('Seller Inquiry');
+  });
 
-  it('handles property search criteria', async () => {
-    const { fubClient } = await import('@/lib/fub/client')
-    
-    ;(fubClient.createLead as any).mockResolvedValueOnce({
-      id: 'lead-123',
-    })
-
-    const request = new Request('http://localhost:3000/api/leads/capture', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        firstName: 'Buyer',
-        lastName: 'Jones',
-        email: 'buyer@example.com',
-        priceMin: 400000,
-        priceMax: 600000,
-        bedrooms: 3,
-        bathrooms: 2.5,
-        timeline: '1-3 months',
-        preApproved: true,
-      }),
-    })
-
-    await POST(request)
-
-    expect(fubClient.createLead).toHaveBeenCalledWith(
-      expect.objectContaining({
-        customFields: expect.objectContaining({
-          priceMin: 400000,
-          priceMax: 600000,
-          bedrooms: 3,
-          bathrooms: 2.5,
-          timeline: '1-3 months',
-          preApproved: true,
-        }),
-      })
-    )
-  })
-
-  it('sanitizes input data', async () => {
-    const { fubClient } = await import('@/lib/fub/client')
-    
-    ;(fubClient.createLead as any).mockResolvedValueOnce({
-      id: 'lead-123',
-    })
+  it('sanitizes XSS in name fields sent to FUB', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200 });
+    vi.stubGlobal('fetch', fetchMock);
 
     const request = new Request('http://localhost:3000/api/leads/capture', {
       method: 'POST',
@@ -203,12 +217,14 @@ describe('POST /api/leads/capture', () => {
         lastName: 'Doe',
         email: 'test@example.com',
       }),
-    })
+    });
 
-    await POST(request)
+    await POST(request);
 
-    // Verify XSS attempt was sanitized
-    const callArg = (fubClient.createLead as any).mock.calls[0][0]
-    expect(callArg.firstName).not.toContain('<script>')
-  })
-})
+    const fubCall = fetchMock.mock.calls.find(
+      (call) => call[0] === 'https://api.followupboss.com/v1/events'
+    );
+    const body = JSON.parse(fubCall![1].body as string);
+    expect(body.person.firstName).not.toContain('<script>');
+  });
+});

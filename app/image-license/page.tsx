@@ -14,6 +14,9 @@ import {
 } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_IMAGE_LICENSE_PATH } from "@/lib/lovell-canyon-image-license";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import { LandBreadcrumbs } from "@/components/land/LandBreadcrumbs";
+import { LOVELL_CANYON_BREADCRUMBS } from "@/lib/lovell-canyon-breadcrumbs";
+import { getLovellCanyonBreadcrumbSchema } from "@/lib/lovell-canyon-schema";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getLovellCanyonPageMetadataWithHero(
@@ -24,9 +27,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function ImageLicensePage() {
+  const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.imageLicense);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
+      <LandBreadcrumbs items={LOVELL_CANYON_BREADCRUMBS.imageLicense} />
       <main>
         <LandPageHeroSection
           pathname={LOVELL_CANYON_IMAGE_LICENSE_PATH}

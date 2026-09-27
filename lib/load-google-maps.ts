@@ -1,49 +1,30 @@
-/** Lazy-load Google Maps JavaScript API (Places library) once per page. */
+let mapsReady: Promise<void> | null = null;
+export function loadGoogleMaps(apiKey: string): Promise<void> {
+  if (typeof window === "undefined") return Promise.reject(new Error("ssr"));
+  if (typeof window.google?.maps?.importLibrary === "function") return Promise.resolve();
+  if (mapsReady) return mapsReady;
+  mapsReady = new Promise<void>((resolve, reject) => {
+    const cb = "__gmapsReady";
+    (window as Window & { [key: string]: unknown })[cb] = () => resolve();
+    (window as Window & { gm_authFailure?: () => void }).gm_authFailure = () => {
+      window.dispatchEvent(new Event("gmaps:auth-failure"));
+      reject(new Error("gm_authFailure"));
+    };
+    const s = document.createElement("script");
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly&loading=async&callback=${cb}`;
+    s.async = true;
+    s.onerror = () => {
+      mapsReady = null;
+      reject(new Error("maps script failed"));
+    };
+    document.head.appendChild(s);
+  });
+  return mapsReady;
+}
 
-const MAPS_SCRIPT_ID = "google-maps-js";
-
-export type GoogleMapsLoadOptions = {
-  apiKey: string;
-};
-
-export function loadGoogleMapsScript({ apiKey }: GoogleMapsLoadOptions): Promise<void> {
-  if (typeof window === "undefined") {
-    return Promise.reject(new Error("Google Maps can only load in the browser"));
-  }
-
-  const w = window as Window & { google?: typeof google };
-
-  if (w.google?.maps) {
-    return Promise.resolve();
-  }
-
-  const existing = document.getElementById(MAPS_SCRIPT_ID) as HTMLScriptElement | null;
-  if (existing) {
-    return new Promise((resolve, reject) => {
-      existing.addEventListener("load", () => resolve(), { once: true });
-      existing.addEventListener(
-        "error",
-        () => reject(new Error("Google Maps script failed to load")),
-        { once: true }
-      );
-    });
-  }
-
-  return new Promise((resolve, reject) => {
-    const params = new URLSearchParams({
-      key: apiKey,
-      v: "weekly",
-      libraries: "places,marker",
-      loading: "async",
-    });
-
-    const script = document.createElement("script");
-    script.id = MAPS_SCRIPT_ID;
-    script.async = true;
-    script.defer = true;
-    script.src = `https://maps.googleapis.com/maps/api/js?${params.toString()}`;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Google Maps script failed to load"));
-    document.head.appendChild(script);
+export let mapsAuthFailed = false;
+if (typeof window !== "undefined") {
+  window.addEventListener("gmaps:auth-failure", () => {
+    mapsAuthFailed = true;
   });
 }

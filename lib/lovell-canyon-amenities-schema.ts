@@ -50,10 +50,12 @@ export function getLovellCanyonAmenitiesItemListSchema() {
         address: {
           "@type": "PostalAddress",
           streetAddress: place.address,
-          addressLocality: LOVELL_CANYON_AMENITY_CITY,
+          addressLocality: place.addressLocality,
+          ...(place.postalCode && { postalCode: place.postalCode }),
           addressRegion: "NV",
           addressCountry: "US",
         },
+        url: place.sourceUrl,
         ...(place.latitude != null &&
           place.longitude != null && {
             geo: getGeoCoordinatesSchema(place.latitude, place.longitude),

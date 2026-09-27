@@ -1,6 +1,6 @@
 /**
  * Curated, verifiable places for fallback map list and ItemList schema.
- * Sources: USFS, NPS/BLM public sites, business websites (Sep 2026).
+ * Each entry includes a primary-source URL used to verify name and address (Sep 2026).
  */
 
 import type { AmenityCategoryId } from "@/lib/lovell-canyon-amenity-config";
@@ -10,8 +10,12 @@ export type CuratedAmenityPlace = {
   id: string;
   name: string;
   category: AmenityCategoryId;
+  /** Verified street or site address for display and schema */
   address: string;
+  addressLocality: string;
+  postalCode?: string;
   schemaType: string;
+  sourceUrl: string;
   description?: string;
   latitude?: number;
   longitude?: number;
@@ -22,8 +26,12 @@ export const LOVELL_CANYON_CURATED_AMENITIES: CuratedAmenityPlace[] = [
     id: "lovell-canyon-trailhead",
     name: "Lovell Canyon Trailhead",
     category: "parks",
-    address: "End of Lovell Canyon Rd, Clark County, NV 89124",
+    address: "End of Lovell Canyon Road",
+    addressLocality: "Clark County",
+    postalCode: "89124",
     schemaType: "Park",
+    sourceUrl:
+      "https://www.fs.usda.gov/r04/humboldt-toiyabe/recreation/lovell-canyon-trailhead",
     description:
       "USFS trailhead at the north end of paved Lovell Canyon Road — access to Lovell Canyon Trail and La Madre Mountain Wilderness routes.",
     latitude: LOVELL_CANYON_GEO.trailhead.latitude,
@@ -33,43 +41,60 @@ export const LOVELL_CANYON_CURATED_AMENITIES: CuratedAmenityPlace[] = [
     id: "red-rock-visitor-center",
     name: "Red Rock Canyon National Conservation Area Visitor Center",
     category: "parks",
-    address: "3205 State Route 159, Las Vegas, NV 89161",
+    address: "1000 Scenic Loop Drive",
+    addressLocality: "Las Vegas",
+    postalCode: "89161",
     schemaType: "Park",
+    sourceUrl: "https://www.blm.gov/visit/red-rock-canyon-national-conservation-area",
     description:
       "BLM visitor center for Red Rock Canyon NCA — scenic loop, trails, and desert recreation east of Lovell Canyon.",
   },
   {
     id: "spring-mountains-nra-office",
-    name: "Spring Mountains National Recreation Area (Forest Service office)",
+    name: "Spring Mountains National Recreation Area (U.S. Forest Service)",
     category: "parks",
-    address: "4701 North Torrey Pines Drive, Las Vegas, NV 89130",
+    address: "4701 North Torrey Pines Drive",
+    addressLocality: "Las Vegas",
+    postalCode: "89130",
     schemaType: "Park",
+    sourceUrl:
+      "https://www.fs.usda.gov/r04/humboldt-toiyabe/offices/spring-mountains-national-recreation-area",
     description:
-      "Administrative office for Spring Mountains NRA, which includes Lovell Canyon and the Humboldt-Toiyabe National Forest west-side trailheads.",
+      "Forest Service office for Spring Mountains NRA, which includes Lovell Canyon and west-side Humboldt-Toiyabe trailheads.",
   },
   {
     id: "mountain-springs-saloon",
     name: "Mountain Springs Saloon",
     category: "restaurants",
-    address: "19050 NV-160, Mountain Springs, NV 89161",
+    address: "19050 NV-160",
+    addressLocality: "Mountain Springs",
+    postalCode: "89161",
     schemaType: "Restaurant",
+    sourceUrl: "https://mountainspringsbar.com/",
     description:
       "NV-160 stop at Mountain Springs Summit between Las Vegas and Pahrump — bar and live music; Maria's Taco Shop is on site.",
   },
   {
     id: "marias-taco-shop",
-    name: "Maria's Taco Shop",
+    name: "Maria's Taco Shop (at Mountain Springs Saloon)",
     category: "restaurants",
-    address: "19050 NV-160, Mountain Springs, NV 89161",
+    address: "19050 NV-160",
+    addressLocality: "Mountain Springs",
+    postalCode: "89161",
     schemaType: "Restaurant",
-    description: "Mexican food at Mountain Springs Saloon on NV-160 — closest prepared food to the Lovell Canyon turnoff.",
+    sourceUrl: "https://mountainspringsbar.com/",
+    description:
+      "Mexican food at Mountain Springs Saloon on NV-160 — closest prepared food to the Lovell Canyon turnoff.",
   },
   {
     id: "summerlin-hospital",
     name: "Summerlin Hospital Medical Center",
     category: "healthcare",
-    address: "657 Town Center Drive, Las Vegas, NV 89144",
+    address: "657 N Town Center Drive",
+    addressLocality: "Las Vegas",
+    postalCode: "89144",
     schemaType: "Hospital",
+    sourceUrl: "https://www.summerlinhospital.com/about/contact-us",
     description:
       "Full-service hospital in Summerlin — plan valley healthcare before extended stays in the canyon backcountry.",
   },
@@ -77,25 +102,23 @@ export const LOVELL_CANYON_CURATED_AMENITIES: CuratedAmenityPlace[] = [
     id: "spring-valley-hospital",
     name: "Spring Valley Hospital Medical Center",
     category: "healthcare",
-    address: "5400 South Rainbow Boulevard, Las Vegas, NV 89118",
+    address: "5400 South Rainbow Boulevard",
+    addressLocality: "Las Vegas",
+    postalCode: "89118",
     schemaType: "Hospital",
+    sourceUrl: "https://www.springvalleyhospital.com/about/contact-us",
     description: "Acute-care hospital in the southwest Las Vegas Valley.",
   },
   {
     id: "red-rock-country-club",
     name: "Red Rock Country Club",
     category: "golf",
-    address: "2250 Red Rock Canyon Road, Las Vegas, NV 89135",
+    address: "2250-A Red Springs Drive",
+    addressLocality: "Las Vegas",
+    postalCode: "89135",
     schemaType: "GolfCourse",
-    description: "Private golf club in the Red Rock area west of the Las Vegas Valley.",
-  },
-  {
-    id: "bali-hai-golf",
-    name: "Bali Hai Golf Club",
-    category: "golf",
-    address: "5160 South Las Vegas Boulevard, Las Vegas, NV 89119",
-    schemaType: "GolfCourse",
-    description: "Public golf on the south end of the Las Vegas Strip.",
+    sourceUrl: "https://www.redrockcountryclub.com/",
+    description: "Private golf club in the Red Rock / Summerlin area west of the Las Vegas Valley.",
   },
 ];
 
@@ -127,7 +150,7 @@ export const LOVELL_CANYON_AMENITY_WRITTEN_SECTIONS: AmenityWrittenSection[] = [
     id: "golf",
     title: "Golf",
     paragraphs: [
-      "There is no golf course in Lovell Canyon. West-valley courses such as Red Rock Country Club and resort courses on the Las Vegas Strip are reachable by car after returning to NV-160 and continuing toward the valley.",
+      "There is no golf course in Lovell Canyon. West-valley courses such as Red Rock Country Club are reachable by car after returning to NV-160 and continuing toward the valley.",
     ],
   },
   {
@@ -135,14 +158,14 @@ export const LOVELL_CANYON_AMENITY_WRITTEN_SECTIONS: AmenityWrittenSection[] = [
     title: "Healthcare and pharmacies",
     paragraphs: [
       "There are no hospitals or urgent-care clinics in Lovell Canyon. Mountain Springs is an unincorporated pass community with a fire station and saloon, not medical services.",
-      "Summerlin Hospital Medical Center and Spring Valley Hospital Medical Center are examples of full-service hospitals in the Las Vegas Valley. Carry a charged phone and plan valley medical care before remote land visits.",
+      "Summerlin Hospital Medical Center and Spring Valley Hospital Medical Center are full-service hospitals in the Las Vegas Valley. Carry a charged phone and plan valley medical care before remote land visits.",
     ],
   },
   {
     id: "shopping-grocery",
     title: "Shopping and groceries",
     paragraphs: [
-      "Plan fuel, water, and groceries in Las Vegas or Pahrump before heading up NV-160. Wikipedia and local guides note Mountain Springs has public buildings such as a fire house and saloon, but not a grocery store at the summit.",
+      "Plan fuel, water, and groceries in Las Vegas or Pahrump before heading up NV-160. Mountain Springs has public buildings such as a fire house and saloon, but not a grocery store at the summit.",
       "Major supermarkets and shopping centers cluster in the Las Vegas metro — especially west and southwest valley neighborhoods reached after descending NV-160 toward the city.",
     ],
   },
