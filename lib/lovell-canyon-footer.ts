@@ -17,6 +17,7 @@ export const LOVELL_CANYON_FOOTER_LAND_LINKS: FooterLink[] = [
   { href: "/parcels/lot-2", label: "Lot 2 — APN 135-31-801-006" },
   { href: "/parcels/lot-3", label: "Lot 3 — APN 135-31-801-007" },
   { href: "/location", label: "Lovell Canyon NV 89124" },
+  { href: "/amenities", label: "Nearby Amenities Map" },
   { href: "/89124-land", label: "89124 Land for Sale" },
   { href: "/access", label: "NV-160 & Dirt Road Access" },
   { href: "/title-report", label: "Title Report Summary" },
@@ -31,6 +32,7 @@ export const LOVELL_CANYON_FOOTER_RESOURCE_LINKS: FooterLink[] = [
   { href: "/buying-raw-land", label: "How to Buy Raw Land" },
   { href: "/lovell-canyon-vs-pahrump", label: "Lovell Canyon vs Pahrump" },
   { href: "/location", label: "Section 31 T20S R57E — Map & GPS" },
+  { href: "/amenities", label: "Parks, Dining & Valley Services" },
   { href: "/title-report", label: "Fee Simple & Schedule A/B" },
   { href: "/faq", label: "Off-Grid & Vacant Land Questions" },
   {
@@ -57,4 +59,5 @@ export const LOVELL_CANYON_NAV_LABELS: Record<string, string> = {
   "/title-report": "Title Report Summary",
   "/faq": "Raw Land FAQ",
   "/contact": "Inquire About Lovell Canyon Land",
+  "/amenities": "Nearby Amenities — Lovell Canyon NV 89124",
 };

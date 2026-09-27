@@ -34,4 +34,8 @@ export const LOVELL_CANYON_BREADCRUMBS = {
     { name: "Lovell Canyon Land", path: "/" },
     { name: "Lovell Canyon vs Pahrump", path: "/lovell-canyon-vs-pahrump" },
   ],
+  amenities: [
+    { name: "Lovell Canyon Land", path: "/" },
+    { name: "Nearby Amenities", path: "/amenities" },
+  ],
 } as const satisfies Record<string, BreadcrumbItem[]>;
