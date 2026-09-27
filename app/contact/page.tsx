@@ -18,7 +18,9 @@ import {
   LOVELL_CANYON_PHONE_TEL,
 } from "@/lib/lovell-canyon-contact";
 import { LOVELL_CANYON_BRAND, LOVELL_CANYON_BROKERAGE } from "@/lib/lovell-canyon-brand";
-import { getLovellCanyonContactPageSchema } from "@/lib/lovell-canyon-schema";
+import { getLovellCanyonBreadcrumbSchema, getLovellCanyonContactPageSchema } from "@/lib/lovell-canyon-schema";
+import { LandBreadcrumbs } from "@/components/land/LandBreadcrumbs";
+import { LOVELL_CANYON_BREADCRUMBS } from "@/lib/lovell-canyon-breadcrumbs";
 import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -30,6 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const contactSchema = getLovellCanyonContactPageSchema();
+const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.contact);
 
 export default function ContactPage() {
   return (
@@ -38,7 +41,12 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
+      <LandBreadcrumbs items={LOVELL_CANYON_BREADCRUMBS.contact} />
       <main>
         <LandPageHeroSection
           pathname="/contact"

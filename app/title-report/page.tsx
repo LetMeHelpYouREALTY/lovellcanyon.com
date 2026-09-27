@@ -5,6 +5,9 @@ import Footer from "@/components/layouts/Footer";
 import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
+import { LandBreadcrumbs } from "@/components/land/LandBreadcrumbs";
+import { LOVELL_CANYON_BREADCRUMBS } from "@/lib/lovell-canyon-breadcrumbs";
+import { getLovellCanyonBreadcrumbSchema } from "@/lib/lovell-canyon-schema";
 import { LOVELL_CANYON_PARCELS } from "@/lib/lovell-canyon-parcels";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import {
@@ -26,9 +29,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function TitleReportPage() {
+  const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.titleReport);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
+      <LandBreadcrumbs items={LOVELL_CANYON_BREADCRUMBS.titleReport} />
       <main>
         <LandPageHeroSection
           pathname="/title-report"

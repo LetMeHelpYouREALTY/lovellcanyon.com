@@ -5,7 +5,9 @@ import Footer from "@/components/layouts/Footer";
 import LandPageHeroSection from "@/components/land/LandPageHeroSection";
 import LandCta from "@/components/land/LandCta";
 import { LOVELL_CANYON_FAQS } from "@/lib/lovell-canyon-faq";
-import { getLovellCanyonFaqSchema } from "@/lib/lovell-canyon-schema";
+import { getLovellCanyonBreadcrumbSchema, getLovellCanyonFaqSchema } from "@/lib/lovell-canyon-schema";
+import { LandBreadcrumbs } from "@/components/land/LandBreadcrumbs";
+import { LOVELL_CANYON_BREADCRUMBS } from "@/lib/lovell-canyon-breadcrumbs";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
@@ -20,6 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const faqSchema = getLovellCanyonFaqSchema(LOVELL_CANYON_FAQS);
+const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.faq);
 
 export default function FaqPage() {
   return (
@@ -28,7 +31,12 @@ export default function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
+      <LandBreadcrumbs items={LOVELL_CANYON_BREADCRUMBS.faq} />
       <main>
         <LandPageHeroSection
           pathname="/faq"

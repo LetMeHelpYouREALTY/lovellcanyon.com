@@ -9,6 +9,9 @@ import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
 import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
 import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
 import { LandRelatedPages } from "@/components/land/LandRelatedPages";
+import { LandBreadcrumbs } from "@/components/land/LandBreadcrumbs";
+import { LOVELL_CANYON_BREADCRUMBS } from "@/lib/lovell-canyon-breadcrumbs";
+import { getLovellCanyonBreadcrumbSchema } from "@/lib/lovell-canyon-schema";
 
 const LOCAL_DIRT_ROADS = [
   "Cabin Canyon Rd",
@@ -28,9 +31,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function AccessPage() {
+  const breadcrumbSchema = getLovellCanyonBreadcrumbSchema(LOVELL_CANYON_BREADCRUMBS.access);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
+      <LandBreadcrumbs items={LOVELL_CANYON_BREADCRUMBS.access} />
       <main>
         <LandPageHeroSection
           pathname="/access"
