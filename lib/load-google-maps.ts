@@ -5,8 +5,8 @@ export function loadGoogleMaps(apiKey: string): Promise<void> {
   if (mapsReady) return mapsReady;
   mapsReady = new Promise<void>((resolve, reject) => {
     const cb = "__gmapsReady";
-    (window as Window & { [key: string]: unknown })[cb] = () => resolve();
-    (window as Window & { gm_authFailure?: () => void }).gm_authFailure = () => {
+    (window as unknown as Record<string, unknown>)[cb] = () => resolve();
+    (window as unknown as { gm_authFailure?: () => void }).gm_authFailure = () => {
       window.dispatchEvent(new Event("gmaps:auth-failure"));
       reject(new Error("gm_authFailure"));
     };
