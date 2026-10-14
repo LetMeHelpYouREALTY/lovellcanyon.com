@@ -12,6 +12,7 @@ export const LOVELL_CANYON_CORE_RELATED_PAGES: RelatedPageLink[] = [
   { href: "/parcels/lot-3", label: "Lot 3", desc: "APN 135-31-801-007" },
   { href: "/89124-land", label: "89124 land", desc: "Zip code & Clark County context" },
   { href: "/location", label: "Location", desc: "Lovell Canyon NV 89124 map" },
+  { href: "/amenities", label: "Amenities", desc: "Map & nearby services" },
   { href: "/access", label: "Access", desc: "NV-160 & dirt roads" },
   { href: "/title-report", label: "Title report", desc: "Schedule A & B summaries" },
   { href: "/buying-raw-land", label: "Buying raw land", desc: "Due diligence guide" },

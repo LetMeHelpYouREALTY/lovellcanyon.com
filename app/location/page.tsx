@@ -9,6 +9,7 @@ import { AREA_SOURCES, LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
 import { LOVELL_CANYON_GEO, getGoogleMapsDirectionsUrl } from "@/lib/lovell-canyon-geo";
 import { LOVELL_CANYON_LOCATION } from "@/lib/lovell-canyon-parcels";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import NearbyAmenitiesSection from "@/components/sections/NearbyAmenitiesSection";
 import { formatParcelLegalLocation, LAND_GLOSSARY } from "@/lib/lovell-canyon-glossary";
 import { LandRelatedPages } from "@/components/land/LandRelatedPages";
 import { LandBreadcrumbs } from "@/components/land/LandBreadcrumbs";
@@ -144,8 +145,11 @@ export default function LocationPage() {
             </div>
           </div>
         </section>
+        <NearbyAmenitiesSection variant="inline" />
+
         <LandRelatedPages
           pages={[
+            { href: "/amenities", label: "Amenities", desc: "Map & nearby services" },
             { href: "/89124-land", label: "89124 land", desc: "Zip code hub" },
             { href: "/access", label: "Access", desc: "NV-160 directions" },
             { href: "/parcels", label: "Parcels", desc: "Lot 2 & Lot 3" },

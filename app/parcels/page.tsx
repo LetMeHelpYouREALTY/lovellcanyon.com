@@ -15,6 +15,7 @@ import {
 import { getSiteUrl } from "@/lib/site-url";
 import { getLovellCanyonPageHero } from "@/lib/lovell-canyon-media";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import NearbyAmenitiesSection from "@/components/sections/NearbyAmenitiesSection";
 import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
 import { LandRelatedPages } from "@/components/land/LandRelatedPages";
 import { LOVELL_CANYON_BREADCRUMBS } from "@/lib/lovell-canyon-breadcrumbs";
@@ -79,6 +80,7 @@ export default async function ParcelsPage() {
         />
 
         <BelowHeroEngagement />
+        <NearbyAmenitiesSection variant="inline" showMap={false} />
         <section className="py-16 bg-slate-50">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="grid md:grid-cols-2 gap-8">

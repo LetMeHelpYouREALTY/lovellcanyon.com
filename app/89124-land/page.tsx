@@ -20,6 +20,7 @@ import {
 import { getSiteUrl } from "@/lib/site-url";
 import { getLovellCanyonPageHero } from "@/lib/lovell-canyon-media";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import NearbyAmenitiesSection from "@/components/sections/NearbyAmenitiesSection";
 import { formatParcelLegalLocation, LAND_GLOSSARY } from "@/lib/lovell-canyon-glossary";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -71,6 +72,7 @@ export default async function Zip89124LandPage() {
         />
 
         <BelowHeroEngagement />
+        <NearbyAmenitiesSection variant="inline" />
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4 max-w-3xl space-y-8 text-slate-700 text-lg leading-relaxed">
             <p>

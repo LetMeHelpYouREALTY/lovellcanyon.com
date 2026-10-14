@@ -6,6 +6,7 @@ import LandCta from "@/components/land/LandCta";
 import { getLovellCanyonPageMetadataWithHero } from "@/lib/lovell-canyon-seo";
 import { LOVELL_CANYON_AREA } from "@/lib/lovell-canyon-area";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import NearbyAmenitiesSection from "@/components/sections/NearbyAmenitiesSection";
 import { LOVELL_CANYON_PHONE_DISPLAY } from "@/lib/lovell-canyon-contact";
 import { LAND_SECTION_COPY } from "@/lib/lovell-canyon-glossary";
 import { LandRelatedPages } from "@/components/land/LandRelatedPages";
@@ -50,6 +51,7 @@ export default function AccessPage() {
         />
 
         <BelowHeroEngagement />
+        <NearbyAmenitiesSection variant="inline" showMap={false} />
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4 max-w-3xl space-y-10 text-slate-700 text-lg leading-relaxed">
             <div>

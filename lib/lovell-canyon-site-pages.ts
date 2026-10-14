@@ -17,6 +17,7 @@ export const INDEXABLE_PATHS = [
   "/buying-raw-land",
   "/lovell-canyon-vs-pahrump",
   "/image-license",
+  "/amenities",
 ] as const;
 
 export type IndexablePath = (typeof INDEXABLE_PATHS)[number];
@@ -39,6 +40,7 @@ export const SITEMAP_PAGES: Array<{
   { path: "/buying-raw-land", priority: 0.75, changeFrequency: "monthly" },
   { path: "/lovell-canyon-vs-pahrump", priority: 0.75, changeFrequency: "monthly" },
   { path: "/image-license", priority: 0.6, changeFrequency: "yearly" },
+  { path: "/amenities", priority: 0.8, changeFrequency: "monthly" },
 ];
 
 export function isIndexablePath(pathname: string): pathname is IndexablePath {

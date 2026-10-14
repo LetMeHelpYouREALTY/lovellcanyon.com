@@ -52,6 +52,7 @@ import { Phone, MapPin, Navigation, Mail } from "lucide-react";
 import { getPageDomainConfig } from "@/lib/get-domain-config";
 import { getSiteUrl } from "@/lib/site-url";
 import BelowHeroEngagement from "@/components/sections/BelowHeroEngagement";
+import NearbyAmenitiesSection from "@/components/sections/NearbyAmenitiesSection";
 import {
   LOVELL_CANYON_EMAIL,
   LOVELL_CANYON_EMAIL_HREF,
@@ -127,6 +128,8 @@ export default async function Home() {
         />
 
         <BelowHeroEngagement />
+
+        <NearbyAmenitiesSection variant="home" />
 
         <LandPropertyGallery photos={galleryPhotos} />
 

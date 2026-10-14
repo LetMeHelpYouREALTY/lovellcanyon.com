@@ -48,7 +48,7 @@ export function getGoogleMapsEmbedUrl(
   lng: number = LOVELL_CANYON_GEO.center.longitude,
   zoom = 11
 ) {
-  return `https://maps.google.com/maps?q=${lat},${lng}&hl=en&z=${zoom}&output=embed`;
+  return `https://www.google.com/maps?q=${lat},${lng}&z=${zoom}&output=embed`;
 }
 
 export function getGeoCoordinatesSchema(
