@@ -11,7 +11,7 @@ import { CALLACTION_WIDGET_ID } from "@/lib/lovell-canyon-contact";
 const globalSchemaGraph = getLovellCanyonGlobalSchemaGraph();
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pathname = headers().get("x-pathname") || "/";
+  const pathname = (await headers()).get("x-pathname") || "/";
   return getLovellCanyonMetadata(pathname);
 }
 
