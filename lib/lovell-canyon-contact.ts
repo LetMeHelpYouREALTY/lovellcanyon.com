@@ -1,5 +1,5 @@
-/** CallAction WidgetTracker site ID for lovellcanyon.com */
-export const CALLACTION_WIDGET_ID = "WT-XQHVYQWW";
+/** Follow Up Boss Pixel (widgetbe.com Widget Tracker) ID */
+export const FUB_PIXEL_ID = "WT-XQHVYQWW";
 
 /** Public tracking number — shown on site, GBP, schema, and tel:/sms: links. */
 const CALLACTION_DIGITS =
