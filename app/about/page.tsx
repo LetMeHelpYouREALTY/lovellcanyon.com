@@ -156,7 +156,7 @@ export default function AboutPage() {
                     world-class resources and local expertise to every client I serve.
                   </p>
                   <p>
-                    Since 2008, I've closed $127 million in transactions and
+                    Since 2008, I've led the Dr. Duffy Group to $127 million in career sales and
                     helped hundreds of families find their perfect home in Las Vegas, Henderson,
                     Summerlin, and throughout Southern Nevada. My expertise spans luxury properties,
                     new construction, investment real estate, 55+ active adult communities, and 
@@ -242,11 +242,11 @@ export default function AboutPage() {
                   </div>
                   <div className="bg-blue-50 rounded-lg p-6 text-center">
                     <div className="text-3xl font-bold text-blue-600 mb-1">$127M+</div>
-                    <div className="text-sm text-slate-600">Volume Closed</div>
+                    <div className="text-sm text-slate-600">Team Career Sales</div>
                   </div>
                   <div className="bg-blue-50 rounded-lg p-6 text-center">
                     <div className="text-3xl font-bold text-blue-600 mb-1">500+</div>
-                    <div className="text-sm text-slate-600">Transactions</div>
+                    <div className="text-sm text-slate-600">Team Sales</div>
                   </div>
                   <div className="bg-blue-50 rounded-lg p-6 text-center">
                     <div className="text-3xl font-bold text-blue-600 mb-1">4.9★</div>

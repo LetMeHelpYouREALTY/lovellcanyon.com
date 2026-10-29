@@ -195,11 +195,11 @@ export default function ServicesPage() {
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>$127M+ in Transactions</span>
+                <span>$127M+ in Team Career Sales</span>
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>500+ Satisfied Clients</span>
+                <span>500+ Team Sales</span>
               </div>
             </div>
           </div>
@@ -384,7 +384,7 @@ export default function ServicesPage() {
               </div>
               <div>
                 <div className="text-3xl font-bold text-blue-400 mb-2">$127M+</div>
-                <div className="text-slate-300 text-sm">Volume Closed</div>
+                <div className="text-slate-300 text-sm">Team Career Sales</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-blue-400 mb-2">4.9★</div>
