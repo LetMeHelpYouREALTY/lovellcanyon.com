@@ -85,7 +85,7 @@ Must match site footer and `/contact`.
 ```
 
 - This is the **CallAction tracking number** (public NAP).
-- **Do not** enter `(702) 222-1964` — that is the private forward destination only.
+- **Do not** enter `(702) 500-1955` — that is the private forward destination only.
 
 Google may call/text this number to confirm info — you should still reach Jan via CallAction forward.
 
@@ -201,7 +201,7 @@ If Google asks about phone/address/hours, answer using the values in this doc.
 
 | Wrong | Why |
 |-------|-----|
-| Phone `(702) 222-1964` on profile | Private forward only; breaks CallAction tracking |
+| Phone `(702) 500-1955` on profile | Private forward only; breaks CallAction tracking |
 | Address ZIP **89124** as office | Parcels are 89124; office is **89134** |
 | “Near Pahrump” in name/description | Wrong positioning; Nye County confusion |
 | Website heyberkshire.com for this listing | Use **lovellcanyon.com** for this land profile |

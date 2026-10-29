@@ -9,7 +9,7 @@ const CALLACTION_DIGITS =
  * CallAction call-forward destination (Jan Duffy direct line).
  * Configured in CallAction dashboard only — never use for public NAP, GBP, or tel: links.
  */
-export const CALLACTION_FORWARD_DESTINATION = "(702) 222-1964";
+export const CALLACTION_FORWARD_DESTINATION = "(702) 500-1955";
 
 /** CallAction campaign tracking (dashboard: Campaign Name). */
 export const CALLACTION_CAMPAIGN_NAME = "Lovell Canyon";
