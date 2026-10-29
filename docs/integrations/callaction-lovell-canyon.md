@@ -11,7 +11,7 @@ Tracking and lead routing for **(702) 842-9736** via [CallAction](https://widget
 | Role | Number | Where it appears |
 |------|--------|------------------|
 | **Public tracking (GBP + site NAP)** | **(702) 842-9736** | Footer, contact, schema, `tel:` / `sms:` links, GBP |
-| **Forward destination (private)** | (702) 500-1955 — Jan Duffy | CallAction dashboard only — **never on website** |
+| **Forward destination (private)** | (702) 222-1964 — Jan Duffy | CallAction dashboard only — **never on website** |
 
 Calls and texts to **842-9736** forward to **222-1964**. GBP and the website must list **842-9736** so attribution and drip campaigns work.
 
@@ -23,7 +23,7 @@ Calls and texts to **842-9736** forward to **222-1964**. GBP and the website mus
 
 - **Tracking number:** (702) 842-9736
 - **Destination user:** Jan Duffy
-- **Destination number:** (702) 500-1955
+- **Destination number:** (702) 222-1964
 
 ### Campaign
 
@@ -75,7 +75,7 @@ Must match the CallAction tracking number. Redeploy after changes.
 
 Google Business Profile **phone** = **(702) 842-9736** (tracking line).
 
-Do **not** put **(702) 500-1955** in GBP, schema, or visible site copy — that is the private forward destination.
+Do **not** put **(702) 222-1964** in GBP, schema, or visible site copy — that is the private forward destination.
 
 See [gbp-verification-checklist.md](../seo/gbp-verification-checklist.md).
 
