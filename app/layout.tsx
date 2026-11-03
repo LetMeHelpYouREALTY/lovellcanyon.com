@@ -11,11 +11,15 @@ import { CALLACTION_WIDGET_ID } from "@/lib/lovell-canyon-contact";
 const globalSchemaGraph = getLovellCanyonGlobalSchemaGraph();
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pathname = headers().get("x-pathname") || "/";
+  const pathname = (await headers()).get("x-pathname") || "/";
   return getLovellCanyonMetadata(pathname);
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" className={GeistSans.className}>
       <head>
@@ -68,7 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchemaGraph) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(globalSchemaGraph),
+          }}
         />
         {children}
         <Analytics />

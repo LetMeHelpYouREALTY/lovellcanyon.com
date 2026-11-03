@@ -154,7 +154,7 @@ export default function LuxuryHomesPage() {
                     </span>
                   </div>
                   <p className="text-slate-600 mb-4">
-                    The valley's most exclusive enclave, home to celebrities, executives, and those who
+                    The valley's most luxury enclave, home to celebrities, executives, and those who
                     demand absolute privacy. Custom estates, Bear's Best Golf Club, and Red Rock views.
                   </p>
                   <ul className="space-y-2 mb-4">
@@ -199,7 +199,7 @@ export default function LuxuryHomesPage() {
                   </div>
                   <p className="text-slate-600 mb-4">
                     Elevated luxury with dramatic Strip and valley views. DragonRidge Country Club,
-                    modern architecture, and Henderson's low crime rates create an unmatched combination.
+                    modern architecture, and Henderson's parks and trails create an unmatched combination.
                   </p>
                   <ul className="space-y-2 mb-4">
                     <li className="flex items-center text-sm text-slate-700">
@@ -304,7 +304,7 @@ export default function LuxuryHomesPage() {
                     </li>
                     <li className="flex items-center text-sm text-slate-700">
                       <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                      Top-rated schools
+                      Nearby public schools
                     </li>
                   </ul>
                   <Link
@@ -371,7 +371,7 @@ export default function LuxuryHomesPage() {
               <blockquote className="text-lg italic mb-4">
                 "Luxury buyers expect discretion, market expertise, and flawless execution. In this
                 price range, one wrong move can cost hundreds of thousands of dollars. My clients
-                trust me because I've closed $127M+ in transactions and understand that their time
+                trust me because I've led the Dr. Duffy Group to $127M+ in career sales and understand that their time
                 and privacy are worth more than any commission. <strong>Berkshire Hathaway HomeServices</strong>
                 provides the global resources and credibility that luxury transactions demand."
               </blockquote>

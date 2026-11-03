@@ -78,7 +78,7 @@ const specializations = [
   },
   {
     title: "Luxury Properties ($1M+)",
-    description: "The Ridges, MacDonald Highlands, Southern Highlands, and exclusive communities",
+    description: "The Ridges, MacDonald Highlands, Southern Highlands, and other guard-gated communities",
   },
   {
     title: "New Construction",
@@ -156,7 +156,7 @@ export default function AboutPage() {
                     world-class resources and local expertise to every client I serve.
                   </p>
                   <p>
-                    Since 2008, I've closed $127 million in transactions and
+                    Since 2008, I've led the Dr. Duffy Group to $127 million in career sales and
                     helped hundreds of families find their perfect home in Las Vegas, Henderson,
                     Summerlin, and throughout Southern Nevada. My expertise spans luxury properties,
                     new construction, investment real estate, 55+ active adult communities, and 
@@ -242,15 +242,15 @@ export default function AboutPage() {
                   </div>
                   <div className="bg-blue-50 rounded-lg p-6 text-center">
                     <div className="text-3xl font-bold text-blue-600 mb-1">$127M+</div>
-                    <div className="text-sm text-slate-600">Volume Closed</div>
+                    <div className="text-sm text-slate-600">Team Career Sales</div>
                   </div>
                   <div className="bg-blue-50 rounded-lg p-6 text-center">
                     <div className="text-3xl font-bold text-blue-600 mb-1">500+</div>
-                    <div className="text-sm text-slate-600">Transactions</div>
+                    <div className="text-sm text-slate-600">Team Sales</div>
                   </div>
                   <div className="bg-blue-50 rounded-lg p-6 text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-1">4.9★</div>
-                    <div className="text-sm text-slate-600">Client Rating</div>
+                    <div className="text-3xl font-bold text-blue-600 mb-1">5.0★</div>
+                    <div className="text-sm text-slate-600">Realtor.com (50 reviews)</div>
                   </div>
                 </div>
 
@@ -390,7 +390,7 @@ export default function AboutPage() {
               What Clients Say About Dr. Jan Duffy
             </h2>
             <p className="text-slate-600 text-center max-w-3xl mx-auto mb-8">
-              With a 4.9-star rating and hundreds of satisfied clients, Dr. Jan has built a 
+              With a 5.0★ rating from 50 Realtor.com reviews and hundreds of satisfied clients, Dr. Jan has built a 
               reputation for excellence, integrity, and personalized service.
             </p>
             <div className="grid md:grid-cols-2 gap-6">
