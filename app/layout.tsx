@@ -7,6 +7,7 @@ import { getLovellCanyonMetadata } from "@/lib/lovell-canyon-seo";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import { CALLACTION_WIDGET_ID } from "@/lib/lovell-canyon-contact";
+import { SpeedInsights as VercelSpeedInsights } from "@vercel/speed-insights/next";
 
 const globalSchemaGraph = getLovellCanyonGlobalSchemaGraph();
 
@@ -78,6 +79,7 @@ export default function RootLayout({
         />
         {children}
         <Analytics />
+        <VercelSpeedInsights />
       </body>
     </html>
   );
